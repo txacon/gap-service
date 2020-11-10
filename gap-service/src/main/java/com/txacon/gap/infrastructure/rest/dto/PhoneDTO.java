@@ -1,4 +1,4 @@
-package com.txacon.gap.domain.customer.entities;
+package com.txacon.gap.infrastructure.rest.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -7,11 +7,10 @@ import lombok.ToString;
 
 @Data
 @RequiredArgsConstructor
-@EqualsAndHashCode(of = {"countryPrefix", "phoneNumber"})
+@EqualsAndHashCode
 @ToString
-public class Phone {
+public class PhoneDTO {
 
-    private Long id;
     private String countryPrefix;
     private String phoneNumber;
 }

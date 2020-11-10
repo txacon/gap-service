@@ -1,15 +1,14 @@
-package com.txacon.gap.domain.customer.entities;
+package com.txacon.gap.infrastructure.rest.dto;
 
 import lombok.*;
 
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = {"street1", "street2", "state", "city", "country", "zipcode"})
+@EqualsAndHashCode
 @ToString
-public class Address {
+public class AddressDTO {
 
-    private Long id;
     private String street1;
     private String street2;
     private String state;

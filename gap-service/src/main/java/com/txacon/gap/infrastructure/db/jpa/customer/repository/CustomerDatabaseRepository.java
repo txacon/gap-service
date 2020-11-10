@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-import java.util.stream.Stream;
 
 @Repository
 @RequiredArgsConstructor
@@ -45,11 +44,6 @@ public class CustomerDatabaseRepository implements CustomerRepository {
     @Override
     public void deleteById(Long customerId) {
         crud.deleteById(customerId);
-    }
-
-    @Override
-    public Stream<Customer> getCustomers() {
-        return crud.getStreamAll().map(mapper::toDomain);
     }
 
 

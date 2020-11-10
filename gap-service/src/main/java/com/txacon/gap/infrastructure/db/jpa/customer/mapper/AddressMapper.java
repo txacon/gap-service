@@ -4,10 +4,7 @@ import com.txacon.gap.domain.customer.entities.Address;
 import com.txacon.gap.infrastructure.db.jpa.customer.entities.AddressEntity;
 import org.mapstruct.Mapper;
 
-@Mapper
-public interface AddressMapper {
+@Mapper(componentModel = "spring")
+public interface AddressMapper extends GenericDomainMapper<Address, AddressEntity> {
 
-    Address toDomain(AddressEntity addressEntity);
-
-    AddressEntity toEntity(Address address);
 }

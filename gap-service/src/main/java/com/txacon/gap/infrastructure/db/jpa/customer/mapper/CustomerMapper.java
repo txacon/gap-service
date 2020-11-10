@@ -7,14 +7,11 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
 
-@Mapper(uses = {PhoneMapper.class, AddressMapper.class})
-public interface CustomerMapper {
+@Mapper(uses = {PhoneMapper.class, AddressMapper.class}, componentModel = "spring")
+public interface CustomerMapper extends GenericDomainMapper<Customer, CustomerEntity> {
 
     @Mapping(target = "passwordHash", ignore = true)
     Customer toDomain(CustomerEntity customer);
-
-
-    CustomerEntity toEntity(Customer customer);
 
     @Mappings({
             @Mapping(target = "name", source = "name"),

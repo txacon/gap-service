@@ -3,7 +3,6 @@ package com.txacon.gap.domain.customer.port;
 import com.txacon.gap.domain.customer.entities.Customer;
 
 import java.util.Optional;
-import java.util.stream.Stream;
 
 public interface CustomerRepository {
 
@@ -19,7 +18,6 @@ public interface CustomerRepository {
 
     void deleteById(Long customerId);
 
-    Stream<Customer> getCustomers();
 
 
 }

@@ -11,14 +11,14 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "id")
 public class PhoneEntity extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "phone_id")
     private Long id;
-    private String coutryPrefix;
+    private String countryPrefix;
     private String phoneNumber;
 
 }

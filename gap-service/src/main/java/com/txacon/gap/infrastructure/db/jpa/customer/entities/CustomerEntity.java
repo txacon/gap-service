@@ -17,7 +17,13 @@ import java.util.stream.Collectors;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "id")
+@Table(name = "Customer",
+        indexes = {
+                @Index(columnList = "email, passwordHash, active", name = "email_password_active_indx", unique = true),
+                @Index(columnList = "email", name = "email_indx", unique = true),
+        }
+)
 public class CustomerEntity extends BaseEntity implements Serializable {
 
 
@@ -69,13 +75,15 @@ public class CustomerEntity extends BaseEntity implements Serializable {
 
 
     public Set<PhoneEntity> getCustomerPhones() {
-        if (customerPhones == null) return Collections.EMPTY_SET;
-        return customerPhones.stream().map(p -> p.getPhone()).collect(Collectors.toSet());
+        if (customerPhones == null) //noinspection unchecked is secure
+            return Collections.EMPTY_SET;
+        return customerPhones.stream().map(CustomerPhone::getPhone).collect(Collectors.toSet());
     }
 
     public Set<AddressEntity> getAddress() {
-        if (customerAddresses == null) return Collections.EMPTY_SET;
-        return customerAddresses.stream().map(a -> a.getAddress()).collect(Collectors.toSet());
+        if (customerAddresses == null) //noinspection unchecked is secure
+            return Collections.EMPTY_SET;
+        return customerAddresses.stream().map(CustomerAddress::getAddress).collect(Collectors.toSet());
     }
 
 
@@ -107,7 +115,7 @@ public class CustomerEntity extends BaseEntity implements Serializable {
 
     private void addDefaultAddress(AddressEntity address) {
         if (address == null) return;
-        if (customerAddresses == null) customerPhones = new HashSet<>();
+        if (customerAddresses == null) customerAddresses = new HashSet<>();
         else {
             for (CustomerAddress cAddress : customerAddresses) {
                 cAddress.setDefaultAddress(false);

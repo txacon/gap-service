@@ -4,10 +4,7 @@ import com.txacon.gap.domain.customer.entities.Phone;
 import com.txacon.gap.infrastructure.db.jpa.customer.entities.PhoneEntity;
 import org.mapstruct.Mapper;
 
-@Mapper
-public interface PhoneMapper {
+@Mapper(componentModel = "spring")
+public interface PhoneMapper extends GenericDomainMapper<Phone, PhoneEntity> {
 
-    Phone toDomain(PhoneEntity entity);
-
-    PhoneEntity toEntity(Phone phone);
 }
