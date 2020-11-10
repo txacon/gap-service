@@ -1,0 +1,17 @@
+version: '3.3'
+
+services:
+    db:
+      container_name: gap_postgres
+      image: postgres:latest
+      volumes:
+        - db_data:/var/lib/postgresql/data
+      restart: always
+      expose: 
+        - 5432
+      ports: 
+        - 5432:5432
+      env_file:
+        - database.env # configure postgres
+volumes:
+    db_data:
