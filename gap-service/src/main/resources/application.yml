@@ -1,0 +1,15 @@
+debug: false
+spring:
+  profiles:
+    active: dev
+
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate.ddl-auto: create-drop
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/gap
+    username: test
+    password: test
+
