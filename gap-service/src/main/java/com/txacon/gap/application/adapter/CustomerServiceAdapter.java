@@ -4,7 +4,7 @@ import com.txacon.gap.application.api.CustomerService;
 import com.txacon.gap.application.exceptions.ApiError;
 import com.txacon.gap.application.exceptions.CustomerInvalidException;
 import com.txacon.gap.application.exceptions.CustomerNotFoundException;
-import com.txacon.gap.domain.customer.domain.Customer;
+import com.txacon.gap.domain.customer.entities.Customer;
 import com.txacon.gap.domain.customer.port.CustomerRepository;
 import com.txacon.gap.infrastructure.db.jpa.customer.mapper.CustomerMapper;
 import lombok.RequiredArgsConstructor;

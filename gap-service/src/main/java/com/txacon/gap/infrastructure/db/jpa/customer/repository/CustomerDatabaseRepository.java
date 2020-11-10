@@ -1,6 +1,6 @@
 package com.txacon.gap.infrastructure.db.jpa.customer.repository;
 
-import com.txacon.gap.domain.customer.domain.Customer;
+import com.txacon.gap.domain.customer.entities.Customer;
 import com.txacon.gap.domain.customer.port.CustomerRepository;
 import com.txacon.gap.infrastructure.db.jpa.customer.mapper.CustomerMapper;
 import lombok.RequiredArgsConstructor;

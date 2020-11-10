@@ -1,6 +1,5 @@
 package com.txacon.gap.infrastructure.db.jpa.customer.repository;
 
-import com.txacon.gap.domain.customer.domain.Customer;
 import com.txacon.gap.infrastructure.db.jpa.customer.entities.CustomerEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

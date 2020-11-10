@@ -1,4 +1,4 @@
-package com.txacon.gap.domain.customer.domain;
+package com.txacon.gap.domain.customer.entities;
 
 
 import lombok.*;

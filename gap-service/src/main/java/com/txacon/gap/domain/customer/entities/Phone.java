@@ -1,6 +1,9 @@
-package com.txacon.gap.domain.customer.domain;
+package com.txacon.gap.domain.customer.entities;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 @Data
 @RequiredArgsConstructor

@@ -1,6 +1,6 @@
 package com.txacon.gap.application.api;
 
-import com.txacon.gap.domain.customer.domain.Customer;
+import com.txacon.gap.domain.customer.entities.Customer;
 
 public interface CustomerService {
 
