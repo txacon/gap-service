@@ -17,7 +17,7 @@ import java.util.Set;
 @Table(name = "role")
 public class RoleEntity extends BaseEntity {
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "roles")
     Set<CustomerEntity> customers;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
