@@ -1,8 +1,11 @@
-package com.txacon.gap.application.security;
+package com.txacon.gap.infrastructure.rest.security;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
@@ -11,10 +14,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
-import static com.txacon.gap.application.security.SecurityConstants.HEADER_AUTHORIZACION_KEY;
-import static com.txacon.gap.application.security.SecurityConstants.TOKEN_BEARER_PREFIX;
+import static com.txacon.gap.domain.security.SecurityConstants.*;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
@@ -40,19 +42,18 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_AUTHORIZACION_KEY);
-        if (token != null) {
-            // Se procesa el token y se recupera el usuario.
-            String user = Jwts.parser()
-                    .setSigningKey(secret.getBytes())
-                    .parseClaimsJws(token.replace(TOKEN_BEARER_PREFIX, ""))
-                    .getBody()
-                    .getSubject();
+        if (token == null) return null;
 
-            if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
-            }
-            return null;
+        Jws<Claims> jwtClaims = Jwts.parser()
+                .setSigningKey(secret.getBytes()).parseClaimsJws(token.replace(TOKEN_BEARER_PREFIX, ""));
+
+        String user = jwtClaims.getBody().getSubject();
+        List<GrantedAuthority> authorities = jwtClaims.getBody().get(AUTHORITY_CLAIMS, null);
+
+        if (user != null && authorities != null) {
+            return new UsernamePasswordAuthenticationToken(user, null, authorities);
         }
         return null;
+
     }
 }

@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 @Entity(name = "Customer")
 @Builder
 @NoArgsConstructor
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-@EqualsAndHashCode(of = "id")
-@Table(name = "Customer",
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id", callSuper = true)
+@Table(name = "customer",
         indexes = {
                 @Index(columnList = "email, passwordHash, active", name = "email_password_active_indx", unique = true),
                 @Index(columnList = "email", name = "email_indx", unique = true),
@@ -41,7 +41,6 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     private String midName;
     @Getter
     @Setter
-    @NotEmpty(message = "*Please provide an lastName")
     private String lastName;
 
     @Getter
@@ -75,7 +74,7 @@ public class CustomerEntity extends BaseEntity implements Serializable {
 
     @ManyToMany
     @JoinTable(
-            name = "roles",
+            name = "customer_role",
             joinColumns = @JoinColumn(name = "customer_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles;

@@ -1,9 +1,9 @@
-package com.txacon.gap.application.security.configuration;
+package com.txacon.gap.infrastructure.configuracion;
 
 
-import com.txacon.gap.application.security.JWTAuthenticationFilter;
-import com.txacon.gap.application.security.JWTAuthorizationFilter;
-import com.txacon.gap.application.security.JwtUserDetailsService;
+import com.txacon.gap.application.adapter.JwtUserDetailsService;
+import com.txacon.gap.infrastructure.rest.security.JWTAuthenticationFilter;
+import com.txacon.gap.infrastructure.rest.security.JWTAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +20,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import static com.txacon.gap.application.security.SecurityConstants.LOGIN_URL;
+import static com.txacon.gap.domain.security.SecurityConstants.LOGIN_URL;
 
 @Configuration
 @EnableWebSecurity
@@ -50,13 +50,20 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .cors().and()
                 .csrf().disable()
+                // Swagger
                 .authorizeRequests().antMatchers("/swagger-ui",
+                "/swagger-resources/**",
+                "/v2/api-docs/**",
                 "/swagger-ui/**",
-                "/webjars/**").permitAll().and()
-                .authorizeRequests().antMatchers(HttpMethod.POST, LOGIN_URL).permitAll()
+                "/webjars/**").permitAll()
+                // Login
+                .antMatchers(HttpMethod.POST, LOGIN_URL).permitAll()
+                // Create customer
+                .antMatchers(HttpMethod.POST, "/customers").permitAll()
                 .anyRequest().authenticated().and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager(), secret))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager(), secret));
+
     }
 
 

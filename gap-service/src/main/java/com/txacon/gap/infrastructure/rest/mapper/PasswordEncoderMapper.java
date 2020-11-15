@@ -1,15 +1,16 @@
 package com.txacon.gap.infrastructure.rest.mapper;
 
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.Mapper;
 import org.mapstruct.Named;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
-@Mapper(componentModel = "spring")
+@Component
 @RequiredArgsConstructor
-public abstract class PasswordEncoderMapper {
+public class PasswordEncoderMapper {
 
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+
 
     @Named("passwordEncoding")
     public String encodePassword(String password) {

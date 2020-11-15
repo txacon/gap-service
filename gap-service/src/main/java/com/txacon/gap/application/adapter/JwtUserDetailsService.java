@@ -1,8 +1,8 @@
-package com.txacon.gap.application.security;
+package com.txacon.gap.application.adapter;
 
-import com.txacon.gap.application.security.entities.JwtUserDetails;
 import com.txacon.gap.domain.customer.entities.Customer;
 import com.txacon.gap.domain.customer.port.CustomerRepository;
+import com.txacon.gap.domain.security.entities.JwtUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

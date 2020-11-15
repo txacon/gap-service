@@ -1,4 +1,4 @@
-package com.txacon.gap.application.security.entities;
+package com.txacon.gap.domain.security.entities;
 
 import com.txacon.gap.domain.customer.entities.Role;
 import org.springframework.security.core.GrantedAuthority;

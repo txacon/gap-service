@@ -1,4 +1,4 @@
-package com.txacon.gap.application.security.entities;
+package com.txacon.gap.domain.security.entities;
 
 import com.txacon.gap.domain.customer.entities.Customer;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,7 +18,7 @@ public class JwtUserDetails implements UserDetails {
 
     public JwtUserDetails(Customer customer) {
         this.grantedAuthorities = customer.getRoles().stream().map(r -> new MyGrantedAuthority(r)).collect(Collectors.toList());
-        this.username = customer.getEmail();
+        this.username = customer.getId() + "";
         this.password = customer.getPasswordHash();
         this.active = customer.isActive();
     }
