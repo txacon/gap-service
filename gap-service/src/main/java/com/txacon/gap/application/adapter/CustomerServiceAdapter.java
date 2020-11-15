@@ -36,11 +36,11 @@ public class CustomerServiceAdapter implements CustomerService {
     @Override
     public void deleteById(Long customerId) {
         repository.deleteById(customerId);
-
     }
 
     @Override
     public Customer update(Customer customer) {
+        if (customer.getId() == null) throw new CustomerInvalidException(ApiError.ERROR_CUSTOMER_INVALID_TO_CREATE);
         Customer customerToUpd = repository.findById(customer.getId()).orElseThrow(() -> new CustomerNotFoundException(ApiError.ERROR_CUSTOMER_NOT_FOUND_BY_ID));
         mapper.updateCustomer(customer, customerToUpd);
         return repository.save(customerToUpd);

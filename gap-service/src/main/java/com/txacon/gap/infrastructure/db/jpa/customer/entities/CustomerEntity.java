@@ -73,6 +73,13 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     )
     private Set<CustomerAddress> customerAddresses;
 
+    @ManyToMany
+    @JoinTable(
+            name = "roles",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<RoleEntity> roles;
+
 
     public Set<PhoneEntity> getCustomerPhones() {
         if (customerPhones == null) //noinspection unchecked is secure
