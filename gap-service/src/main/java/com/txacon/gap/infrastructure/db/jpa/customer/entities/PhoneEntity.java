@@ -1,5 +1,6 @@
 package com.txacon.gap.infrastructure.db.jpa.customer.entities;
 
+import com.txacon.gap.domain.customer.entities.Customer;
 import com.txacon.gap.infrastructure.db.jpa.BaseEntity;
 import lombok.*;
 
@@ -20,5 +21,9 @@ public class PhoneEntity extends BaseEntity implements Serializable {
     private Long id;
     private String countryPrefix;
     private String phoneNumber;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "customer_id", nullable = false)
+    private CustomerEntity customer;
 
 }

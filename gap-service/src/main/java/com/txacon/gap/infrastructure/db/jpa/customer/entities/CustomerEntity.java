@@ -1,6 +1,8 @@
 package com.txacon.gap.infrastructure.db.jpa.customer.entities;
 
 
+import com.txacon.gap.domain.customer.entities.Address;
+import com.txacon.gap.domain.customer.entities.Role;
 import com.txacon.gap.infrastructure.db.jpa.BaseEntity;
 import lombok.*;
 
@@ -14,9 +16,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity(name = "Customer")
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(of = "id", callSuper = true)
 @Table(name = "customer",
         indexes = {
@@ -56,79 +56,48 @@ public class CustomerEntity extends BaseEntity implements Serializable {
 
     @Getter
     @Setter
-    private boolean active=true;
+    private boolean active = true;
 
-    @OneToMany(
-            mappedBy = "phone",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private Set<CustomerPhone> customerPhones;
+    @Getter
+    @OneToMany(cascade = CascadeType.ALL,mappedBy="customer")
+    private Set<PhoneEntity> phones = new HashSet<>();
 
-    @OneToMany(
-            mappedBy = "address",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private Set<CustomerAddress> customerAddresses;
+    @Getter
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="customer")
+    private Set<AddressEntity> addresses = new HashSet<>();
 
-    @ManyToMany
+    @Getter
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinTable(
             name = "customer_role",
             joinColumns = @JoinColumn(name = "customer_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<RoleEntity> roles;
+    private Set<RoleEntity> roles = new HashSet<>();
 
 
-    public Set<PhoneEntity> getCustomerPhones() {
-        if (customerPhones == null) //noinspection unchecked is secure
-            return Collections.EMPTY_SET;
-        return customerPhones.stream().map(CustomerPhone::getPhone).collect(Collectors.toSet());
-    }
 
-    public Set<AddressEntity> getAddress() {
-        if (customerAddresses == null) //noinspection unchecked is secure
-            return Collections.EMPTY_SET;
-        return customerAddresses.stream().map(CustomerAddress::getAddress).collect(Collectors.toSet());
-    }
-
-
-    public void addPhone(PhoneEntity phone, PhoneEntity... phones) {
-        addDefaultPhone(phone);
-        for (PhoneEntity varPhone : phones) {
-            customerPhones.add(new CustomerPhone(this, varPhone, false));
+    public void setRoles(Set<RoleEntity> roles) {
+        this.roles.clear();
+        for (RoleEntity role : roles) {
+            role.addCustomer(this);
+            this.roles.add(role);
         }
     }
 
-    public void addDefaultPhone(PhoneEntity phone) {
-        if (phone == null) return;
-        if (customerPhones == null) customerPhones = new HashSet<>();
-        else {
-            for (CustomerPhone cPhone : customerPhones) {
-                cPhone.setDefaultPhone(false);
-            }
-        }
-        CustomerPhone inCustomerPhone = new CustomerPhone(this, phone, true);
-        customerPhones.add(inCustomerPhone);
-    }
-
-    public void addAddress(AddressEntity address, AddressEntity... addresses) {
-        addDefaultAddress(address);
-        for (AddressEntity varAddress : addresses) {
-            customerAddresses.add(new CustomerAddress(this, varAddress, false));
+    public void setPhones(Set<PhoneEntity> phones) {
+        this.phones.clear();
+        for (PhoneEntity phone : phones) {
+            phone.setCustomer(this);
+            this.phones.add(phone);
         }
     }
 
-    private void addDefaultAddress(AddressEntity address) {
-        if (address == null) return;
-        if (customerAddresses == null) customerAddresses = new HashSet<>();
-        else {
-            for (CustomerAddress cAddress : customerAddresses) {
-                cAddress.setDefaultAddress(false);
-            }
+    public void setAddresses(Set<AddressEntity> addresses) {
+        this.addresses.clear();
+        for (AddressEntity address : addresses) {
+            address.setCustomer(this);
+            this.addresses.add(address);
         }
-        customerAddresses.add(new CustomerAddress(this, address, true));
+
     }
-
-
 }
