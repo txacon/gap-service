@@ -43,6 +43,3 @@
 
 ### Evolución del proyecto.
 
-#### Spring 1
-
-- 
