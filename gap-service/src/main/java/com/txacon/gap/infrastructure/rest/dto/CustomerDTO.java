@@ -14,7 +14,7 @@ public class CustomerDTO {
 
     private Long id;
     private String email;
-    private String passwordHash;
+    private String password;
     private String name;
     private String midName;
     private String lastName;

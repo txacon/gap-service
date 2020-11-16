@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>GAP</title>
+
+  <script src="static/osenui_2/js/onsenui.js"></script>
+
+  <script src="static/js/app.js"></script>
+
+  <link rel="stylesheet" href="static/osenui_2/css/onsenui.css">
+  <link rel="stylesheet" href="static/osenui_2/css/onsenui-fonts.css">
+  <link rel="stylesheet" href="static/osenui_2/css/onsen-css-components.css">
+  <link rel="stylesheet" href="static/css/style.css">
+
+</head>
+
+<body>
+  <ons-navigator id="navigator">
+    <ons-page>
+      <ons-toolbar>
+        <div class="center">GAP - Login</div>
+        <div class="right">
+          <ons-toolbar-button>Cerrar</ons-toolbar-button>
+        </div>
+      </ons-toolbar>
+
+      <div class="login-form">
+
+        <input id="username" type="email" class="text-input--underbar" placeholder="Email" value="">
+        <input id="password" type="password" class="text-input--underbar" placeholder="Password" value="">
+        <br><br>
+        <ons-button onclick="login()" modifier="large" class="login-button">Log In</ons-button>
+        <br><br>
+        <ons-button onclick="loadPage('html/forgot.html')" modifier="quiet" class="forgot-password">¿Olvido la contraseña?
+        </ons-button>
+        <ons-button onclick="loadPage('html/singup.html')" modifier="quiet" class="sing-up">Registro</ons-button>
+      </div>
+    </ons-page>
+  </ons-navigator>
+</body>
+
+</html>

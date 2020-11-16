@@ -1,4 +1,9 @@
-debug: true
+debug: false
+
+## secret jwt
+jwt:
+  secret: 92uwjk77432nst2263ACsjj
+
 spring:
   jpa:
     database: h2

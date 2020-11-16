@@ -21,4 +21,5 @@ public class Customer {
     private boolean active;
     private List<Address> addresses;
     private List<Phone> phones;
+    private List<Role> roles;
 }

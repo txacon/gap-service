@@ -7,17 +7,17 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity(name = "Address")
 @Data
+@Entity(name = "Address")
 @Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor
-@EqualsAndHashCode
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = "id")
 public class AddressEntity extends BaseEntity implements Serializable {
 
     @Id
-    @Column(name = "address_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "address_id")
     private Long id;
     private String street1;
     private String street2;
@@ -25,6 +25,11 @@ public class AddressEntity extends BaseEntity implements Serializable {
     private String city;
     private String country;
     private Integer zipcode;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "customer_id", nullable = false)
+    private CustomerEntity customer;
+
 
 
 }
