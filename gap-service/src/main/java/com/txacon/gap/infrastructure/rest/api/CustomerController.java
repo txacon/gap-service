@@ -4,6 +4,7 @@ package com.txacon.gap.infrastructure.rest.api;
 import com.txacon.gap.application.api.CustomerService;
 import com.txacon.gap.infrastructure.rest.dto.CustomerDTO;
 import com.txacon.gap.infrastructure.rest.mapper.CustomerRestMapper;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +17,7 @@ import java.security.Principal;
 
 
 @RestController
+@Api(tags = "Customers")
 @RequestMapping("/customers")
 @RequiredArgsConstructor
 public class CustomerController {
