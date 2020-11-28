@@ -1,6 +1,7 @@
 package com.txacon.gap.infrastructure.configuracion;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.txacon.gap.application.adapter.JwtUserDetailsService;
 import com.txacon.gap.infrastructure.rest.security.JWTAuthenticationFilter;
 import com.txacon.gap.infrastructure.rest.security.JWTAuthorizationFilter;
@@ -28,6 +29,7 @@ import static com.txacon.gap.domain.security.SecurityConstants.LOGIN_URL;
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     private final JwtUserDetailsService userDetailsService;
+    private final ObjectMapper objectMapper;
 
     @Value("jwt.secret")
     private String secret;
@@ -61,7 +63,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 // Create customer
                 .antMatchers(HttpMethod.POST, "/customers").permitAll()
                 .anyRequest().authenticated().and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager(), secret))
+                .addFilter(new JWTAuthenticationFilter(authenticationManager(), objectMapper, secret))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager(), secret));
 
     }

@@ -1,6 +1,6 @@
 package com.txacon.gap.domain.security.entities;
 
-import com.txacon.gap.domain.customer.entities.Role;
+import com.txacon.gap.domain.role.entities.Role;
 import org.springframework.security.core.GrantedAuthority;
 
 public class MyGrantedAuthority implements GrantedAuthority {

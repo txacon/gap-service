@@ -1,6 +1,7 @@
-package com.txacon.gap.infrastructure.db.jpa.customer.entities;
+package com.txacon.gap.infrastructure.db.jpa.role.entities;
 
 import com.txacon.gap.infrastructure.db.jpa.BaseEntity;
+import com.txacon.gap.infrastructure.db.jpa.customer.entities.CustomerEntity;
 import lombok.*;
 
 import javax.persistence.*;

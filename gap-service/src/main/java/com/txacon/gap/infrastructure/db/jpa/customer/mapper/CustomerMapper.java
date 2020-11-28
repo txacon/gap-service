@@ -1,7 +1,9 @@
 package com.txacon.gap.infrastructure.db.jpa.customer.mapper;
 
 import com.txacon.gap.domain.customer.entities.Customer;
+import com.txacon.gap.infrastructure.db.jpa.GenericDomainMapper;
 import com.txacon.gap.infrastructure.db.jpa.customer.entities.CustomerEntity;
+import com.txacon.gap.infrastructure.db.jpa.role.mapper.RoleMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

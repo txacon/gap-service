@@ -2,6 +2,7 @@ package com.txacon.gap.infrastructure.rest.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.txacon.gap.domain.security.entities.JwtRequest;
+import com.txacon.gap.domain.security.entities.JwtResponse;
 import com.txacon.gap.domain.security.entities.JwtUserDetails;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -9,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.txacon.gap.domain.security.SecurityConstants.*;
 
@@ -28,9 +31,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private final String secret;
     private final AuthenticationManager authenticationManager;
+    private final ObjectMapper objectMapper;
 
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, String secret) {
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, ObjectMapper objectMapper, String secret) {
         this.authenticationManager = authenticationManager;
+        this.objectMapper = objectMapper;
         this.secret = secret;
     }
 
@@ -52,7 +57,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             Authentication auth) throws IOException, ServletException {
 
         Map<String, Object> authoritiesMap = new HashMap<>();
-        authoritiesMap.put(AUTHORITY_CLAIMS, auth.getAuthorities());
+        authoritiesMap.put(AUTHORITY_CLAIMS, auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
 
         String token = Jwts.builder().setIssuedAt(new Date()).setIssuer(ISSUER_INFO)
                 .setSubject(((JwtUserDetails) auth.getPrincipal()).getUsername())
@@ -60,7 +65,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .setExpiration(new Date(System.currentTimeMillis() + TOKEN_EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, secret.getBytes()).compact();
         response.addHeader(HEADER_AUTHORIZACION_KEY, TOKEN_BEARER_PREFIX + " " + token);
+        response.addHeader("Content-Type", "application/json");
+        response.getWriter().println(objectMapper.writeValueAsString(new JwtResponse(token)));
+        response.getWriter().flush();
+        response.getWriter().close();
     }
 
-    
+
 }

@@ -1,6 +1,7 @@
 package com.txacon.gap.domain.customer.entities;
 
 
+import com.txacon.gap.domain.role.entities.Role;
 import lombok.*;
 
 import java.util.List;

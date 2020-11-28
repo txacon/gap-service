@@ -5,9 +5,9 @@ import com.txacon.gap.application.exceptions.ApiError;
 import com.txacon.gap.application.exceptions.CustomerInvalidException;
 import com.txacon.gap.application.exceptions.CustomerNotFoundException;
 import com.txacon.gap.domain.customer.entities.Customer;
-import com.txacon.gap.domain.customer.entities.Role;
-import com.txacon.gap.domain.customer.entities.RoleName;
 import com.txacon.gap.domain.customer.port.CustomerRepository;
+import com.txacon.gap.domain.role.entities.RoleName;
+import com.txacon.gap.domain.role.port.RoleRepository;
 import com.txacon.gap.infrastructure.db.jpa.customer.mapper.CustomerMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +20,7 @@ import java.util.Arrays;
 public class CustomerServiceAdapter implements CustomerService {
 
     private final CustomerRepository repository;
+    private final RoleRepository roleRepository;
     private final CustomerMapper mapper;
 
     @Override
@@ -58,7 +59,7 @@ public class CustomerServiceAdapter implements CustomerService {
             throw new CustomerInvalidException(ApiError.ERROR_CUSTOMER_INVALID_TO_CREATE);
         customer.setActive(true);
         if (customer.getRoles() == null || customer.getRoles().isEmpty()) {
-            customer.setRoles(Arrays.asList(Role.builder().role(RoleName.ROLE_USER).build()));
+            roleRepository.findByName(RoleName.ROLE_USER).ifPresent(role -> customer.setRoles(Arrays.asList(role)));
         }
         return repository.save(customer);
     }

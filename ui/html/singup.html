@@ -8,19 +8,23 @@
 
   <div class="formarea">
     <div class="form-row">
-      <input type="text" class="text-input--underbar width-full" placeholder="First" value="">
+      <input id="name" type="text" class="text-input--underbar width-full" placeholder="Name">
     </div>
 
     <div class="form-row">
-      <input type="text" class="text-input--underbar width-full" placeholder="Last" value="">
+      <input id="midname" type="text" class="text-input--underbar width-full" placeholder="MidName">
     </div>
 
     <div class="form-row">
-      <input type="text" class="text-input--underbar width-full" placeholder="Email" value="">
+      <input id="lastname" type="text" class="text-input--underbar width-full" placeholder="LastName">
     </div>
 
     <div class="form-row">
-      <input type="password" class="text-input--underbar width-full" placeholder="Password" value="">
+      <input id="email" type="text" class="text-input--underbar width-full" placeholder="Email">
+    </div>
+
+    <div class="form-row">
+      <input id="password" type="password" class="text-input--underbar width-full" placeholder="Password">
     </div>
 
     <div class="lucent">
@@ -28,7 +32,7 @@
     </div>
 
     <div class="vspc form-row">
-      <ons-button modifier="large--cta">Registrarse</ons-button>
+      <ons-button modifier="large--cta" onclick="createUser()">Registrarse</ons-button>
     </div>
   </div>
 

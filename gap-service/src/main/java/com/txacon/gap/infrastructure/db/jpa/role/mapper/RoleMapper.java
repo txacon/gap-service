@@ -1,11 +1,11 @@
-package com.txacon.gap.infrastructure.db.jpa.customer.mapper;
+package com.txacon.gap.infrastructure.db.jpa.role.mapper;
 
-import com.txacon.gap.domain.customer.entities.Role;
-import com.txacon.gap.domain.customer.entities.RoleName;
-import com.txacon.gap.infrastructure.db.jpa.customer.entities.RoleEntity;
+import com.txacon.gap.domain.role.entities.Role;
+import com.txacon.gap.domain.role.entities.RoleName;
+import com.txacon.gap.infrastructure.db.jpa.GenericDomainMapper;
+import com.txacon.gap.infrastructure.db.jpa.role.entities.RoleEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 
 @Mapper(componentModel = "spring")
 public interface RoleMapper extends GenericDomainMapper<Role, RoleEntity> {
@@ -17,7 +17,7 @@ public interface RoleMapper extends GenericDomainMapper<Role, RoleEntity> {
     RoleEntity toEntity(Role role);
 
 
-    default public RoleName toRoleName(String name){
+    default RoleName toRoleName(String name) {
         return RoleName.valueOf(name);
     }
 

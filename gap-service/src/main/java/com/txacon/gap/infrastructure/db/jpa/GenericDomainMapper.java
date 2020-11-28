@@ -1,4 +1,4 @@
-package com.txacon.gap.infrastructure.db.jpa.customer.mapper;
+package com.txacon.gap.infrastructure.db.jpa;
 
 public interface GenericDomainMapper<DOMAIN, ENTITY> {
 

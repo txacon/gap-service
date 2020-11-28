@@ -1,4 +1,4 @@
-package com.txacon.gap.domain.customer.entities;
+package com.txacon.gap.domain.role.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

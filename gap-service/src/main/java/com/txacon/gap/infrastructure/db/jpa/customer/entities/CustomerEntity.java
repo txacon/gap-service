@@ -2,6 +2,7 @@ package com.txacon.gap.infrastructure.db.jpa.customer.entities;
 
 
 import com.txacon.gap.infrastructure.db.jpa.BaseEntity;
+import com.txacon.gap.infrastructure.db.jpa.role.entities.RoleEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -54,7 +55,7 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private final Set<AddressEntity> addresses = new HashSet<>();
     @Getter
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "customer_role",
             joinColumns = @JoinColumn(name = "customer_id"),

@@ -1,4 +1,4 @@
-<ons-page id="user-update">
+<ons-page id="user-update" init="">
     <ons-toolbar>
       <div class="left">
         <ons-back-button>Back</ons-back-button>
@@ -7,20 +7,25 @@
     </ons-toolbar>
   
     <div class="formarea">
+
       <div class="form-row">
-        <input type="text" class="text-input--underbar width-full" placeholder="First" value="Test">
+        <input id="name" type="text" class="text-input--underbar width-full" placeholder="Name">
       </div>
   
       <div class="form-row">
-        <input type="text" class="text-input--underbar width-full" placeholder="Last" value="Test">
+        <input id="midname" type="text" class="text-input--underbar width-full" placeholder="MidName">
       </div>
   
       <div class="form-row">
-        <input type="text" class="text-input--underbar width-full" placeholder="Email" value="user@test.com">
+        <input id="lastname" type="text" class="text-input--underbar width-full" placeholder="LastName">
       </div>
   
       <div class="form-row">
-        <input type="password" class="text-input--underbar width-full" placeholder="Password" value="******">
+        <input id="email" type="text" class="text-input--underbar width-full" placeholder="Email">
+      </div>
+  
+      <div class="form-row">
+        <input id="password" type="password" class="text-input--underbar width-full" placeholder="Password">
       </div>
   
       <div class="lucent">
@@ -29,7 +34,7 @@
 
       <div class="form-row">
         <label class="left">
-          <ons-checkbox value="active" checked></ons-checkbox>
+          <ons-checkbox id="active" checked></ons-checkbox>
         </label>
         <label for="check-1" class="center">
           Active

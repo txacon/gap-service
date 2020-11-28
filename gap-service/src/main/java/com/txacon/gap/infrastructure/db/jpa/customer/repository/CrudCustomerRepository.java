@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface CrudCustomerRepository extends JpaRepository<CustomerEntity, Long> {
+interface CrudCustomerRepository extends JpaRepository<CustomerEntity, Long> {
     Optional<CustomerEntity> findByEmail(String email);
 
     Optional<CustomerEntity> findByEmailAndPasswordHash(String email, String passwordHash);
