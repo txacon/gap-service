@@ -2,18 +2,12 @@ package com.txacon.gap.infrastructure.db.jpa.customer.repository;
 
 import com.txacon.gap.domain.customer.entities.Customer;
 import com.txacon.gap.domain.customer.port.CustomerRepository;
-import com.txacon.gap.infrastructure.db.jpa.customer.entities.AddressEntity;
 import com.txacon.gap.infrastructure.db.jpa.customer.entities.CustomerEntity;
-import com.txacon.gap.infrastructure.db.jpa.customer.entities.PhoneEntity;
-import com.txacon.gap.infrastructure.db.jpa.customer.entities.RoleEntity;
 import com.txacon.gap.infrastructure.db.jpa.customer.mapper.CustomerMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -29,12 +23,12 @@ public class CustomerDatabaseRepository implements CustomerRepository {
 
     @Override
     public Optional<Customer> findByEmail(String email) {
-        return crud.findByEmail(email).map(mapper::toDomain);
+        return crud.findByEmail(email).map(mapper::toDomainForAuthentication);
     }
 
     @Override
     public Optional<Customer> findByEmailAndPasswordHash(String email, String passwordHash) {
-        return crud.findByEmailAndPasswordHash(email, passwordHash).map(mapper::toDomain);
+        return crud.findByEmailAndPasswordHash(email, passwordHash).map(mapper::toDomainForAuthentication);
     }
 
     @Override

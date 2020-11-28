@@ -1,14 +1,14 @@
 package com.txacon.gap.infrastructure.db.jpa.customer.entities;
 
-import com.txacon.gap.domain.customer.entities.Customer;
 import com.txacon.gap.infrastructure.db.jpa.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Data
+
 @Entity(name = "Phone")
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)

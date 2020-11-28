@@ -1,8 +1,6 @@
 package com.txacon.gap.infrastructure.db.jpa.customer.entities;
 
 
-import com.txacon.gap.domain.customer.entities.Address;
-import com.txacon.gap.domain.customer.entities.Role;
 import com.txacon.gap.infrastructure.db.jpa.BaseEntity;
 import lombok.*;
 
@@ -10,13 +8,13 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity(name = "Customer")
 @NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode(of = "id", callSuper = true)
 @Table(name = "customer",
         indexes = {
@@ -27,11 +25,9 @@ import java.util.stream.Collectors;
 public class CustomerEntity extends BaseEntity implements Serializable {
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "customer_id")
-    private Long id;
-
+    @Getter
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private final Set<PhoneEntity> phones = new HashSet<>();
     @Getter
     @Setter
     @NotEmpty(message = "*Please provide an name")
@@ -42,38 +38,33 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     @Getter
     @Setter
     private String lastName;
-
     @Getter
     @Setter
     @Email(message = "*Please provide a valid Email")
     @NotEmpty(message = "*Please provide an email")
     private String email;
-
     @Getter
     @Setter
     @NotEmpty(message = "*Please provide your password")
     private String passwordHash;
-
     @Getter
     @Setter
     private boolean active = true;
-
     @Getter
-    @OneToMany(cascade = CascadeType.ALL,mappedBy="customer")
-    private Set<PhoneEntity> phones = new HashSet<>();
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private final Set<AddressEntity> addresses = new HashSet<>();
     @Getter
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="customer")
-    private Set<AddressEntity> addresses = new HashSet<>();
-
-    @Getter
-    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "customer_role",
             joinColumns = @JoinColumn(name = "customer_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<RoleEntity> roles = new HashSet<>();
-
+    private final Set<RoleEntity> roles = new HashSet<>();
+    @Id
+    @Getter
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "customer_id")
+    private Long id;
 
 
     public void setRoles(Set<RoleEntity> roles) {
@@ -85,6 +76,7 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     }
 
     public void setPhones(Set<PhoneEntity> phones) {
+        if (Objects.isNull(phones)) return;
         this.phones.clear();
         for (PhoneEntity phone : phones) {
             phone.setCustomer(this);
@@ -93,11 +85,13 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     }
 
     public void setAddresses(Set<AddressEntity> addresses) {
+        if (Objects.isNull(addresses)) return;
         this.addresses.clear();
         for (AddressEntity address : addresses) {
             address.setCustomer(this);
             this.addresses.add(address);
         }
-
     }
+
+
 }

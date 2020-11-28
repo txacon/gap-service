@@ -8,9 +8,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Data
 @Builder
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode(of = "role_id")
 @Table(name = "role")
 public class RoleEntity extends BaseEntity {
@@ -18,14 +19,10 @@ public class RoleEntity extends BaseEntity {
     @ManyToMany(mappedBy = "roles")
     Set<CustomerEntity> customers = new HashSet<>();
 
-    @Getter
-    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "role_id")
     private Long roleId;
-    @Getter
-    @Setter
     @Column(name = "name", unique = true)
     private String name;
 

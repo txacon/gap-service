@@ -7,8 +7,9 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Data
+
 @Entity(name = "Address")
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -29,7 +30,6 @@ public class AddressEntity extends BaseEntity implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "customer_id", nullable = false)
     private CustomerEntity customer;
-
 
 
 }

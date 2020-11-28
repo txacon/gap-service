@@ -13,6 +13,12 @@ public interface CustomerMapper extends GenericDomainMapper<Customer, CustomerEn
     @Mapping(target = "passwordHash", ignore = true)
     Customer toDomain(CustomerEntity customer);
 
+    @Mapping(target = "phones", ignore = true)
+    @Mapping(target = "addresses", ignore = true)
+    @Mapping(target = "passwordHash", ignore = false)
+    Customer toDomainForAuthentication(CustomerEntity customerEntity);
+
+    @Mapping(target = "id", ignore = true)
     CustomerEntity toEntity(Customer customer);
 
     @Mappings({
