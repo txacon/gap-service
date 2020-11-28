@@ -11,9 +11,7 @@
 ## Tecnologías
 - [Spring Boot](https://spring.io/projects/spring-boot) aquí podéis ver las actualizaciones incorporadas en la [versión más reciente 2.2](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.2-Release-Notes)
 - [Gradle](https://gradle.org/) / [Maven](https://maven.apache.org/)
-- [MongoDB](https://www.mongodb.com/es) / [Mongo Compass](https://www.mongodb.com/products/compass?lang=es-es)
 - [Swagger](https://swagger.io/solutions/api-documentation/)
-- [HATEOAS](https://restfulapi.net/hateoas/)
 
 ## Herramientas
 - [SpringBoot Initializr](https://start.spring.io/): Generador de proyectos de Spring con Gradle/Maven. Permite seleccionar las dependencias deseadas y genera automáticamente el *scaffolding* del proyecto.
