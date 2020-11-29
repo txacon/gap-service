@@ -4,6 +4,7 @@ const localStorage = {
   password : undefined,
   user:  undefined
 }
+var server = 'http://localhost:8080'
 
 const loadPage = (page) => {
   document.querySelector('#navigator').bringPageTop(page, { animation: 'fade' });
@@ -13,7 +14,7 @@ const loadPage = (page) => {
 const getUserInfoCall = () => {
   $.ajax({
     type: 'GET',
-    url: 'http://localhost:8082/customers/me',
+    url: server + '/customers/me',
     contentType: 'application/json',
     beforeSend: function (xhr) {   //Include the bearer token in header
       xhr.setRequestHeader("Authorization", 'Bearer '+ localStorage.token);
@@ -30,7 +31,7 @@ const getUserInfoCall = () => {
 const getAuthTokenCall = (username, password) => {
   $.ajax({
     type: 'POST',
-    url: 'http://localhost:8082/login',
+    url: server + '/login',
     data: JSON.stringify({ username: username, password: password }),
     contentType: 'application/json'
   }).done((data) => {
@@ -49,7 +50,7 @@ const getAuthTokenCall = (username, password) => {
 const createUserCall = (user) => {
   $.ajax({
     type: 'POST',
-    url: 'http://localhost:8082/customers',
+    url: server + '/customers',
     data: JSON.stringify(user),
     contentType: 'application/json'
   }).done((data) => {

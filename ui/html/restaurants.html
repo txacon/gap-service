@@ -1,0 +1,20 @@
+<ons-page id="restaurants">
+    <ons-toolbar>
+        <div class="left">
+            <ons-back-button>Atras</ons-back-button>
+        </div>
+        <div class="center">Restaurants</div>
+    </ons-toolbar>
+    <ons-list id="opt-list">
+        <ons-list-item class="menu_item" modifier="chevron" tappable onclick="loadPage('html/restaurant.html')">
+            <ons-icon icon="md-restaurant"></ons-icon>&ThinSpace; Don Pollo
+        </ons-list-item>
+    </ons-list>
+    <div style="height:10%; width: 100%; position:absolute; bottom: 30px;">
+           <p style="text-align: right">
+            <ons-fab>
+                <ons-icon icon="md-plus"></ons-icon>
+            </ons-fab>
+        </p>
+    </div>
+</ons-page>
