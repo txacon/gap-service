@@ -1,6 +1,7 @@
 package com.txacon.gap.infrastructure.rest.api;
 
 import com.txacon.gap.application.api.PaymentMethodService;
+import com.txacon.gap.application.aspect.Loggable;
 import com.txacon.gap.domain.payment.entities.PaymentType;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +20,13 @@ public class PaymentMethodController {
 
     private final PaymentMethodService service;
 
+    @Loggable
     @GetMapping("")
     ResponseEntity<List<String>> findAll() {
         return ResponseEntity.ok(service.findAll().stream().map(Enum::name).collect(Collectors.toList()));
     }
 
+    @Loggable
     @PreAuthorize("hasRole({'ROLE_ADMIN'})")
     @PostMapping("")
     ResponseEntity<String> createNew(@RequestBody String name) {

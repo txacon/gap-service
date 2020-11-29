@@ -1,6 +1,7 @@
 package com.txacon.gap.application.adapter;
 
 import com.txacon.gap.application.api.CustomerService;
+import com.txacon.gap.application.aspect.Loggable;
 import com.txacon.gap.application.exceptions.ApiError;
 import com.txacon.gap.application.exceptions.CustomerInvalidException;
 import com.txacon.gap.application.exceptions.CustomerNotFoundException;
@@ -24,26 +25,31 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerMapper mapper;
 
     @Override
+    @Loggable
     public Customer getById(Long customerId) {
         return repository.findById(customerId).orElseThrow(() -> new CustomerNotFoundException(ApiError.ERROR_CUSTOMER_NOT_FOUND_BY_ID));
     }
 
     @Override
+    @Loggable
     public Customer getByEmail(String email) {
         return repository.findByEmail(email).orElseThrow(() -> new CustomerNotFoundException(ApiError.ERROR_CUSTOMER_NOT_FOUND_BY_EMAIL));
     }
 
     @Override
+    @Loggable
     public Customer getByEmailAndPasswordHash(String email, String passwordHash) {
         return repository.findByEmailAndPasswordHash(email, passwordHash).orElseThrow(() -> new CustomerNotFoundException(ApiError.ERROR_CUSTOMER_NOT_FOUND_BY_EMAIL_AND_PASSWORD_HASH));
     }
 
     @Override
+    @Loggable
     public void deleteById(Long customerId) {
         repository.deleteById(customerId);
     }
 
     @Override
+    @Loggable
     public Customer update(Customer customer) {
         if (customer.getId() == null) throw new CustomerInvalidException(ApiError.ERROR_CUSTOMER_INVALID_TO_CREATE);
         Customer customerToUpd = repository.findById(customer.getId()).orElseThrow(() -> new CustomerNotFoundException(ApiError.ERROR_CUSTOMER_NOT_FOUND_BY_ID));

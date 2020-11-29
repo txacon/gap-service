@@ -1,6 +1,7 @@
 package com.txacon.gap.infrastructure.rest.api;
 
 import com.txacon.gap.application.api.TagService;
+import com.txacon.gap.application.aspect.Loggable;
 import com.txacon.gap.domain.tags.entities.TagName;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +20,13 @@ public class TagController {
 
     private final TagService service;
 
+    @Loggable
     @GetMapping("")
     ResponseEntity<List<String>> findAll() {
         return ResponseEntity.ok(service.findAll().stream().map(Enum::name).collect(Collectors.toList()));
     }
 
+    @Loggable
     @PreAuthorize("hasRole({'ROLE_ADMIN'})")
     @PostMapping("")
     ResponseEntity<String> createNew(@RequestBody String name) {

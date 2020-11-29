@@ -2,6 +2,7 @@ package com.txacon.gap.infrastructure.rest.api;
 
 
 import com.txacon.gap.application.api.CustomerService;
+import com.txacon.gap.application.aspect.Loggable;
 import com.txacon.gap.infrastructure.rest.dto.customer.CustomerDTO;
 import com.txacon.gap.infrastructure.rest.mapper.customer.CustomerRestMapper;
 import io.swagger.annotations.Api;
@@ -26,6 +27,7 @@ public class CustomerController {
     private final CustomerService service;
     private final CustomerRestMapper mapper;
 
+    @Loggable
     @PreAuthorize("hasRole({'ROLE_USER','ROLE_ADMIN'})")
     @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CustomerDTO> getMe(Principal principal) {
@@ -33,6 +35,7 @@ public class CustomerController {
         return ResponseEntity.ok(getCustomerDTOById(customerId));
     }
 
+    @Loggable
     @PreAuthorize("hasRole({'ROLE_USER','ROLE_ADMIN'})")
     @PutMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CustomerDTO> updateMe(Principal principal, @RequestBody CustomerDTO customerDTO) {
@@ -41,6 +44,7 @@ public class CustomerController {
         return ResponseEntity.ok(updateCustomerDTO(customerDTO));
     }
 
+    @Loggable
     @PreAuthorize("hasRole({'ROLE_ADMIN'})")
     @GetMapping(value = "/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CustomerDTO> getCustomer(@PathVariable
@@ -49,12 +53,14 @@ public class CustomerController {
         return ResponseEntity.ok(getCustomerDTOById(customerId));
     }
 
+    @Loggable
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CustomerDTO> createCustomer(@RequestBody
                                                       @NotNull CustomerDTO customerDTO) {
         return ResponseEntity.accepted().body(mapper.toDTO(service.addCustomer(mapper.toDomain(customerDTO))));
     }
 
+    @Loggable
     @PreAuthorize("hasRole({'ROLE_ADMIN'})")
     @PutMapping(value = "/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable

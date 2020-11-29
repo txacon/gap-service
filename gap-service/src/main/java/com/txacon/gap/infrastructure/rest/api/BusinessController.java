@@ -1,6 +1,7 @@
 package com.txacon.gap.infrastructure.rest.api;
 
 import com.txacon.gap.application.api.BusinessService;
+import com.txacon.gap.application.aspect.Loggable;
 import com.txacon.gap.infrastructure.rest.dto.business.BusinessDTO;
 import com.txacon.gap.infrastructure.rest.mapper.business.BusinessRestMapper;
 import io.swagger.annotations.Api;
@@ -24,6 +25,7 @@ public class BusinessController {
     private final BusinessService service;
     private final BusinessRestMapper mapper;
 
+    @Loggable
     @PreAuthorize("hasRole({'ROLE_SELLER'})")
     @GetMapping(value = "/{businessId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BusinessDTO> getBusiness(@PathVariable
@@ -32,6 +34,7 @@ public class BusinessController {
         return ResponseEntity.ok(mapper.toDTO(service.findById(businessId)));
     }
 
+    @Loggable
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BusinessDTO> createBusiness(Principal principal, @RequestBody
     @NotNull BusinessDTO businessDTO) {
@@ -39,6 +42,7 @@ public class BusinessController {
         return ResponseEntity.accepted().body(mapper.toDTO(service.add(mapper.toDomain(businessDTO), customerId)));
     }
 
+    @Loggable
     @PreAuthorize("hasRole({'ROLE_SELLER'})")
     @PutMapping(value = "/{businessId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BusinessDTO> updateBusiness(Principal principal, @RequestBody
@@ -47,6 +51,7 @@ public class BusinessController {
         return ResponseEntity.accepted().body(mapper.toDTO(service.update(mapper.toDomain(businessDTO), customerId)));
     }
 
+    @Loggable
     @PreAuthorize("hasRole({'ROLE_SELLER'})")
     @DeleteMapping(value = "/{businessId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> deleteBusiness(@PathVariable
