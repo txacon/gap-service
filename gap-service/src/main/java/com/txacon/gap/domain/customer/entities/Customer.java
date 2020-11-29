@@ -7,8 +7,8 @@ import lombok.*;
 import java.util.List;
 
 @Data
-@RequiredArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
 @ToString
 public class Customer {

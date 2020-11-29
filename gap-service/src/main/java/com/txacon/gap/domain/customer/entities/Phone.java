@@ -1,12 +1,10 @@
 package com.txacon.gap.domain.customer.entities;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Data
-@RequiredArgsConstructor
+@Builder
+@AllArgsConstructor
 @EqualsAndHashCode(of = {"countryPrefix", "phoneNumber"})
 @ToString
 public class Phone {

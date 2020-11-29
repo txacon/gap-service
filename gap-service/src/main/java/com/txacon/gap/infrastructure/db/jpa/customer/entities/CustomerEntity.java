@@ -2,6 +2,7 @@ package com.txacon.gap.infrastructure.db.jpa.customer.entities;
 
 
 import com.txacon.gap.infrastructure.db.jpa.BaseEntity;
+import com.txacon.gap.infrastructure.db.jpa.bussines.entites.BusinessEntity;
 import com.txacon.gap.infrastructure.db.jpa.role.entities.RoleEntity;
 import lombok.*;
 
@@ -13,6 +14,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+@Data
 @Entity(name = "Customer")
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -26,46 +28,32 @@ import java.util.Set;
 public class CustomerEntity extends BaseEntity implements Serializable {
 
 
-    @Getter
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private final Set<PhoneEntity> phones = new HashSet<>();
-    @Getter
-    @Setter
     @NotEmpty(message = "*Please provide an name")
     private String name;
-    @Getter
-    @Setter
     private String midName;
-    @Getter
-    @Setter
     private String lastName;
-    @Getter
-    @Setter
     @Email(message = "*Please provide a valid Email")
     @NotEmpty(message = "*Please provide an email")
     private String email;
-    @Getter
-    @Setter
     @NotEmpty(message = "*Please provide your password")
     private String passwordHash;
-    @Getter
-    @Setter
     private boolean active = true;
-    @Getter
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private final Set<AddressEntity> addresses = new HashSet<>();
-    @Getter
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "own")
+    private final Set<BusinessEntity> businesses = new HashSet<>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "customer_id")
+    private Long id;
     @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "customer_role",
             joinColumns = @JoinColumn(name = "customer_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private final Set<RoleEntity> roles = new HashSet<>();
-    @Id
-    @Getter
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "customer_id")
-    private Long id;
 
 
     public void setRoles(Set<RoleEntity> roles) {

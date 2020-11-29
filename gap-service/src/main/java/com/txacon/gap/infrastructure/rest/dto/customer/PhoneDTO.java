@@ -1,4 +1,4 @@
-package com.txacon.gap.infrastructure.rest.dto;
+package com.txacon.gap.infrastructure.rest.dto.customer;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

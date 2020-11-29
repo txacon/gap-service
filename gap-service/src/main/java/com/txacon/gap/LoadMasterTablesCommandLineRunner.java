@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 @Component
 @RequiredArgsConstructor
-public class LoadRolesCommandLineRunner implements CommandLineRunner {
+public class LoadMasterTablesCommandLineRunner implements CommandLineRunner {
 
     private final RoleRepository respository;
 

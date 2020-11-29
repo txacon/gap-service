@@ -1,7 +1,9 @@
-package com.txacon.gap.infrastructure.rest.mapper;
+package com.txacon.gap.infrastructure.rest.mapper.customer;
 
 import com.txacon.gap.domain.customer.entities.Customer;
-import com.txacon.gap.infrastructure.rest.dto.CustomerDTO;
+import com.txacon.gap.infrastructure.rest.dto.customer.CustomerDTO;
+import com.txacon.gap.infrastructure.rest.mapper.GenericRestMapper;
+import com.txacon.gap.infrastructure.rest.mapper.PasswordEncoderMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

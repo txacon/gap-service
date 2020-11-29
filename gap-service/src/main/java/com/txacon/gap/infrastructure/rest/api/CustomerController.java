@@ -2,8 +2,8 @@ package com.txacon.gap.infrastructure.rest.api;
 
 
 import com.txacon.gap.application.api.CustomerService;
-import com.txacon.gap.infrastructure.rest.dto.CustomerDTO;
-import com.txacon.gap.infrastructure.rest.mapper.CustomerRestMapper;
+import com.txacon.gap.infrastructure.rest.dto.customer.CustomerDTO;
+import com.txacon.gap.infrastructure.rest.mapper.customer.CustomerRestMapper;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;

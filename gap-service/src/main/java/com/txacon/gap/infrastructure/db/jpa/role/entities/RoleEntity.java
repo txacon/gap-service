@@ -5,6 +5,7 @@ import com.txacon.gap.infrastructure.db.jpa.customer.entities.CustomerEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,13 +16,13 @@ import java.util.Set;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode(of = "role_id")
 @Table(name = "role")
-public class RoleEntity extends BaseEntity {
+public class RoleEntity extends BaseEntity implements Serializable {
 
     @ManyToMany(mappedBy = "roles")
     Set<CustomerEntity> customers = new HashSet<>();
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")
     private Long roleId;
     @Column(name = "name", unique = true)

@@ -3,7 +3,8 @@ package com.txacon.gap.domain.customer.entities;
 import lombok.*;
 
 @Data
-@RequiredArgsConstructor
+@Builder
+@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"street1", "street2", "state", "city", "country", "zipcode"})
 @ToString

@@ -16,7 +16,7 @@ import java.io.Serializable;
 public class PhoneEntity extends BaseEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "phone_id")
     private Long id;
     private String countryPrefix;
