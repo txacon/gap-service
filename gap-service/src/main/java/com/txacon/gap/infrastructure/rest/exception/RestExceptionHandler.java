@@ -1,5 +1,6 @@
 package com.txacon.gap.infrastructure.rest.exception;
 
+import com.txacon.gap.application.exceptions.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,16 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({DataIntegrityViolationException.class})
     public ResponseEntity<Object> handleConstraintViolation(DataIntegrityViolationException ex, HttpServletRequest request) {
         return new ResponseEntity<>(handleExceptionResponse(ex.getMostSpecificCause(), request), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({CustomerNotFoundException.class, BusinessNotFoundException.class})
+    public ResponseEntity<Object> handleNotFound(DefaultServiceException ex, HttpServletRequest request) {
+        return new ResponseEntity<>(handleExceptionResponse(ex, request), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler({CustomerInvalidException.class, BusinessInvalidException.class})
+    public ResponseEntity<Object> handleInvalidRequest(DefaultServiceException ex, HttpServletRequest request) {
+        return new ResponseEntity<>(handleExceptionResponse(ex, request), HttpStatus.BAD_REQUEST);
     }
 
     private Map<String, Object> handleExceptionResponse(Throwable exception, HttpServletRequest request) {

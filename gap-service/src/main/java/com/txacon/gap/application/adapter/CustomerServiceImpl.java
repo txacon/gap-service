@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 @Service
 @RequiredArgsConstructor
-public class CustomerServiceAdapter implements CustomerService {
+public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository repository;
     private final RoleRepository roleRepository;

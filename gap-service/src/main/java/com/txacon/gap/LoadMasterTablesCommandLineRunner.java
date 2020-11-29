@@ -28,15 +28,15 @@ public class LoadMasterTablesCommandLineRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         inserRoles();
-        insertKeyEntity(tagRepository, TagName.FISH);
-        insertKeyEntity(ratingRepository, AggregateRating.FIVE_START);
-        insertKeyEntity(priceRangeRepository, PriceRange.CHEAP);
+        insertKeyEntity(tagRepository, TagName.values());
+        insertKeyEntity(ratingRepository, AggregateRating.values());
+        insertKeyEntity(priceRangeRepository, PriceRange.values());
     }
 
-    private <T extends Enum> void insertKeyEntity(KeyEntityRepository<T> keyEntityRepository, T enumValue) {
-        Arrays.stream(enumValue.getDeclaringClass().getEnumConstants()).forEach(e -> {
-            if (!keyEntityRepository.findByName(enumValue).isPresent()) {
-                keyEntityRepository.save(enumValue);
+    private <T extends Enum> void insertKeyEntity(KeyEntityRepository<T> keyEntityRepository, T... values) {
+        Arrays.stream(values).forEach(e -> {
+            if (!keyEntityRepository.findByName(e).isPresent()) {
+                keyEntityRepository.save(e);
             }
         });
     }

@@ -2,7 +2,7 @@ package com.txacon.gap.infrastructure.configuracion;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.txacon.gap.application.adapter.JwtUserDetailsService;
+import com.txacon.gap.application.adapter.JwtUserDetailsServiceImpl;
 import com.txacon.gap.infrastructure.rest.security.JWTAuthenticationFilter;
 import com.txacon.gap.infrastructure.rest.security.JWTAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +28,7 @@ import static com.txacon.gap.domain.security.SecurityConstants.LOGIN_URL;
 @RequiredArgsConstructor
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
-    private final JwtUserDetailsService userDetailsService;
+    private final JwtUserDetailsServiceImpl userDetailsService;
     private final ObjectMapper objectMapper;
 
     @Value("jwt.secret")

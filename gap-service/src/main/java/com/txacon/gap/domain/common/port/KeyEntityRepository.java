@@ -5,9 +5,10 @@ import java.util.Optional;
 
 public interface KeyEntityRepository<T> {
 
-    Optional<T> findByName(T priceRange);
+    Optional<T> findByName(T name);
 
     List<T> findAll();
 
-    T save(T priceRange);
+    T save(T name);
+
 }

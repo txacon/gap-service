@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @Api(tags = "PriceRanges")
-@RequestMapping("/prices")
+@RequestMapping("/ranges")
 @RequiredArgsConstructor
 public class PriceRangeControler {
 

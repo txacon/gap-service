@@ -23,9 +23,6 @@ public class AggregateRatingEntity extends BaseEntity implements Serializable {
     @Setter
     private String aggregateRatingName;
     @Getter
-    @Setter
-    private String description;
-    @Getter
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "aggregateRating")
     private Set<BusinessEntity> businesses;
 }
