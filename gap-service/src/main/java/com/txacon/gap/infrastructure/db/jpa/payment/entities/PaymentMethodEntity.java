@@ -4,10 +4,14 @@ import com.txacon.gap.infrastructure.db.jpa.BaseEntity;
 import com.txacon.gap.infrastructure.db.jpa.bussines.entites.BusinessEntity;
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import java.io.Serializable;
 import java.util.Set;
 
+@Data
 @Entity(name = "payment_method")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,16 +20,8 @@ import java.util.Set;
 public class PaymentMethodEntity extends BaseEntity implements Serializable {
 
     @Id
-    @Getter
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "payment_method_id")
-    private Long id;
-    @Getter
-    @Setter
-    private String paymentType;
-    @Getter
-    @Setter
-    private String description;
+    private String id;
     @Getter
     @ManyToMany(mappedBy = "paymentMethods")
     private Set<BusinessEntity> businesses;

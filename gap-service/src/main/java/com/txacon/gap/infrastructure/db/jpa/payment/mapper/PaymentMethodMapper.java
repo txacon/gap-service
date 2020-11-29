@@ -9,13 +9,13 @@ public class PaymentMethodMapper {
 
     public PaymentType toDomain(PaymentMethodEntity paymentMethodEntity) {
         if (paymentMethodEntity == null) return null;
-        return PaymentType.valueOf(paymentMethodEntity.getPaymentType());
+        return PaymentType.valueOf(paymentMethodEntity.getId());
     }
 
     public PaymentMethodEntity toEntity(PaymentType paymentType) {
         if (paymentType == null) return null;
         PaymentMethodEntity paymentMethodEntity = new PaymentMethodEntity();
-        paymentMethodEntity.setPaymentType(paymentType.name());
+        paymentMethodEntity.setId(paymentType.name());
         return paymentMethodEntity;
     }
 }

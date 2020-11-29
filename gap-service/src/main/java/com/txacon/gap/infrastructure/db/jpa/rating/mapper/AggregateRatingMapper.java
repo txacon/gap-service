@@ -9,13 +9,13 @@ public class AggregateRatingMapper {
 
     public AggregateRating toDomain(AggregateRatingEntity aggregateRatingEntity) {
         if (aggregateRatingEntity == null) return null;
-        return AggregateRating.valueOf(aggregateRatingEntity.getAggregateRatingName());
+        return AggregateRating.valueOf(aggregateRatingEntity.getId());
     }
 
     public AggregateRatingEntity toEntity(AggregateRating aggregateRating) {
         if (aggregateRating == null) return null;
         AggregateRatingEntity aggregateRatingEntity = new AggregateRatingEntity();
-        aggregateRatingEntity.setAggregateRatingName(aggregateRating.name());
+        aggregateRatingEntity.setId(aggregateRating.name());
         return aggregateRatingEntity;
     }
 }

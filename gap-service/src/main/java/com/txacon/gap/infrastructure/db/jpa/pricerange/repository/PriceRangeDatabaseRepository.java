@@ -24,7 +24,7 @@ public class PriceRangeDatabaseRepository implements PriceRangeRepository {
 
     @Override
     public Optional<PriceRange> findByName(PriceRange priceRange) {
-        return repository.findByPriceRangeName(priceRange.name()).map(mapper::toDomain);
+        return repository.findById(priceRange.name()).map(mapper::toDomain);
     }
 
     @Override

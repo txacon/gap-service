@@ -19,7 +19,7 @@ public class TagDatabaseRepository implements TagRepository {
 
     @Override
     public Optional<TagName> findByName(TagName tagName) {
-        return repository.findByTagName(tagName.name()).map(mapper::toDomain);
+        return repository.findById(tagName.name()).map(mapper::toDomain);
     }
 
     @Override

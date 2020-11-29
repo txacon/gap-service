@@ -17,4 +17,6 @@ public interface BusinessRepository {
     List<Business> findAll();
 
     Business save(Business business);
+
+    void deleteById(Long bussinesId);
 }

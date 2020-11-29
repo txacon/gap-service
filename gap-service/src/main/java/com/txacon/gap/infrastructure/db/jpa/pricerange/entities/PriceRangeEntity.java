@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+@Data
 @Entity(name = "price_range")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,16 +17,12 @@ import java.util.Set;
 @ToString
 public class PriceRangeEntity extends BaseEntity implements Serializable {
 
+    @Id
+    @Column(name = "price_range_id")
+    private String id;
     @Getter
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "priceRange")
     Set<BusinessEntity> businesses = new HashSet<>();
-    @Id
-    @Getter
-    @Column(name = "price_range_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Getter
-    @Setter
-    private String priceRangeName;
+
 
 }

@@ -9,13 +9,13 @@ public class PriceRangeMapper {
 
     public PriceRange toDomain(PriceRangeEntity priceRangeEntity) {
         if (priceRangeEntity == null) return null;
-        return PriceRange.valueOf(priceRangeEntity.getPriceRangeName());
+        return PriceRange.valueOf(priceRangeEntity.getId());
     }
 
     public PriceRangeEntity toEntity(PriceRange priceRange) {
         if (priceRange == null) return null;
         PriceRangeEntity priceRangeEntity = new PriceRangeEntity();
-        priceRangeEntity.setPriceRangeName(priceRange.name());
+        priceRangeEntity.setId(priceRange.name());
         return priceRangeEntity;
     }
 }

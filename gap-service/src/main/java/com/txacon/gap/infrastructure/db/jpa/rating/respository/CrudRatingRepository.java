@@ -4,11 +4,8 @@ import com.txacon.gap.infrastructure.db.jpa.rating.entities.AggregateRatingEntit
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
-interface CrudRatingRepository extends JpaRepository<AggregateRatingEntity, Long> {
+interface CrudRatingRepository extends JpaRepository<AggregateRatingEntity, String> {
 
-    Optional<AggregateRatingEntity> findByAggregateRatingName(String name);
 
 }

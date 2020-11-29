@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -46,5 +47,10 @@ public class BusinessDatabaseRepository implements BusinessRepository {
     @Override
     public Business save(Business business) {
         return mapper.toDomain(repository.save(mapper.toEntity(business)));
+    }
+
+    @Override
+    public void deleteById(Long bussinesId) {
+        if (!Objects.isNull(bussinesId)) repository.deleteById(bussinesId);
     }
 }

@@ -20,7 +20,7 @@ public class RatingDatabaseRespository implements RatingRepository {
 
     @Override
     public Optional<AggregateRating> findByName(AggregateRating aggregateRating) {
-        return respository.findByAggregateRatingName(aggregateRating.name()).map(mapper::toDomain);
+        return respository.findById(aggregateRating.name()).map(mapper::toDomain);
     }
 
     @Override

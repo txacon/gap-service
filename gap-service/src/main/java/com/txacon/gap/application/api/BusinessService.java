@@ -14,4 +14,6 @@ public interface BusinessService {
 
     Business update(Business business, Long idOwner);
 
+    void deleteById(Long businessId);
+
 }

@@ -41,6 +41,11 @@ public class BusinessServiceImpl implements BusinessService {
         return saveBussines(business, idOwner);
     }
 
+    @Override
+    public void deleteById(Long businessId) {
+        repository.deleteById(businessId);
+    }
+
     private Business saveBussines(Business business, Long idOwner) {
         if (Stream.of(business.getEmail(), business.getFiscalId(), business.getPhone(), business.getCity(), business.getZipcode(), business.getStreet1()).anyMatch(Objects::isNull))
             throw new BusinessInvalidException(ApiError.ERROR_BUSINESS_INVALID_TO_CREATE);

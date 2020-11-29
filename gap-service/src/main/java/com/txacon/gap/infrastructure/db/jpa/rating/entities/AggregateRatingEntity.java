@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
+@Data
 @Entity(name = "aggregate_rating")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,12 +17,8 @@ import java.util.Set;
 public class AggregateRatingEntity extends BaseEntity implements Serializable {
     @Id
     @Getter
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "aggregate_rating_id")
-    private Long id;
-    @Getter
-    @Setter
-    private String aggregateRatingName;
+    private String id;
     @Getter
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "aggregateRating")
     private Set<BusinessEntity> businesses;
