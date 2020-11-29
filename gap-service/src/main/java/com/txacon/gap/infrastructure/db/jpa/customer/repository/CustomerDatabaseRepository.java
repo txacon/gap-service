@@ -39,7 +39,6 @@ public class CustomerDatabaseRepository implements CustomerRepository {
     }
 
 
-
     @Override
     public void delete(Customer customer) {
         crud.delete(mapper.toEntity(customer));

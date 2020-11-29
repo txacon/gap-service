@@ -2,6 +2,9 @@ package com.txacon.gap.infrastructure.db.jpa.bussines.entites;
 
 import com.txacon.gap.infrastructure.db.jpa.BaseEntity;
 import com.txacon.gap.infrastructure.db.jpa.customer.entities.CustomerEntity;
+import com.txacon.gap.infrastructure.db.jpa.payment.entities.PaymentMethodEntity;
+import com.txacon.gap.infrastructure.db.jpa.pricerange.entities.PriceRangeEntity;
+import com.txacon.gap.infrastructure.db.jpa.rating.entities.AggregateRatingEntity;
 import lombok.*;
 
 import javax.persistence.*;

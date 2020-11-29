@@ -1,7 +1,8 @@
 package com.txacon.gap.domain.bussines.entities;
 
-import com.txacon.gap.domain.common.entities.AggregateRating;
-import com.txacon.gap.infrastructure.db.jpa.customer.entities.CustomerEntity;
+import com.txacon.gap.domain.payment.entities.PaymentType;
+import com.txacon.gap.domain.pricerange.entities.PriceRange;
+import com.txacon.gap.domain.rating.entities.AggregateRating;
 import lombok.*;
 
 import java.time.LocalTime;
@@ -35,5 +36,5 @@ public class Business {
     private List<PaymentType> paymentMethods;
     private boolean active;
 
-    private CustomerEntity own;
+    private Long own;
 }

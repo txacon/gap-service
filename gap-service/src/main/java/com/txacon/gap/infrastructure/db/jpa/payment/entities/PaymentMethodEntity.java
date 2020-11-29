@@ -1,30 +1,33 @@
-package com.txacon.gap.infrastructure.db.jpa.bussines.entites;
+package com.txacon.gap.infrastructure.db.jpa.payment.entities;
 
 import com.txacon.gap.infrastructure.db.jpa.BaseEntity;
+import com.txacon.gap.infrastructure.db.jpa.bussines.entites.BusinessEntity;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
-@Entity(name = "aggregate_rating")
+@Entity(name = "payment_method")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"id"})
 @ToString
-public class AggregateRatingEntity extends BaseEntity implements Serializable {
+public class PaymentMethodEntity extends BaseEntity implements Serializable {
+
     @Id
     @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "aggregate_rating_id")
+    @Column(name = "payment_method_id")
     private Long id;
     @Getter
     @Setter
-    private String aggregateRatingName;
+    private String paymentType;
     @Getter
     @Setter
     private String description;
     @Getter
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "aggregateRating")
+    @ManyToMany(mappedBy = "paymentMethods")
     private Set<BusinessEntity> businesses;
+
 }

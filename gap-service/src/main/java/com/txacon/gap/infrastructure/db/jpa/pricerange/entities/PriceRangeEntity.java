@@ -1,6 +1,7 @@
-package com.txacon.gap.infrastructure.db.jpa.bussines.entites;
+package com.txacon.gap.infrastructure.db.jpa.pricerange.entities;
 
 import com.txacon.gap.infrastructure.db.jpa.BaseEntity;
+import com.txacon.gap.infrastructure.db.jpa.bussines.entites.BusinessEntity;
 import lombok.*;
 
 import javax.persistence.*;

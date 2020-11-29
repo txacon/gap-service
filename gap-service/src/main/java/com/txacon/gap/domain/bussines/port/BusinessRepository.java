@@ -6,7 +6,7 @@ import com.txacon.gap.domain.customer.entities.Customer;
 import java.util.List;
 import java.util.Optional;
 
-public interface BusinesRepository {
+public interface BusinessRepository {
 
     Optional<Business> findById(Long id);
 
@@ -15,4 +15,6 @@ public interface BusinesRepository {
     List<Business> findByOwnAndActive(Customer customer);
 
     List<Business> findAll();
+
+    Business save(Business business);
 }

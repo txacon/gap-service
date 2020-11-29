@@ -1,7 +1,6 @@
 package com.txacon.gap.infrastructure.db.jpa;
 
 
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;

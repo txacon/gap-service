@@ -1,4 +1,4 @@
-package com.txacon.gap.domain.common.entities;
+package com.txacon.gap.domain.rating.entities;
 
 public enum AggregateRating {
     ONE_START,

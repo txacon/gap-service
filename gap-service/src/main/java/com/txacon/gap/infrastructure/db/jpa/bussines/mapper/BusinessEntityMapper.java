@@ -1,65 +1,28 @@
 package com.txacon.gap.infrastructure.db.jpa.bussines.mapper;
 
 import com.txacon.gap.domain.bussines.entities.Business;
-import com.txacon.gap.domain.bussines.entities.PaymentType;
-import com.txacon.gap.domain.bussines.entities.PriceRange;
-import com.txacon.gap.domain.common.entities.AggregateRating;
 import com.txacon.gap.infrastructure.db.jpa.GenericDomainMapper;
-import com.txacon.gap.infrastructure.db.jpa.bussines.entites.AggregateRatingEntity;
 import com.txacon.gap.infrastructure.db.jpa.bussines.entites.BusinessEntity;
-import com.txacon.gap.infrastructure.db.jpa.bussines.entites.PaymentMethodEntity;
-import com.txacon.gap.infrastructure.db.jpa.bussines.entites.PriceRangeEntity;
+import com.txacon.gap.infrastructure.db.jpa.customer.entities.CustomerEntity;
+import com.txacon.gap.infrastructure.db.jpa.payment.mapper.PaymentMethodMapper;
+import com.txacon.gap.infrastructure.db.jpa.pricerange.mapper.PriceRangeMapper;
+import com.txacon.gap.infrastructure.db.jpa.rating.mapper.AggregateRatingMapper;
 import org.mapstruct.Mapper;
 
-import java.time.*;
-import java.util.Date;
+import java.util.Objects;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {LocalTimeMapper.class, AggregateRatingMapper.class, PriceRangeMapper.class, PaymentMethodMapper.class})
 public interface BusinessEntityMapper extends GenericDomainMapper<Business, BusinessEntity> {
 
-    default LocalTime toLocalTime(Date date) {
-        ZonedDateTime zonedDateTime = date.toInstant().atZone(ZoneId.systemDefault());
-        return LocalTime.of(zonedDateTime.getHour(), zonedDateTime.getMinute(), zonedDateTime.getSecond());
+    default Long mapToId(CustomerEntity customer) {
+        return Objects.isNull(customer) ? null : customer.getId();
     }
 
-    default Date toDate(LocalTime localTime) {
-        Instant instant = localTime.atDate(LocalDate.now()).atZone(ZoneId.systemDefault()).toInstant();
-        return Date.from(instant);
+    default CustomerEntity mapToCustomer(Long id) {
+        if (id == null) return null;
+        CustomerEntity customerEntity = new CustomerEntity();
+        customerEntity.setId(id);
+        return customerEntity;
     }
 
-    default AggregateRating toDomainAggregateRating(AggregateRatingEntity aggregateRatingEntity) {
-        if (aggregateRatingEntity == null) return null;
-        return AggregateRating.valueOf(aggregateRatingEntity.getAggregateRatingName());
-    }
-
-    default AggregateRatingEntity toEntityAggregationRating(AggregateRating aggregateRating) {
-        if (aggregateRating == null) return null;
-        AggregateRatingEntity aggregateRatingEntity = new AggregateRatingEntity();
-        aggregateRatingEntity.setAggregateRatingName(aggregateRating.name());
-        return aggregateRatingEntity;
-    }
-
-    default PriceRange toDomainPriceRangeRating(PriceRangeEntity priceRangeEntity) {
-        if (priceRangeEntity == null) return null;
-        return PriceRange.valueOf(priceRangeEntity.getPriceRangeName());
-    }
-
-    default PriceRangeEntity toEntityPriceRangeRating(PriceRange priceRange) {
-        if (priceRange == null) return null;
-        PriceRangeEntity priceRangeEntity = new PriceRangeEntity();
-        priceRangeEntity.setPriceRangeName(priceRange.name());
-        return priceRangeEntity;
-    }
-
-    default PaymentType toDomainPaymentType(PaymentMethodEntity paymentMethodEntity) {
-        if (paymentMethodEntity == null) return null;
-        return PaymentType.valueOf(paymentMethodEntity.getPaymentType());
-    }
-
-    default PaymentMethodEntity toEntityPaymentType(PaymentType paymentType) {
-        if (paymentType == null) return null;
-        PaymentMethodEntity paymentMethodEntity = new PaymentMethodEntity();
-        paymentMethodEntity.setPaymentType(paymentType.name());
-        return paymentMethodEntity;
-    }
 }

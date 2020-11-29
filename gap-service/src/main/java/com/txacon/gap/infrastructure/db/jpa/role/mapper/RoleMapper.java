@@ -22,7 +22,7 @@ public interface RoleMapper extends GenericDomainMapper<Role, RoleEntity> {
     }
 
 
-    default String toStrRoleName(RoleName roleName){
+    default String toStrRoleName(RoleName roleName) {
         return roleName.name();
     }
 }

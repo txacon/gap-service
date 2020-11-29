@@ -1,6 +1,6 @@
 package com.txacon.gap.domain.products.entities;
 
-import com.txacon.gap.domain.bussines.entities.Business;
+import com.txacon.gap.domain.tags.entities.TagName;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -15,7 +15,7 @@ import java.util.List;
 public class Product {
 
     private Long id;
-    private Business business;
+    private Long businessId;
     private BigDecimal wholeSalePrice;
     private BigDecimal retailPrice;
     private String photoLink;

@@ -1,6 +1,7 @@
-package com.txacon.gap.infrastructure.db.jpa.product.entities;
+package com.txacon.gap.infrastructure.db.jpa.tag.entities;
 
 import com.txacon.gap.infrastructure.db.jpa.BaseEntity;
+import com.txacon.gap.infrastructure.db.jpa.product.entities.ProductEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,5 +23,5 @@ public class TagEntity extends BaseEntity implements Serializable {
     @Column(name = "tag_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String priceRangeName;
+    private String tagName;
 }

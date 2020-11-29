@@ -2,6 +2,7 @@ package com.txacon.gap.infrastructure.db.jpa.product.entities;
 
 import com.txacon.gap.infrastructure.db.jpa.BaseEntity;
 import com.txacon.gap.infrastructure.db.jpa.bussines.entites.BusinessEntity;
+import com.txacon.gap.infrastructure.db.jpa.tag.entities.TagEntity;
 import lombok.*;
 
 import javax.persistence.*;
