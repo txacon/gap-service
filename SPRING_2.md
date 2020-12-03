@@ -2,7 +2,7 @@
 
 ## User histories
 
-- US_OO04: Como administrador del sistema quiero poder forzar el cambio de credencial de acceso de un usuario para garantizar la seguridad de su acceso.
+- US_0004: Como administrador del sistema quiero poder forzar el cambio de credencial de acceso de un usuario para garantizar la seguridad de su acceso.
 - US_0006: Como propietario de un negocio quiero poder dar de alta mi negocio dentro del sistema para poder ofrecer mis productos.
 - US_0005: Como cliente quiero poder cursar la baja en el mismo para ejercitar mi derecho a desistimiento.
 - US_0007: Como propietario de un negocio quiero poder dar de alta una carta de productos en mi negocio para que sean seleccionados por los clientes.
@@ -67,3 +67,6 @@ Son tablas maestras con valores fijos.
 
 ![Diagrama general de DB](doc_images/diagrama_completo_spring2.png)
 
+## VIDEO DEMOSTRACIÓN DE AVANCE.
+
+https://drive.google.com/file/d/1rg7z2xkT1cSvtQpU2H_f5wmCr7E0uUVG/view?usp=sharing
