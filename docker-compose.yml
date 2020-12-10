@@ -31,6 +31,24 @@ services:
         - 8080
       ports:
         - 8080:8080
+    backend:
+      container_name: backend
+      build:
+        context: backend/
+        dockerfile: Dockerfile
+      image: backend:latest
+      environment: 
+        DATABASE_NAME: gap
+        DATABASE_USER: test
+        DATABASE_PASS: test
+        DATABASE_HOSTNAME: gap_postgres
+        DATABASE_PORT: '5432'
+      depends_on: 
+        - gap_postgres
+      expose: 
+        - 8000
+      ports:
+        - 8000:8000
     nginx:
       image: nginx:alpine
       container_name: nginx
