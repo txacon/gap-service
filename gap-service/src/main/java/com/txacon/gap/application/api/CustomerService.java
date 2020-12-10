@@ -8,7 +8,7 @@ public interface CustomerService {
 
     Customer getByEmail(String email);
 
-    Customer getByEmailAndPasswordHash(String email, String passwordHash);
+    Customer getByEmailAndPassword(String email, String passwordHash);
 
     void deleteById(Long customerId);
 

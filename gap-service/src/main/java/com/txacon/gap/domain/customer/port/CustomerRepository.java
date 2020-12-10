@@ -10,7 +10,7 @@ public interface CustomerRepository {
 
     Optional<Customer> findByEmail(String email);
 
-    Optional<Customer> findByEmailAndPasswordHash(String email, String passwordHash);
+    Optional<Customer> findByEmailAndPassword(String email, String passwordHash);
 
     Customer save(Customer customer);
 

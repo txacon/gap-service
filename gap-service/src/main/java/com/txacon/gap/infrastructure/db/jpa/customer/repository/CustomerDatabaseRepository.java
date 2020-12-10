@@ -27,8 +27,8 @@ public class CustomerDatabaseRepository implements CustomerRepository {
     }
 
     @Override
-    public Optional<Customer> findByEmailAndPasswordHash(String email, String passwordHash) {
-        return crud.findByEmailAndPasswordHash(email, passwordHash).map(mapper::toDomainForAuthentication);
+    public Optional<Customer> findByEmailAndPassword(String email, String passwordHash) {
+        return crud.findByEmailAndPassword(email, passwordHash).map(mapper::toDomainForAuthentication);
     }
 
     @Override

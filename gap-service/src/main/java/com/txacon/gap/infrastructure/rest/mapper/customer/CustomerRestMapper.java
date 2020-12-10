@@ -10,10 +10,10 @@ import org.mapstruct.Mapping;
 @Mapper(uses = {AddressRestMapper.class, PhoneRestMapper.class, PasswordEncoderMapper.class}, componentModel = "spring")
 public interface CustomerRestMapper extends GenericRestMapper<CustomerDTO, Customer> {
     @Override
-    @Mapping(source = "password", target = "passwordHash", qualifiedByName = "passwordEncoding")
+    @Mapping(source = "password", target = "password", qualifiedByName = "passwordEncoding")
     Customer toDomain(CustomerDTO customerDTO);
 
     @Override
-    @Mapping(source = "passwordHash", target = "password", ignore = true)
+    @Mapping(source = "password", target = "password", ignore = true)
     CustomerDTO toDTO(Customer entity);
 }

@@ -15,9 +15,9 @@ public class Customer {
 
     private Long id;
     private String email;
-    private String passwordHash;
-    private String name;
-    private String midName;
+    private String password;
+    private String username;
+    private String fistName;
     private String lastName;
     private boolean active;
     private List<Address> addresses;

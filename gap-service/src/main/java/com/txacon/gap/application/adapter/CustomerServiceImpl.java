@@ -38,8 +38,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Loggable
-    public Customer getByEmailAndPasswordHash(String email, String passwordHash) {
-        return repository.findByEmailAndPasswordHash(email, passwordHash).orElseThrow(() -> new CustomerNotFoundException(ApiError.ERROR_CUSTOMER_NOT_FOUND_BY_EMAIL_AND_PASSWORD_HASH));
+    public Customer getByEmailAndPassword(String email, String passwordHash) {
+        return repository.findByEmailAndPassword(email, passwordHash).orElseThrow(() -> new CustomerNotFoundException(ApiError.ERROR_CUSTOMER_NOT_FOUND_BY_EMAIL_AND_PASSWORD_HASH));
     }
 
     @Override
@@ -61,7 +61,7 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer addCustomer(Customer customer) {
         if (customer.getId() != null ||
                 customer.getEmail() == null ||
-                customer.getPasswordHash() == null)
+                customer.getPassword() == null)
             throw new CustomerInvalidException(ApiError.ERROR_CUSTOMER_INVALID_TO_CREATE);
         customer.setActive(true);
         if (customer.getRoles() == null || customer.getRoles().isEmpty()) {

@@ -10,6 +10,6 @@ import java.util.Optional;
 interface CrudCustomerRepository extends JpaRepository<CustomerEntity, Long> {
     Optional<CustomerEntity> findByEmail(String email);
 
-    Optional<CustomerEntity> findByEmailAndPasswordHash(String email, String passwordHash);
+    Optional<CustomerEntity> findByEmailAndPassword(String email, String passwordHash);
 
 }
