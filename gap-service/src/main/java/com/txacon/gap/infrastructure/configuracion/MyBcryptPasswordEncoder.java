@@ -1,15 +1,30 @@
 package com.txacon.gap.infrastructure.configuracion;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.regex.Pattern;
 
-public class MyBcryptPasswordEncoder extends BCryptPasswordEncoder {
-    private final Pattern MY_BCRYPT_PATTERN = Pattern
-            .compile("bcrypt\\$\\$2(a|y|b)?\\$(\\d\\d)\\$[./0-9A-Za-z]{53}");
+public class MyBcryptPasswordEncoder implements PasswordEncoder {
 
-    public MyBcryptPasswordEncoder(BCryptVersion version, int strength) {
-        super(version, strength);
-        this.BCRYPT_PATTERN=MY_BCRYPT_PATTERN;
+    private static final String PREFIX_BCRYPT = "bcrypt$";
+
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public MyBcryptPasswordEncoder(BCryptPasswordEncoder.BCryptVersion version, int strength) {
+        bCryptPasswordEncoder = new BCryptPasswordEncoder(version, strength);
+    }
+
+
+    @Override
+    public String encode(CharSequence rawPassword) {
+        String encode = bCryptPasswordEncoder.encode(rawPassword);
+        return PREFIX_BCRYPT + encode;
+    }
+
+    @Override
+    public boolean matches(CharSequence rawPassword, String encodedPassword) {
+        String customEncodedPassword = encodedPassword.replace(PREFIX_BCRYPT,"");
+        return bCryptPasswordEncoder.matches(rawPassword,customEncodedPassword);
     }
 }

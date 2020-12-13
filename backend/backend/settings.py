@@ -20,7 +20,7 @@ def get_environment(env_variable, default_value):
     try:
         return os.environ[env_variable]
     except KeyError as e:
-        log.warning("Invalid enviroment key: " + env_variable)
+        log.warning("Eviroment key: " + env_variable + " not set")
         return default_value
 
 
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'import_export',
     'backadmin',
 ]
 
@@ -135,4 +136,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+
+
+## IMPORT EXPORT
+
+IMPORT_EXPORT_USE_TRANSACTIONS=True
+IMPORT_EXPORT_SKIP_ADMIN_LOG=False

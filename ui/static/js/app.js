@@ -1,10 +1,10 @@
 const localStorage = {
-  token : undefined,
-  username : undefined,
-  password : undefined,
-  user:  undefined
+  token: undefined,
+  username: undefined,
+  password: undefined,
+  user: undefined
 }
-var server = 'http://localhost:8080'
+var server = 'http://localhost:8082'
 
 const loadPage = (page) => {
   document.querySelector('#navigator').bringPageTop(page, { animation: 'fade' });
@@ -17,7 +17,7 @@ const getUserInfoCall = () => {
     url: server + '/customers/me',
     contentType: 'application/json',
     beforeSend: function (xhr) {   //Include the bearer token in header
-      xhr.setRequestHeader("Authorization", 'Bearer '+ localStorage.token);
+      xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.token);
     },
   }).done((data) => {
     localStorage['user'] = new Object(data);
@@ -69,16 +69,16 @@ const logout = () => {
 
 
 const login = () => {
-  const username = document.querySelector('#username').value;
-  const password = document.querySelector('#password').value;
+  const username = document.querySelector('#emailLogin').value;
+  const password = document.querySelector('#passwordLogin').value;
   getAuthTokenCall(username, password);
 }
 
 const loadUserData = () => {
   var user = localStorage.user;
-  document.querySelector('#name').value = user.name;
-  document.querySelector('#midname').value = user.midName;
-  document.querySelector('#lastname').value = user.lastName;
+  document.querySelector('#username').value = user.username;
+  document.querySelector('#firstName').value = user.firstName;
+  document.querySelector('#lastName').value = user.lastName;
   document.querySelector('#email').value = user.email;
   document.querySelector('#password').value = "";
   document.querySelector('#active').value = user.active;
@@ -86,9 +86,9 @@ const loadUserData = () => {
 
 const createUser = () => {
   var user = new Object();
-  user.name = document.querySelector('#name').value;
-  user.midName = document.querySelector('#midname').value;
-  user.lastName = document.querySelector('#lastname').value;
+  user.username = document.querySelector('#username').value;
+  user.firstName = document.querySelector('#firstName').value;
+  user.lastName = document.querySelector('#lastName').value;
   user.email = document.querySelector('#email').value;
   user.password = document.querySelector('#password').value;
   createUserCall(user);

@@ -17,7 +17,7 @@ public class Customer {
     private String email;
     private String password;
     private String username;
-    private String fistName;
+    private String firstName;
     private String lastName;
     private boolean active;
     private List<Address> addresses;

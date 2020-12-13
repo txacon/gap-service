@@ -25,7 +25,7 @@ public interface CustomerMapper extends GenericDomainMapper<Customer, CustomerEn
 
     @Mappings({
             @Mapping(target = "username", source = "username"),
-            @Mapping(target = "fistName", source = "fistName"),
+            @Mapping(target = "firstName", source = "firstName"),
             @Mapping(target = "lastName", source = "lastName"),
             @Mapping(target = "active", source = "active"),
             @Mapping(target = "addresses", source = "addresses"),

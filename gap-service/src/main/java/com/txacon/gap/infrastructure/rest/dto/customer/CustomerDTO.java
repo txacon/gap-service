@@ -16,7 +16,7 @@ public class CustomerDTO {
     private String email;
     private String password;
     private String username;
-    private String fistName;
+    private String firstName;
     private String lastName;
     private boolean active;
     private List<AddressDTO> addresses;

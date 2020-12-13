@@ -45,6 +45,7 @@ services:
         DATABASE_PORT: '5432'
       depends_on: 
         - gap_postgres
+        - gap_service
       expose: 
         - 8000
       ports:
