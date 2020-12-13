@@ -31,6 +31,23 @@ services:
         - 8080
       ports:
         - 8080:8080
+    backend_migrate:
+      container_name: backend_migrate
+      build:
+        context: backend/
+        dockerfile: Dockerfile
+      command: manage.py migrate
+      image: backend:latest
+      environment: 
+        DATABASE_NAME: gap
+        DATABASE_USER: test
+        DATABASE_PASS: test
+        DATABASE_HOSTNAME: gap_postgres
+        DATABASE_PORT: '5432'
+      depends_on: 
+        - "gap_postgres"
+        - "gap_service"
+        - "nginx"
     backend:
       container_name: backend
       build:
@@ -44,8 +61,7 @@ services:
         DATABASE_HOSTNAME: gap_postgres
         DATABASE_PORT: '5432'
       depends_on: 
-        - gap_postgres
-        - gap_service
+        - backend_migrate
       expose: 
         - 8000
       ports:

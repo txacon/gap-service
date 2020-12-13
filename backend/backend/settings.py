@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import logging
 import os
 from pathlib import Path
+from socket import gethostname, gethostbyname
 
 log = logging.getLogger(__name__)
 
@@ -36,7 +37,7 @@ SECRET_KEY = 'hb27$$4-rmo5w^7pfc4ph7ul*ft8+%r*cwouj=^69e16-!+xju'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -137,11 +138,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-STATIC_URL = '/static/'
+STATIC_URL = '/backend/static/'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
-
 
 ## IMPORT EXPORT
 
-IMPORT_EXPORT_USE_TRANSACTIONS=True
-IMPORT_EXPORT_SKIP_ADMIN_LOG=False
+IMPORT_EXPORT_USE_TRANSACTIONS = True
+IMPORT_EXPORT_SKIP_ADMIN_LOG = False
