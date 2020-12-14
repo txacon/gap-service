@@ -169,16 +169,6 @@ class Product(models.Model):
         managed = False
         db_table = 'product'
 
-
-class ProductTags(models.Model):
-    tag = models.ForeignKey(Product, models.DO_NOTHING)
-    product = models.ForeignKey('Tag', models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'product_tags'
-
-
 class Tag(models.Model):
     tag_id = models.CharField(primary_key=True, max_length=255)
     create_at = models.DateTimeField(blank=True, null=True)
@@ -187,4 +177,15 @@ class Tag(models.Model):
     class Meta:
         managed = False
         db_table = 'tag'
+
+class ProductTags(models.Model):
+    tag = models.OneToOneField(Product, models.DO_NOTHING, related_name='product_tags')
+    product = models.OneToOneField(Tag, models.DO_NOTHING, related_name='product_tags')
+
+    class Meta:
+        managed = False
+        db_table = 'product_tags'
+
+
+
 

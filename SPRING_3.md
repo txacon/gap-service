@@ -11,22 +11,31 @@
 
 Para los casos de uso anteriormente mencionados se diseña el siguiente flujo de interfaz.
 
-El flujo comprende las acciones necesarias para el alta de negocios y productos.
+El flujo comprende las interfaz de administración así como la gestión de cualquier componente de producto, la idea es dar a los propietarios de productos la categoria de staff y acceso a las tablas producto y negocio de la interfaz de administración.
 
-![Flujo de la interfaz](doc_images/interfaz_spring_2.png)
+Queda pendiente la limitación por permisos de acceso a esta interfaz.
 
-## Diseño de la api Rest
+Al ser una interfaz de administración que nos provee el framework, omitimos el flujo de diseño y adjuntamos algunos detalles de los casos de uso.
 
-Se añaden los siguientes endpoints, correspondientemente documentados en swagger, a los del primer spring
+Caso de uso de gestión de la db:
 
-![Rest Business](/doc_images/rest_business.png)
+![Detalle de la interfaz de administración](doc_images/spring3_admin1.png)
 
-![Rest Payment Methods](/doc_images/rest_payment_methods.png)
+Caso de uso de la gestión de un negocio:
 
-![Rest Price Ranges](/doc_images/rest_price_ranges.png)
+![Detalle creación de un negocio](doc_images/spring3_detalle_bussines.png)
 
-![Rest ProductTags](/doc_images/rest_product_tags.png)
+Caso de uso de la generación de reportes:
 
+![Detalle generación de reportes](doc_images/spring3_generacion_reportes.png)
+
+Caso de uso de auditoria:
+
+![Detalle de auditoría](doc_images/sprint3_auditoria.png)
+
+Caso de uso de gestión de usuarios:
+
+![Detalle de gestión de usuarios](doc_images/spring_3_detalle_customer.png)
 
 ## Diseño de la db
 
@@ -34,38 +43,24 @@ Para dar soporte a las acciones anteriormente descritas, se diseña la siguiente
 
 Describimos las relaciones antes de mostrar el diagrama general actualizado.
 
-- Customer - Business (Relación 1 a muchos)
+![Detalle de las relaciones añadidas en el spring 3](doc_images/spring3_diagrama_parcial.png)
 
-![Relación Customer - Address](doc_images/customer_business.png)
+Las relaciones se describen de la siguiente manera:
+ 
+ - Un Customer puede tener 0..n Permissions (Relación muchos a muchos)
+ - Un Customer puede tener 0..n Groups (Relación muchos a muchos)
+ - Un Grupo de permisos puede tener 0..n permisos (Relación muchos a muchos)
 
-- Business - Aggregate Rating y Price Range (Relación Muchos a 1): Ambos son valoraciones de los clientes uno hace referencia a la calidad/precio, típica valoración con estrellas y la otra al rango de precios.
+Los permisos efectivos son la intersección entre los permisos directamente asociados a el Customer y los pertenecientes a sus Grupos. 
 
-Son tablas maestras con valores fijos.
+Al final todas estas relaciones son provistas por el propio framework así como la relación de auditoria django_admin_log que será utilizada para generar auditoria de los logins de la aplicación.
 
-![Relación Customer - Phone](doc_images/business_ratings.png)
-
-![Detalle aggregate rating](doc_images/rating_data.png)
-
-![Detalle price range](doc_images/price_range_data.png)
-
-- PaymentMethods - Business (Relación muchos a muchos) Al igual que la anterior, también es una tabla maestra.
-
-![Relación Business - PaymentMethod](doc_images/business_payment.png)
-
-- Business - Producto (Relación 1 a muchos)
-
-![Relación Business - Product](doc_images/business_producto.png)
-
-- Producto - Tags (Relación muchos a muchos) Metadata útil para la búsqueda y segmentación de productos.
-
-![Relación Product - Tags](doc_images/product_tags.png)
-
-![Detalle de tags](doc_images/detalle_tags.png)
+Las tablas django_session y django_migrations contienen los token de sessión y los cambios realizados en los schemas de db respectivamente.
 
 ### Digrama general de base de datos
 
-![Diagrama general de DB](doc_images/diagrama_completo_spring2.png)
+![Diagrama general de DB](doc_images/spring3_diagramadb.png)
 
 ## VIDEO DEMOSTRACIÓN DE AVANCE.
 
-https://drive.google.com/file/d/1rg7z2xkT1cSvtQpU2H_f5wmCr7E0uUVG/view?usp=sharing
+https://drive.google.com/file/d/119vBcKptkiOUoCutcJ5AVlsrNxOa0mwY/view?usp=sharing
