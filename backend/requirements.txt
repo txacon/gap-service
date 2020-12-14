@@ -12,6 +12,7 @@ odfpy==1.4.1
 openpyxl==3.0.5
 psycopg2-binary==2.8.6
 pycparser==2.20
+PyMySQL==0.10.1
 pytz==2020.4
 PyYAML==5.3.1
 six==1.15.0

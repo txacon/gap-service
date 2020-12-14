@@ -21,13 +21,7 @@ import java.util.Set;
 @ToString
 public class BusinessEntity extends BaseEntity implements Serializable {
 
-    @Getter
-    @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "business_payment_method",
-            joinColumns = @JoinColumn(name = "business_id"),
-            inverseJoinColumns = @JoinColumn(name = "payment_method_id"))
-    private final Set<PaymentMethodEntity> paymentMethods = new HashSet<>();
+
     @Id
     @Column(name = "business_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,6 +52,13 @@ public class BusinessEntity extends BaseEntity implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "customer_id", nullable = false)
     private CustomerEntity own;
+    @Getter
+    @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "business_payment_method",
+            joinColumns = @JoinColumn(name = "business_id"),
+            inverseJoinColumns = @JoinColumn(name = "payment_method_id"))
+    private final Set<PaymentMethodEntity> paymentMethods = new HashSet<>();
 
     public void setPaymentMethods(Set<PaymentMethodEntity> paymentMethods) {
         this.paymentMethods.clear();

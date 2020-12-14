@@ -1,84 +1,99 @@
 version: '3.3'
 
 services:
-    gap_postgres:
-      container_name: gap_postgres
-      image: postgres:latest
-      volumes:
-        - db_data:/var/lib/postgresql/data
-      restart: always
-      expose: 
-        - 5432
-      ports: 
-        - 5432:5432
-      environment: 
-        POSTGRES_ROOT: testroot
-        POSTGRES_USER: test
-        POSTGRES_PASSWORD: test
-        POSTGRES_DB: gap
-    gap_service:
-      container_name: gap_service
-      build:
-        context: gap-service/
-        dockerfile: Dockerfile
-      image: gap_service:latest
-      environment: 
-        DB_HOST: gap_postgres
-        SPRING_PROFILES_ACTIVE: docker
-      depends_on: 
-        - gap_postgres
-      expose: 
-        - 8080
-      ports:
-        - 8080:8080
-    backend_migrate:
-      container_name: backend_migrate
-      build:
-        context: backend/
-        dockerfile: Dockerfile
-      command: manage.py migrate
-      image: backend:latest
-      environment: 
-        DATABASE_NAME: gap
-        DATABASE_USER: test
-        DATABASE_PASS: test
-        DATABASE_HOSTNAME: gap_postgres
-        DATABASE_PORT: '5432'
-      depends_on: 
-        - "gap_postgres"
-        - "gap_service"
-        - "nginx"
-    backend:
-      container_name: backend
-      build:
-        context: backend/
-        dockerfile: Dockerfile
-      image: backend:latest
-      environment: 
-        DATABASE_NAME: gap
-        DATABASE_USER: test
-        DATABASE_PASS: test
-        DATABASE_HOSTNAME: gap_postgres
-        DATABASE_PORT: '5432'
-      depends_on: 
-        - backend_migrate
-      expose: 
-        - 8000
-      ports:
-        - 8000:8000
-    nginx:
-      image: nginx:alpine
-      container_name: nginx
-      restart: unless-stopped
-      tty: true
-      depends_on: 
-        - gap_service
-      expose:
-        - 80
-      ports:
-        - "8081:80"
-      volumes:
-        - ./conf/nginx.conf:/etc/nginx/conf.d/default.conf
-        - ./ui:/ui/
+  gap_mysql:
+    image: mysql:latest
+    volumes:
+      - dbmysql:/var/lib/mysql
+    restart: always
+    expose: 
+        - 3306
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpw
+      MYSQL_DATABASE: gap
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+  gap_postgres:
+    container_name: gap_postgres
+    image: postgres:latest
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: always
+    expose: 
+      - 5432
+    ports: 
+      - 5432:5432
+    environment: 
+      POSTGRES_ROOT: test
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: gap
+  gap_service:
+    container_name: gap_service
+    build:
+      context: gap-service/
+      dockerfile: Dockerfile
+    image: gap_service:latest
+    environment: 
+      DB_HOST: gap_postgres
+      SPRING_PROFILES_ACTIVE: docker
+    depends_on: 
+      - gap_postgres
+    expose: 
+      - 8080
+    ports:
+      - 8080:8080
+  backend_migrate:
+    container_name: backend_migrate
+    build:
+      context: backend/
+      dockerfile: Dockerfile
+    command: manage.py migrate
+    image: backend:latest
+    environment: 
+      DATABASE_NAME: gap
+      DATABASE_USER: test
+      DATABASE_PASS: test
+      DATABASE_HOSTNAME: gap_postgres
+      DATABASE_PORT: '5432'
+    depends_on: 
+      - "gap_postgres"
+      - "gap_service"
+      - "nginx"
+  backend:
+    container_name: backend
+    build:
+      context: backend/
+      dockerfile: Dockerfile
+    image: backend:latest
+    environment: 
+      DATABASE_NAME: gap
+      DATABASE_USER: test
+      DATABASE_PASS: test
+      DATABASE_HOSTNAME: gap_postgres
+      DATABASE_PORT: '5432'
+    depends_on: 
+      - backend_migrate
+    expose: 
+      - 8000
+    ports:
+      - 8000:8000
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+    tty: true
+    depends_on: 
+      - gap_service
+    expose:
+      - 80
+    ports:
+      - "8081:80"
+    volumes:
+      - ./conf/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./ui:/ui/
 volumes:
     db_data:
+    dbmysql:
