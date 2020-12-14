@@ -1,20 +1,6 @@
 version: '3.3'
 
 services:
-  gap_mysql:
-    image: mysql:latest
-    volumes:
-      - dbmysql:/var/lib/mysql
-    restart: always
-    expose: 
-        - 3306
-    ports:
-      - 3306:3306
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpw
-      MYSQL_DATABASE: gap
-      MYSQL_USER: test
-      MYSQL_PASSWORD: test
   gap_postgres:
     container_name: gap_postgres
     image: postgres:latest
