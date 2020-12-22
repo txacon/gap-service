@@ -4,7 +4,7 @@ const localStorage = {
   password: undefined,
   user: undefined
 }
-var server = 'http://localhost:8082'
+var server = 'http://localhost:8080'
 
 const loadPage = (page) => {
   document.querySelector('#navigator').bringPageTop(page, { animation: 'fade' });
@@ -97,7 +97,6 @@ const createUser = () => {
 
 document.addEventListener('init', (event) => {
   if (event.target.matches('#user-update.page')) {
-    ons.notification.alert('Page 1 is initiated.');
     loadUserData();
   }
 });

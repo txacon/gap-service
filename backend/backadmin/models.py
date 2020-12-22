@@ -26,6 +26,9 @@ class Address(models.Model):
         managed = False
         db_table = 'address'
 
+    def __str__(self):
+        return str(self.street1) + " " + str(self.city)
+
 
 class AggregateRating(models.Model):
     aggregate_rating_id = models.CharField(primary_key=True, max_length=255)
@@ -35,6 +38,9 @@ class AggregateRating(models.Model):
     class Meta:
         managed = False
         db_table = 'aggregate_rating'
+
+    def __str__(self):
+        return str(self.aggregate_rating_id)
 
 
 class Business(models.Model):
@@ -64,6 +70,9 @@ class Business(models.Model):
         managed = False
         db_table = 'business'
 
+    def __str__(self):
+        return str(self.name)
+
 
 class BusinessPaymentMethod(models.Model):
     business = models.OneToOneField(Business, models.DO_NOTHING, primary_key=True)
@@ -73,6 +82,9 @@ class BusinessPaymentMethod(models.Model):
         managed = False
         db_table = 'business_payment_method'
         unique_together = (('business', 'payment_method'),)
+
+    def __str__(self):
+        return str(self.business) + " " + str(self.payment_method)
 
 
 class Role(models.Model):
@@ -84,6 +96,9 @@ class Role(models.Model):
     class Meta:
         managed = False
         db_table = 'role'
+
+    def __str__(self):
+        return str(self.name)
 
 
 class Customer(AbstractUser):
@@ -109,15 +124,21 @@ class Customer(AbstractUser):
     def date_joined(self):
         return self.create_at
 
+    def __str__(self):
+        return str(self.email)
+
 
 class CustomerRole(models.Model):
-    customer = models.OneToOneField(Customer, models.DO_NOTHING, primary_key=True,related_name='customer_roles')
-    role = models.OneToOneField(Role, models.DO_NOTHING,related_name='customer_roles')
+    customer = models.OneToOneField(Customer, models.DO_NOTHING, primary_key=True, related_name='customer_roles')
+    role = models.OneToOneField(Role, models.DO_NOTHING, related_name='customer_roles')
 
     class Meta:
         managed = False
         db_table = 'customer_role'
         unique_together = (('customer', 'role'),)
+
+    def __str__(self):
+        return str(self.customer) + ' ' + str(self.role)
 
 
 class PaymentMethod(models.Model):
@@ -128,6 +149,9 @@ class PaymentMethod(models.Model):
     class Meta:
         managed = False
         db_table = 'payment_method'
+
+    def __str__(self):
+        return str(self.payment_method_id)
 
 
 class Phone(models.Model):
@@ -142,6 +166,9 @@ class Phone(models.Model):
         managed = False
         db_table = 'phone'
 
+    def __str__(self):
+        return str(self.phone_number)
+
 
 class PriceRange(models.Model):
     price_range_id = models.CharField(primary_key=True, max_length=255)
@@ -151,6 +178,9 @@ class PriceRange(models.Model):
     class Meta:
         managed = False
         db_table = 'price_range'
+
+    def __str__(self):
+        return str(self.price_range_id)
 
 
 class Product(models.Model):
@@ -169,6 +199,10 @@ class Product(models.Model):
         managed = False
         db_table = 'product'
 
+    def __str__(self):
+        return str(self.name)
+
+
 class Tag(models.Model):
     tag_id = models.CharField(primary_key=True, max_length=255)
     create_at = models.DateTimeField(blank=True, null=True)
@@ -178,6 +212,10 @@ class Tag(models.Model):
         managed = False
         db_table = 'tag'
 
+    def __str__(self):
+        return str(self.tag_id)
+
+
 class ProductTags(models.Model):
     tag = models.OneToOneField(Product, models.DO_NOTHING, related_name='product_tags')
     product = models.OneToOneField(Tag, models.DO_NOTHING, related_name='product_tags')
@@ -186,6 +224,5 @@ class ProductTags(models.Model):
         managed = False
         db_table = 'product_tags'
 
-
-
-
+    def __str__(self):
+        return str(self.tag) + " " + str(self.product)
