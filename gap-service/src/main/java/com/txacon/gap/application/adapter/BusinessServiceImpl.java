@@ -7,11 +7,14 @@ import com.txacon.gap.application.exceptions.BusinessInvalidException;
 import com.txacon.gap.application.exceptions.BusinessNotFoundException;
 import com.txacon.gap.domain.bussines.entities.Business;
 import com.txacon.gap.domain.bussines.port.BusinessRepository;
+import com.txacon.gap.domain.products.entities.Product;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Service
@@ -29,7 +32,8 @@ public class BusinessServiceImpl implements BusinessService {
     @Override
     @Loggable
     public Business findById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new BusinessNotFoundException(ApiError.ERROR_BUSINESS_NOT_FOUND_BY_ID));
+        return repository.findById(id)
+                .orElseThrow(() -> new BusinessNotFoundException(ApiError.ERROR_BUSINESS_NOT_FOUND_BY_ID));
     }
 
     @Override
@@ -42,7 +46,8 @@ public class BusinessServiceImpl implements BusinessService {
     @Override
     @Loggable
     public Business update(Business business, Long idOwner) {
-        if (business.getId() == null) throw new BusinessInvalidException(ApiError.ERROR_BUSINESS_INVALID_TO_UPDATE);
+        if (business.getId() == null)
+            throw new BusinessInvalidException(ApiError.ERROR_BUSINESS_INVALID_TO_UPDATE);
         return saveBussines(business, idOwner);
     }
 
@@ -52,11 +57,44 @@ public class BusinessServiceImpl implements BusinessService {
         repository.deleteById(businessId);
     }
 
+    @Override
+    public Product addBussinessProduct(Long businessId, Product product) {
+        Business bussiness = repository.findById(businessId)
+                .orElseThrow(() -> new BusinessInvalidException(ApiError.ERROR_BUSINESS_INVALID_TO_UPDATE));
+        product.setId(null);
+        bussiness.getProducts().add(product);
+        repository.save(bussiness);
+        return product;
+    }
+
+    @Override
+    public Product updateBussinessProduct(Long bussinessId, Product product) {
+        Business bussiness = repository.findById(bussinessId)
+                .orElseThrow(() -> new BusinessInvalidException(ApiError.ERROR_BUSINESS_INVALID_TO_UPDATE));
+        if (product.getId() == null)
+            throw new BusinessInvalidException(ApiError.PRODUCT_INVALID_TO_UPDATE);
+        bussiness.getProducts().add(product);
+        repository.save(bussiness);
+        return product;
+
+    }
+
+    @Override
+    public void deleteProduct(Long businessId, Product product) {
+        Business business = repository.findById(businessId)
+                .orElseThrow(() -> new BusinessInvalidException(ApiError.ERROR_BUSINESS_INVALID_TO_UPDATE));
+        if (product.getId() == null)
+            throw new BusinessInvalidException(ApiError.PRODUCT_INVALID_TO_UPDATE);
+        business.getProducts().removeIf(e -> e.getId().equals(product.getId()));
+        repository.save(business);
+    }
 
     private Business saveBussines(Business business, Long idOwner) {
-        if (Stream.of(business.getEmail(), business.getFiscalId(), business.getPhone(), business.getCity(), business.getZipcode(), business.getStreet1()).anyMatch(Objects::isNull))
+        if (Stream.of(business.getEmail(), business.getFiscalId(), business.getPhone(), business.getCity(),
+                business.getZipcode(), business.getStreet1()).anyMatch(Objects::isNull))
             throw new BusinessInvalidException(ApiError.ERROR_BUSINESS_INVALID_TO_CREATE);
         business.setOwn(idOwner);
         return repository.save(business);
     }
+
 }

@@ -6,12 +6,14 @@ import com.txacon.gap.infrastructure.db.jpa.bussines.entites.BusinessEntity;
 import com.txacon.gap.infrastructure.db.jpa.customer.entities.CustomerEntity;
 import com.txacon.gap.infrastructure.db.jpa.payment.mapper.PaymentMethodMapper;
 import com.txacon.gap.infrastructure.db.jpa.pricerange.mapper.PriceRangeMapper;
+import com.txacon.gap.infrastructure.db.jpa.product.mapper.ProductMapper;
 import com.txacon.gap.infrastructure.db.jpa.rating.mapper.AggregateRatingMapper;
 import org.mapstruct.Mapper;
 
 import java.util.Objects;
 
-@Mapper(componentModel = "spring", uses = {LocalTimeMapper.class, AggregateRatingMapper.class, PriceRangeMapper.class, PaymentMethodMapper.class})
+@Mapper(componentModel = "spring", uses = { LocalTimeMapper.class, AggregateRatingMapper.class, PriceRangeMapper.class,
+        PaymentMethodMapper.class, ProductMapper.class })
 public interface BusinessEntityMapper extends GenericDomainMapper<Business, BusinessEntity> {
 
     default Long mapToId(CustomerEntity customer) {
@@ -19,7 +21,8 @@ public interface BusinessEntityMapper extends GenericDomainMapper<Business, Busi
     }
 
     default CustomerEntity mapToCustomer(Long id) {
-        if (id == null) return null;
+        if (id == null)
+            return null;
         CustomerEntity customerEntity = new CustomerEntity();
         customerEntity.setId(id);
         return customerEntity;

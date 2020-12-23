@@ -3,7 +3,10 @@ package com.txacon.gap.infrastructure.rest.api;
 import com.txacon.gap.application.api.BusinessService;
 import com.txacon.gap.application.aspect.Loggable;
 import com.txacon.gap.infrastructure.rest.dto.business.BusinessDTO;
+import com.txacon.gap.infrastructure.rest.dto.product.ProductDTO;
 import com.txacon.gap.infrastructure.rest.mapper.business.BusinessRestMapper;
+import com.txacon.gap.infrastructure.rest.mapper.product.ProductRestMapper;
+
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -15,6 +18,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @Api(tags = "Businesses")
@@ -24,6 +28,7 @@ public class BusinessController {
 
     private final BusinessService service;
     private final BusinessRestMapper mapper;
+    private final ProductRestMapper productRestMapper;
 
     @Loggable
     @PreAuthorize("hasRole({'ROLE_SELLER'})")
@@ -59,6 +64,34 @@ public class BusinessController {
                                                @Min(0) @Max(Long.MAX_VALUE) Long businessId) {
         service.deleteById(businessId);
         return ResponseEntity.ok().build();
+    }
+
+    @Loggable
+    @PreAuthorize("hasRole({'ROLE_SELLER'})")
+    @GetMapping(value = "/{businessId}/products", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ProductDTO>> getBussinessProducts(@PathVariable
+                                               @NotNull
+                                               @Min(0) @Max(Long.MAX_VALUE) Long businessId) {
+        return ResponseEntity.ok(mapper.toDTO(service.findById(businessId)).getProductDTOs());
+    }
+
+    @Loggable
+    @PreAuthorize("hasRole({'ROLE_SELLER'})")
+    @PutMapping(value = "/{businessId}/products", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> updateBussinessProduct(@PathVariable
+                                                    @NotNull
+                                                    @Min(0) @Max(Long.MAX_VALUE) Long businessId, @RequestBody ProductDTO productDTO) {
+        service.updateBussinessProduct(businessId, productRestMapper.toDomain(productDTO));
+        return ResponseEntity.accepted().build();
+    }
+
+    @Loggable
+    @PreAuthorize("hasRole({'ROLE_SELLER'})")
+    @DeleteMapping(value = "/{businessId}/products", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> deleteBussinessProduct(@PathVariable
+                                                       @NotNull
+                                                       @Min(0) @Max(Long.MAX_VALUE) Long businessId) {
+        return null;
     }
 
 }

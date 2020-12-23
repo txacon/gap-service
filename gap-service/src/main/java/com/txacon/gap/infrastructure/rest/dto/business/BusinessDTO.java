@@ -4,6 +4,8 @@ import lombok.*;
 
 import java.util.List;
 
+import com.txacon.gap.infrastructure.rest.dto.product.ProductDTO;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -30,6 +32,7 @@ public class BusinessDTO {
     private String aggregateRating;
     private String priceRange;
     private List<String> paymentMethods;
+    private List<ProductDTO> productDTOs;
     private boolean active;
 
     private Long own;

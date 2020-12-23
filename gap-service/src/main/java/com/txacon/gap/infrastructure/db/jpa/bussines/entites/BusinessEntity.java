@@ -1,26 +1,30 @@
 package com.txacon.gap.infrastructure.db.jpa.bussines.entites;
 
+import com.txacon.gap.domain.products.entities.Product;
 import com.txacon.gap.infrastructure.db.jpa.BaseEntity;
 import com.txacon.gap.infrastructure.db.jpa.customer.entities.CustomerEntity;
 import com.txacon.gap.infrastructure.db.jpa.payment.entities.PaymentMethodEntity;
 import com.txacon.gap.infrastructure.db.jpa.pricerange.entities.PriceRangeEntity;
+import com.txacon.gap.infrastructure.db.jpa.product.entities.ProductEntity;
 import com.txacon.gap.infrastructure.db.jpa.rating.entities.AggregateRatingEntity;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Data
 @Entity(name = "business")
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = {"id", "fiscalId"})
+@EqualsAndHashCode(of = { "id", "fiscalId" })
 @ToString
 public class BusinessEntity extends BaseEntity implements Serializable {
-
 
     @Id
     @Column(name = "business_id")
@@ -53,12 +57,19 @@ public class BusinessEntity extends BaseEntity implements Serializable {
     @JoinColumn(name = "customer_id", nullable = false)
     private CustomerEntity own;
     @Getter
-    @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "business_payment_method",
-            joinColumns = @JoinColumn(name = "business_id"),
-            inverseJoinColumns = @JoinColumn(name = "payment_method_id"))
+    @ManyToMany(cascade = { CascadeType.REFRESH }, fetch = FetchType.EAGER)
+    @JoinTable(name = "business_payment_method", joinColumns = @JoinColumn(name = "business_id"), inverseJoinColumns = @JoinColumn(name = "payment_method_id"))
     private final Set<PaymentMethodEntity> paymentMethods = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "business")
+    private final List<ProductEntity> products = new ArrayList<>();
+
+    public void setProducts(List<ProductEntity> products) {
+        this.products.clear();
+        products.forEach(e -> {
+            e.setBusiness(this);
+            this.getProducts().add(e);
+        });
+    }
 
     public void setPaymentMethods(Set<PaymentMethodEntity> paymentMethods) {
         this.paymentMethods.clear();

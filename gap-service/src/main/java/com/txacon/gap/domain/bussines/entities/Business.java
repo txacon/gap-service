@@ -2,6 +2,7 @@ package com.txacon.gap.domain.bussines.entities;
 
 import com.txacon.gap.domain.payment.entities.PaymentType;
 import com.txacon.gap.domain.pricerange.entities.PriceRange;
+import com.txacon.gap.domain.products.entities.Product;
 import com.txacon.gap.domain.rating.entities.AggregateRating;
 import lombok.*;
 
@@ -34,6 +35,7 @@ public class Business {
     private AggregateRating aggregateRating;
     private PriceRange priceRange;
     private List<PaymentType> paymentMethods;
+    private List<Product> products;
     private boolean active;
 
     private Long own;

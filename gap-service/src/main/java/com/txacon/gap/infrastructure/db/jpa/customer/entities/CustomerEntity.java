@@ -1,6 +1,5 @@
 package com.txacon.gap.infrastructure.db.jpa.customer.entities;
 
-
 import com.txacon.gap.infrastructure.db.jpa.BaseEntity;
 import com.txacon.gap.infrastructure.db.jpa.bussines.entites.BusinessEntity;
 import com.txacon.gap.infrastructure.db.jpa.role.entities.RoleEntity;
@@ -21,26 +20,23 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode(of = "id", callSuper = true)
-@Table(name = "customer",
-        indexes = {
-                @Index(columnList = "email, password, isActive", name = "email_password_active_indx", unique = true),
-                @Index(columnList = "email", name = "email_indx", unique = true),
-        }
-)
+@Table(name = "customer", indexes = {
+        @Index(columnList = "email, password, isActive", name = "email_password_active_indx", unique = true),
+        @Index(columnList = "email", name = "email_indx", unique = true), })
 public class CustomerEntity extends BaseEntity implements Serializable {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "customer_id")
+    private Long id;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private final Set<PhoneEntity> phones = new HashSet<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private final Set<AddressEntity> addresses = new HashSet<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "own")
     private final Set<BusinessEntity> businesses = new HashSet<>();
-    @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "customer_role",
-            joinColumns = @JoinColumn(name = "customer_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ManyToMany(cascade = { CascadeType.REFRESH }, fetch = FetchType.EAGER)
+    @JoinTable(name = "customer_role", joinColumns = @JoinColumn(name = "customer_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private final Set<RoleEntity> roles = new HashSet<>();
     @NotEmpty(message = "*Please provide an name")
     private String username;
@@ -55,10 +51,6 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     private boolean isStaff = false;
     private boolean isSuperuser = false;
     private LocalDateTime lastLogin;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_id")
-    private Long id;
 
     public void setRoles(Set<RoleEntity> roles) {
         this.roles.clear();
@@ -69,7 +61,8 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     }
 
     public void setPhones(Set<PhoneEntity> phones) {
-        if (Objects.isNull(phones)) return;
+        if (Objects.isNull(phones))
+            return;
         this.phones.clear();
         for (PhoneEntity phone : phones) {
             phone.setCustomer(this);
@@ -78,13 +71,13 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     }
 
     public void setAddresses(Set<AddressEntity> addresses) {
-        if (Objects.isNull(addresses)) return;
+        if (Objects.isNull(addresses))
+            return;
         this.addresses.clear();
         for (AddressEntity address : addresses) {
             address.setCustomer(this);
             this.addresses.add(address);
         }
     }
-
 
 }

@@ -39,7 +39,7 @@ public class ProductEntity extends BaseEntity implements Serializable {
     private List<TagEntity> productTags;
     private boolean active;
 
-    public void setProductTags(Set<TagEntity> productTags) {
+    public void setProductTags(List<TagEntity> productTags) {
         this.productTags.clear();
         for (TagEntity productTag : productTags) {
             productTag.getProducts().add(this);

@@ -12,7 +12,8 @@ public enum ApiError {
     ERROR_ENTITY_NOT_FOUND_BY_NAME("Entity not found by name"),
     ERROR_BUSINESS_NOT_FOUND_BY_ID("Business not found by Id"),
     ERROR_BUSINESS_INVALID_TO_CREATE("Business fields (fiscalId, Address and email) ara mandatory"),
-    ERROR_BUSINESS_INVALID_TO_UPDATE("Business need id to update");
+    ERROR_BUSINESS_INVALID_TO_UPDATE("Business need id to update"),
+    PRODUCT_INVALID_TO_UPDATE("Invalid producto to update, need to have valid id");
 
 
     @Getter
