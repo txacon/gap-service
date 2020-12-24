@@ -3,6 +3,7 @@ package com.txacon.gap.infrastructure.db.jpa.bussines.repository;
 import com.txacon.gap.domain.bussines.entities.Business;
 import com.txacon.gap.domain.bussines.port.BusinessRepository;
 import com.txacon.gap.domain.customer.entities.Customer;
+import com.txacon.gap.infrastructure.db.jpa.bussines.entites.BusinessEntity;
 import com.txacon.gap.infrastructure.db.jpa.bussines.mapper.BusinessEntityMapper;
 import com.txacon.gap.infrastructure.db.jpa.customer.entities.CustomerEntity;
 import com.txacon.gap.infrastructure.db.jpa.customer.mapper.CustomerMapper;
@@ -35,7 +36,8 @@ public class BusinessDatabaseRepository implements BusinessRepository {
 
     @Override
     public List<Business> findByOwnId(Long customerId) {
-        return repository.findByOwnId(customerId).stream().map(mapper::toDomain).collect(Collectors.toList());
+        List<BusinessEntity> findByOwnId = repository.findByOwnId(customerId);
+        return findByOwnId.stream().map(mapper::toDomain).collect(Collectors.toList());
     }
 
     @Override

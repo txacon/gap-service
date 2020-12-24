@@ -32,7 +32,8 @@ public class BusinessServiceImpl implements BusinessService {
 
     @Override
     public List<Business> findByOwnerId(Long idOwner) {
-        return repository.findByOwnId(idOwner);
+        List<Business> findByOwnId = repository.findByOwnId(idOwner);
+        return findByOwnId;
     }
 
     @Override
