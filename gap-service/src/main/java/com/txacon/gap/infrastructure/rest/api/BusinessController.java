@@ -19,6 +19,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @Api(tags = "Businesses")
@@ -32,17 +33,25 @@ public class BusinessController {
 
     @Loggable
     @PreAuthorize("hasRole({'ROLE_SELLER'})")
+    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<BusinessDTO>> getBusiness(Principal principal) {
+        Long customerId = Long.parseLong(principal.getName());
+        return ResponseEntity.ok(service.findByOwnerId(customerId).stream().map(mapper::toDTO).collect(Collectors.toList()));
+    }
+
+    @Loggable
+    @PreAuthorize("hasRole({'ROLE_SELLER'})")
     @GetMapping(value = "/{businessId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BusinessDTO> getBusiness(@PathVariable
-                                                   @NotNull
-                                                   @Min(0) @Max(Long.MAX_VALUE) Long businessId) {
+    public ResponseEntity<BusinessDTO> getBusiness(
+            @PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long businessId) {
         return ResponseEntity.ok(mapper.toDTO(service.findById(businessId)));
     }
 
     @Loggable
+    @PreAuthorize("hasRole({'ROLE_SELLER'})")
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BusinessDTO> createBusiness(Principal principal, @RequestBody
-    @NotNull BusinessDTO businessDTO) {
+    public ResponseEntity<BusinessDTO> createBusiness(Principal principal,
+            @RequestBody @NotNull BusinessDTO businessDTO) {
         Long customerId = Long.parseLong(principal.getName());
         return ResponseEntity.accepted().body(mapper.toDTO(service.add(mapper.toDomain(businessDTO), customerId)));
     }
@@ -50,8 +59,8 @@ public class BusinessController {
     @Loggable
     @PreAuthorize("hasRole({'ROLE_SELLER'})")
     @PutMapping(value = "/{businessId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BusinessDTO> updateBusiness(Principal principal, @RequestBody
-    @NotNull BusinessDTO businessDTO) {
+    public ResponseEntity<BusinessDTO> updateBusiness(Principal principal,
+            @RequestBody @NotNull BusinessDTO businessDTO) {
         Long customerId = Long.parseLong(principal.getName());
         return ResponseEntity.accepted().body(mapper.toDTO(service.update(mapper.toDomain(businessDTO), customerId)));
     }
@@ -59,9 +68,7 @@ public class BusinessController {
     @Loggable
     @PreAuthorize("hasRole({'ROLE_SELLER'})")
     @DeleteMapping(value = "/{businessId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> deleteBusiness(@PathVariable
-                                               @NotNull
-                                               @Min(0) @Max(Long.MAX_VALUE) Long businessId) {
+    public ResponseEntity<Void> deleteBusiness(@PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long businessId) {
         service.deleteById(businessId);
         return ResponseEntity.ok().build();
     }
@@ -69,18 +76,16 @@ public class BusinessController {
     @Loggable
     @PreAuthorize("hasRole({'ROLE_SELLER'})")
     @GetMapping(value = "/{businessId}/products", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ProductDTO>> getBussinessProducts(@PathVariable
-                                               @NotNull
-                                               @Min(0) @Max(Long.MAX_VALUE) Long businessId) {
+    public ResponseEntity<List<ProductDTO>> getBussinessProducts(
+            @PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long businessId) {
         return ResponseEntity.ok(mapper.toDTO(service.findById(businessId)).getProductDTOs());
     }
 
     @Loggable
     @PreAuthorize("hasRole({'ROLE_SELLER'})")
     @PutMapping(value = "/{businessId}/products", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> updateBussinessProduct(@PathVariable
-                                                    @NotNull
-                                                    @Min(0) @Max(Long.MAX_VALUE) Long businessId, @RequestBody ProductDTO productDTO) {
+    public ResponseEntity<Void> updateBussinessProduct(
+            @PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long businessId, @RequestBody ProductDTO productDTO) {
         service.updateBussinessProduct(businessId, productRestMapper.toDomain(productDTO));
         return ResponseEntity.accepted().build();
     }
@@ -88,9 +93,8 @@ public class BusinessController {
     @Loggable
     @PreAuthorize("hasRole({'ROLE_SELLER'})")
     @DeleteMapping(value = "/{businessId}/products", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> deleteBussinessProduct(@PathVariable
-                                                       @NotNull
-                                                       @Min(0) @Max(Long.MAX_VALUE) Long businessId) {
+    public ResponseEntity<Void> deleteBussinessProduct(
+            @PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long businessId) {
         return null;
     }
 

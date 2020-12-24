@@ -7,6 +7,7 @@ import com.txacon.gap.application.exceptions.BusinessInvalidException;
 import com.txacon.gap.application.exceptions.BusinessNotFoundException;
 import com.txacon.gap.domain.bussines.entities.Business;
 import com.txacon.gap.domain.bussines.port.BusinessRepository;
+import com.txacon.gap.domain.customer.entities.Customer;
 import com.txacon.gap.domain.products.entities.Product;
 
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,16 @@ public class BusinessServiceImpl implements BusinessService {
     @Loggable
     public List<Business> findAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public List<Business> findByOwnerId(Long idOwner) {
+        return repository.findByOwnId(idOwner);
+    }
+
+    @Override
+    public List<Business> findByOwner(Customer owner) {
+        return repository.findByOwn(owner);
     }
 
     @Override

@@ -34,6 +34,11 @@ public class BusinessDatabaseRepository implements BusinessRepository {
     }
 
     @Override
+    public List<Business> findByOwnId(Long customerId) {
+        return repository.findByOwnId(customerId).stream().map(mapper::toDomain).collect(Collectors.toList());
+    }
+
+    @Override
     public List<Business> findByOwnAndActive(Customer customer) {
         CustomerEntity customerEntity = customerMapper.toEntity(customer);
         return repository.findByOwnAndActiveTrue(customerEntity).stream().map(mapper::toDomain).collect(Collectors.toList());

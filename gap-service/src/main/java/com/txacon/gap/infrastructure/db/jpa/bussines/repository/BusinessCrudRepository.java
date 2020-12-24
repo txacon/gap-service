@@ -9,6 +9,9 @@ import java.util.List;
 
 @Repository
 interface BusinessCrudRepository extends JpaRepository<BusinessEntity, Long> {
+
+    List<BusinessEntity> findByOwnId(Long id);
+
     List<BusinessEntity> findByOwn(CustomerEntity customerEntity);
 
     List<BusinessEntity> findByOwnAndActiveTrue(CustomerEntity customerEntity);

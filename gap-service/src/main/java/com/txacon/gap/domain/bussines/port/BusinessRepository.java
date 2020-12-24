@@ -12,6 +12,8 @@ public interface BusinessRepository {
 
     List<Business> findByOwn(Customer customer);
 
+    List<Business> findByOwnId(Long customerId);
+
     List<Business> findByOwnAndActive(Customer customer);
 
     List<Business> findAll();
