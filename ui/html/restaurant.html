@@ -8,7 +8,13 @@
   
     <div class="formarea">
       <div class="form-row">
+        <input id="id" type="text" class="text-input--underbar width-full" placeholder="Id">
+      </div>
+      <div class="form-row">
         <input id="name" type="text" class="text-input--underbar width-full" placeholder="Name">
+      </div>
+      <div class="form-row">
+        <input id="description" type="text" class="text-input--underbar width-full" placeholder="Description">
       </div>
       <div class="form-row">
         <input id="fiscalId" type="text" class="text-input--underbar width-full" placeholder="FiscalId">
@@ -40,9 +46,14 @@
       <div class="form-row">
         <input id="phone" type="text" class="text-input--underbar width-full" placeholder="Phone">
       </div>
-  
+      <div class="form-row">
+        <input id="aggregateRating" type="text" class="text-input--underbar width-full" placeholder="AggregateRating">
+      </div>
+      <div class="form-row">
+        <input id="priceRange" type="text" class="text-input--underbar width-full" placeholder="PriceRange">
+      </div>
       <div class="vspc form-row">
-        <ons-button modifier="large--cta" onclick="createRestaurant()">Registrarse</ons-button>
+        <ons-button modifier="large--cta" onclick="updateBusiness()">Guardar restaurante</ons-button>
       </div>
     </div>
   

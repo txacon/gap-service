@@ -19,15 +19,15 @@ const restaurantsLoad = () => {
     }
   }).done((data) => {
     console.log("Xhr response: " + JSON.stringify(data));
-    for (var business in data){
+    data.forEach(item => {
       var onsItem= document.createElement('ons-list-item');
       onsItem.setAttribute('modifier', "chevron");
-      onsItem.setAttribute('onclick', "loadRestaurant("+business.id+")");
-      onsItem.innerHTML = '<img src="" alt="'+business.name+'" />';
+      onsItem.setAttribute('onclick', "loadPage('html/restaurant.html'); loadRestaurant("+item.id+")");
+      onsItem.innerHTML = '<img src="" alt="'+item.name+'" />';
       document.getElementById('business-list').appendChild(onsItem);
-    }
+    });
   }).fail((error) => {
-    console.log("Error: " + error)
+    console.error("Error: " + error)
     ons.notification.alert('Error en la obtención de los businesses');
   })
 }
@@ -41,11 +41,10 @@ const loadRestaurant = (businessId) => {
       xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.token);
     }
   }).done((data) => {
-    console.log("Xhr response: " + JSON.stringify(data));
-    loadPage('html/restaurant.html');
+    console.error("Xhr response: " + JSON.stringify(data));
     loadBusiness(data);
   }).fail((error) => {
-    console.log("Error: " + error)
+    console.error("Error: " + error)
     ons.notification.alert('Error en la obtención de los businesses');
   })
 }
@@ -69,7 +68,7 @@ const getUserInfoCall = () => {
   }).done((data) => {
     localStorage['user'] = new Object(data);
   }).fail((error) => {
-    console.log("Error: " + error)
+    console.error("Error: " + error)
     ons.notification.alert('Error en el usuario o password');
   })
 }
@@ -88,7 +87,7 @@ const getAuthTokenCall = (username, password) => {
     getUserInfoCall();
     loadPage('html/home.html')
   }).fail((error) => {
-    console.log("Error: " + error)
+    console.error("Error: " + error)
     ons.notification.alert('Error en el usuario o password');
   })
 }
@@ -123,10 +122,30 @@ const createBusinessCall = (business) => {
     }
   }).done((data) => {
     console.log("Xhr response: " + JSON.stringify(data))
-    loadPage('index.html')
+    loadPage('html/restaurants.html'); 
+    restaurantsLoad();
   }).fail((error) => {
     console.log("Error: " + error)
-    ons.notification.alert('Error en la creación de usuario');
+    ons.notification.alert('Error en la creación de negocio');
+  })
+}
+
+const updateBusinessCall = (business) => {
+  $.ajax({
+    type: 'PUT',
+    url: server + '/business',
+    data: JSON.stringify(business),
+    contentType: 'application/json',
+    beforeSend: function (xhr) {   //Include the bearer token in header
+      xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.token);
+    }
+  }).done((data) => {
+    console.log("Xhr response: " + JSON.stringify(data))
+    loadPage('html/restaurants.html'); 
+    restaurantsLoad();
+  }).fail((error) => {
+    console.log("Error: " + error)
+    ons.notification.alert('Error en la actualización de negocio');
   })
 }
 
@@ -182,26 +201,14 @@ const createUser = () => {
 }
 
 const createBusiness = () => {
-  var business = new Object();
-  business.active = getValue('active');
-  business.city = getValue('city');
-  business.closeHour = getValue('closeHour');
-  business.country = getValue('country');
-  business.description = getValue('description');
-  business.email = getValue('email');
-  business.fiscalId = getValue('fiscalId');
-  business.name = getValue('name');
-  business.openHour = getValue('openHour');
-  business.phone = getValue('phone');
-  business.phonePrefix = getValue('phonePrefix');
-  business.state = getValue('state');
-  business.street1 = getValue('street1');
-  business.street2 = getValue('street2');
-  business.zipcode = getValue('zipcode');
-  business.aggregateRating = getValue('aggregateRating');
-  business.own = localStorage.user.id;
-  business.priceRange = getValue('priceRange');
-  createBusiness(business);
+  var business = extractFormBusinessData();
+  business.id = undefined;
+  createBusinessCall(business);
+}
+
+const updateBusiness = () => {
+  var business = extractFormBusinessData();
+  updateBusinessCall(business);
 }
 
 const loadBusiness = (business) => {
@@ -221,7 +228,7 @@ const loadBusiness = (business) => {
   setValue('street2',business.street2);
   setValue('zipcode',business.zipcode);
   setValue('aggregateRating',business.aggregateRating);
-  blocalStorage.user.id;
+  setValue('id',localStorage.user.id);
   setValue('priceRange',business.priceRange);
   createBusiness(business);
 }
@@ -242,7 +249,7 @@ const createProduct = (businessId) => {
 
 const getValue = (fieldName) => {
   if (!document.querySelector('#' + fieldName)) {
-    console.log.error("No found field: " + fieldName);
+    console.error("No found field: " + fieldName);
     return undefined;
   }
   return document.querySelector('#' + fieldName).value;
@@ -250,7 +257,7 @@ const getValue = (fieldName) => {
 
 const setValue = (fieldName, value) => {
   if (!document.querySelector('#' + fieldName)) {
-    console.log.error("No found field: " + fieldName);
+    console.error("No found field: " + fieldName);
     return undefined;
   }
   document.querySelector('#' + fieldName).value = value;
@@ -267,3 +274,26 @@ document.addEventListener('prechange', (event) => {
   document.querySelector('ons-toolbar .center')
     .innerHTML = event.tabItem.getAttribute('label');
 });
+
+const extractFormBusinessData = () => {
+  var business = new Object();
+  business.active = getValue('active');
+  business.city = getValue('city');
+  business.closeHour = getValue('closeHour');
+  business.country = getValue('country');
+  business.description = getValue('description');
+  business.email = getValue('email');
+  business.fiscalId = getValue('fiscalId');
+  business.name = getValue('name');
+  business.openHour = getValue('openHour');
+  business.phone = getValue('phone');
+  business.phonePrefix = getValue('phonePrefix');
+  business.state = getValue('state');
+  business.street1 = getValue('street1');
+  business.street2 = getValue('street2');
+  business.zipcode = getValue('zipcode');
+  business.aggregateRating = getValue('aggregateRating');
+  business.own = localStorage.user.id;
+  business.priceRange = getValue('priceRange');
+  return business;
+}
