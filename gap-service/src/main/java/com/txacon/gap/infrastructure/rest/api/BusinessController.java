@@ -31,12 +31,13 @@ public class BusinessController {
     private final BusinessRestMapper mapper;
     private final ProductRestMapper productRestMapper;
 
-    @Loggable
+    @LoggablebussinessId
     @PreAuthorize("hasRole({'ROLE_SELLER'})")
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<BusinessDTO>> getBusiness(Principal principal) {
         Long customerId = Long.parseLong(principal.getName());
-        return ResponseEntity.ok(service.findByOwnerId(customerId).stream().map(mapper::toDTO).collect(Collectors.toList()));
+        return ResponseEntity
+                .ok(service.findByOwnerId(customerId).stream().map(mapper::toDTO).collect(Collectors.toList()));
     }
 
     @Loggable
@@ -79,6 +80,15 @@ public class BusinessController {
     public ResponseEntity<List<ProductDTO>> getBussinessProducts(
             @PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long businessId) {
         return ResponseEntity.ok(mapper.toDTO(service.findById(businessId)).getProductDTOs());
+    }
+
+    @Loggable
+    @PreAuthorize("hasRole({'ROLE_SELLER'})")
+    @GetMapping(value = "/{businessId}/products", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> addBussinessProduct(@PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long businessId,
+            @RequestBody ProductDTO productDTO) {
+        service.addBussinessProduct(businessId, productRestMapper.toDomain(productDTO));
+        return ResponseEntity.accepted().build();
     }
 
     @Loggable

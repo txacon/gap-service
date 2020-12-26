@@ -1,60 +1,65 @@
 <ons-page>
-    <ons-toolbar>
-      <div class="left">
-        <ons-back-button>Back</ons-back-button>
-      </div>
-      <div class="center">Restaurant</div>
-    </ons-toolbar>
-  
-    <div class="formarea">
-      <div class="form-row">
-        <input id="id" type="text" class="text-input--underbar width-full" placeholder="Id">
-      </div>
-      <div class="form-row">
-        <input id="name" type="text" class="text-input--underbar width-full" placeholder="Name">
-      </div>
-      <div class="form-row">
-        <input id="description" type="text" class="text-input--underbar width-full" placeholder="Description">
-      </div>
-      <div class="form-row">
-        <input id="fiscalId" type="text" class="text-input--underbar width-full" placeholder="FiscalId">
-      </div>
-      <div class="form-row">
-        <input id="email" type="text" class="text-input--underbar width-full" placeholder="Email">
-      </div>
-      <div class="form-row">
-        <input id="street1" type="text" class="text-input--underbar width-full" placeholder="Street 1">
-      </div>
-      <div class="form-row">
-        <input id="street2" type="text" class="text-input--underbar width-full" placeholder="street 2">
-      </div>
-      <div class="form-row">
-        <input id="city" type="text" class="text-input--underbar width-full" placeholder="City">
-      </div>
-      <div class="form-row">
-        <input id="zipcode" type="text" class="text-input--underbar width-full" placeholder="Zipcode">
-      </div>
-      <div class="form-row">
-        <input id="state" type="text" class="text-input--underbar width-full" placeholder="State">
-      </div>
-      <div class="form-row">
-        <input id="country" type="text" class="text-input--underbar width-full" placeholder="Country">
-      </div>
-      <div class="form-row">
-        <input id="phoneprefix" type="text" class="text-input--underbar width-full" placeholder="Phone Prefix">
-      </div>
-      <div class="form-row">
-        <input id="phone" type="text" class="text-input--underbar width-full" placeholder="Phone">
-      </div>
-      <div class="form-row">
-        <input id="aggregateRating" type="text" class="text-input--underbar width-full" placeholder="AggregateRating">
-      </div>
-      <div class="form-row">
-        <input id="priceRange" type="text" class="text-input--underbar width-full" placeholder="PriceRange">
-      </div>
-      <div class="vspc form-row">
-        <ons-button modifier="large--cta" onclick="updateBusiness()">Guardar restaurante</ons-button>
-      </div>
+  <ons-toolbar>
+    <div class="left">
+      <ons-back-button>Back</ons-back-button>
     </div>
-  
-  </ons-page>
+    <div class="center">Restaurant</div>
+  </ons-toolbar>
+
+  <div class="formarea">
+    <div class="form-row">
+      <input id="id" type="text" class="text-input--underbar width-full" placeholder="Id">
+    </div>
+    <div class="form-row">
+      <input id="name" type="text" class="text-input--underbar width-full" placeholder="Name">
+    </div>
+    <div class="form-row">
+      <input id="description" type="text" class="text-input--underbar width-full" placeholder="Description">
+    </div>
+    <div class="form-row">
+      <input id="fiscalId" type="text" class="text-input--underbar width-full" placeholder="FiscalId">
+    </div>
+    <div class="form-row">
+      <input id="email" type="text" class="text-input--underbar width-full" placeholder="Email">
+    </div>
+    <div class="form-row">
+      <input id="street1" type="text" class="text-input--underbar width-full" placeholder="Street 1">
+    </div>
+    <div class="form-row">
+      <input id="street2" type="text" class="text-input--underbar width-full" placeholder="street 2">
+    </div>
+    <div class="form-row">
+      <input id="city" type="text" class="text-input--underbar width-full" placeholder="City">
+    </div>
+    <div class="form-row">
+      <input id="zipcode" type="text" class="text-input--underbar width-full" placeholder="Zipcode">
+    </div>
+    <div class="form-row">
+      <input id="state" type="text" class="text-input--underbar width-full" placeholder="State">
+    </div>
+    <div class="form-row">
+      <input id="country" type="text" class="text-input--underbar width-full" placeholder="Country">
+    </div>
+    <div class="form-row">
+      <input id="phoneprefix" type="text" class="text-input--underbar width-full" placeholder="Phone Prefix">
+    </div>
+    <div class="form-row">
+      <input id="phone" type="text" class="text-input--underbar width-full" placeholder="Phone">
+    </div>
+    <div class="form-row">
+      <input id="aggregateRating" type="text" class="text-input--underbar width-full" placeholder="AggregateRating">
+    </div>
+    <div class="form-row">
+      <input id="priceRange" type="text" class="text-input--underbar width-full" placeholder="PriceRange">
+    </div>
+    <ons-list id="opt-list">
+      <ons-list-item class="menu_item" modifier="chevron" tappable onclick="loadPage('html/products.html'); ">
+        <ons-icon icon="md-information"></ons-icon>&ThinSpace; Productos
+      </ons-list-item>
+    </ons-list>
+    <div class="vspc form-row">
+      <ons-button modifier="large--cta" onclick="updateBusiness()">Guardar restaurante</ons-button>
+    </div>
+  </div>
+
+</ons-page>
