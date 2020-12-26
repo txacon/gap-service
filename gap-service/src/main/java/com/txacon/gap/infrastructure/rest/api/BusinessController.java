@@ -2,6 +2,8 @@ package com.txacon.gap.infrastructure.rest.api;
 
 import com.txacon.gap.application.api.BusinessService;
 import com.txacon.gap.application.aspect.Loggable;
+import com.txacon.gap.application.exceptions.ApiError;
+import com.txacon.gap.application.exceptions.BusinessNotFoundException;
 import com.txacon.gap.infrastructure.rest.dto.business.BusinessDTO;
 import com.txacon.gap.infrastructure.rest.dto.product.ProductDTO;
 import com.txacon.gap.infrastructure.rest.mapper.business.BusinessRestMapper;
@@ -19,6 +21,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -31,7 +34,7 @@ public class BusinessController {
     private final BusinessRestMapper mapper;
     private final ProductRestMapper productRestMapper;
 
-    @LoggablebussinessId
+    @Loggable
     @PreAuthorize("hasRole({'ROLE_SELLER'})")
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<BusinessDTO>> getBusiness(Principal principal) {
@@ -74,6 +77,8 @@ public class BusinessController {
         return ResponseEntity.ok().build();
     }
 
+    // PRODUCTS
+
     @Loggable
     @PreAuthorize("hasRole({'ROLE_SELLER'})")
     @GetMapping(value = "/{businessId}/products", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -84,7 +89,17 @@ public class BusinessController {
 
     @Loggable
     @PreAuthorize("hasRole({'ROLE_SELLER'})")
-    @GetMapping(value = "/{businessId}/products", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{businessId}/products/{productId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ProductDTO> getBusinessProductById(
+            @PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long businessId,
+            @PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long productId) {
+                Optional<ProductDTO> productSearch = mapper.toDTO(service.findById(businessId)).getProductDTOs().stream().filter(e->e.getId().equals(productId)).findFirst();
+                return ResponseEntity.ok(productSearch.orElseThrow(() -> new BusinessNotFoundException(ApiError.ERROR_PRODUCT_NOT_FOUND)));
+    }
+
+    @Loggable
+    @PreAuthorize("hasRole({'ROLE_SELLER'})")
+    @PostMapping(value = "/{businessId}/products", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> addBussinessProduct(@PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long businessId,
             @RequestBody ProductDTO productDTO) {
         service.addBussinessProduct(businessId, productRestMapper.toDomain(productDTO));
@@ -102,10 +117,12 @@ public class BusinessController {
 
     @Loggable
     @PreAuthorize("hasRole({'ROLE_SELLER'})")
-    @DeleteMapping(value = "/{businessId}/products", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/{businessId}/products/{productId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> deleteBussinessProduct(
-            @PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long businessId) {
-        return null;
+            @PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long businessId, @PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long productId) {
+                boolean removed = mapper.toDTO(service.findById(businessId)).getProductDTOs().removeIf(e -> e.getId().equals(productId));
+                if (!removed) throw new BusinessNotFoundException(ApiError.ERROR_PRODUCT_NOT_FOUND);
+                return ResponseEntity.accepted().build();
     }
 
 }

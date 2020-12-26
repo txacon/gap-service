@@ -20,10 +20,10 @@ const restaurantsLoad = () => {
   }).done((data) => {
     console.log("Xhr response: " + JSON.stringify(data));
     data.forEach(item => {
-      var onsItem= document.createElement('ons-list-item');
+      var onsItem = document.createElement('ons-list-item');
       onsItem.setAttribute('modifier', "chevron");
-      onsItem.setAttribute('onclick', "loadPage('html/restaurant.html'); loadRestaurant("+item.id+")");
-      onsItem.innerHTML = '<img src="" alt="'+item.name+'" />';
+      onsItem.setAttribute('onclick', "loadPage('html/restaurant.html'); restaurantLoad(" + item.id + ")");
+      onsItem.innerHTML = '<img src="" alt="' + item.name + '" />';
       document.getElementById('business-list').appendChild(onsItem);
     });
   }).fail((error) => {
@@ -32,10 +32,10 @@ const restaurantsLoad = () => {
   })
 }
 
-const loadRestaurant = (businessId) => {
+const restaurantLoad = (businessId) => {
   $.ajax({
     type: 'GET',
-    url: server + '/businesses/'+businessId,
+    url: server + '/businesses/' + businessId,
     contentType: 'application/json',
     beforeSend: function (xhr) {   //Include the bearer token in header
       xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.token);
@@ -43,6 +43,46 @@ const loadRestaurant = (businessId) => {
   }).done((data) => {
     console.error("Xhr response: " + JSON.stringify(data));
     loadBusiness(data);
+  }).fail((error) => {
+    console.error("Error: " + error)
+    ons.notification.alert('Error en la obtención de los businesses');
+  })
+}
+
+const productsLoad = (businessId) => {
+  $.ajax({
+    type: 'GET',
+    url: server + '/businesses/' + businessId + '/products',
+    contentType: 'application/json',
+    beforeSend: function (xhr) {   //Include the bearer token in header
+      xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.token);
+    }
+  }).done((data) => {
+    console.log("Xhr response: " + JSON.stringify(data));
+    data.forEach(item => {
+      var onsItem = document.createElement('ons-list-item');
+      onsItem.setAttribute('modifier', "chevron");
+      onsItem.setAttribute('onclick', "loadPage('html/product.html'); productLoad(" + businessId + "," + item.id + ")");
+      onsItem.innerHTML = '<img src="" alt="' + item.name + '" />';
+      document.getElementById('business-list').appendChild(onsItem);
+    });
+  }).fail((error) => {
+    console.error("Error: " + error)
+    ons.notification.alert('Error en la obtención de los businesses');
+  })
+}
+
+const productLoad = (businessId, productId) => {
+  $.ajax({
+    type: 'GET',
+    url: server + '/businesses/' + businessId + '/products/' + productId,
+    contentType: 'application/json',
+    beforeSend: function (xhr) {   //Include the bearer token in header
+      xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.token);
+    }
+  }).done((data) => {
+    console.error("Xhr response: " + JSON.stringify(data));
+    productLoadForm(data);
   }).fail((error) => {
     console.error("Error: " + error)
     ons.notification.alert('Error en la obtención de los businesses');
@@ -69,7 +109,7 @@ const getUserInfoCall = () => {
     localStorage['user'] = new Object(data);
   }).fail((error) => {
     console.error("Error: " + error)
-    ons.notification.alert('Error en el usuario o password');
+    ons.notification.alert('Error en la obtención de información de usuario');
   })
 }
 
@@ -122,7 +162,7 @@ const createBusinessCall = (business) => {
     }
   }).done((data) => {
     console.log("Xhr response: " + JSON.stringify(data))
-    loadPage('html/restaurants.html'); 
+    loadPage('html/restaurants.html');
     restaurantsLoad();
   }).fail((error) => {
     console.log("Error: " + error)
@@ -141,7 +181,7 @@ const updateBusinessCall = (business) => {
     }
   }).done((data) => {
     console.log("Xhr response: " + JSON.stringify(data))
-    loadPage('html/restaurants.html'); 
+    loadPage('html/restaurants.html');
     restaurantsLoad();
   }).fail((error) => {
     console.log("Error: " + error)
@@ -152,7 +192,7 @@ const updateBusinessCall = (business) => {
 const createProductCall = (businessId, product) => {
   $.ajax({
     type: 'POST',
-    url: server + '/business/'+businessId,
+    url: server + '/business/' + businessId,
     data: JSON.stringify(product),
     contentType: 'application/json',
     beforeSend: function (xhr) {   //Include the bearer token in header
@@ -167,8 +207,6 @@ const createProductCall = (businessId, product) => {
   })
 }
 
-
-
 const logout = () => {
   localStorage = undefined;
   loadPage('index.html');
@@ -182,12 +220,12 @@ const login = () => {
 
 const loadUserData = () => {
   var user = localStorage.user;
-  setValue('username',user.username);
-  setValue('firstName',user.firstName);
-  setValue('lastName',user.lastName);
-  setValue('email',user.email);
-  setValue('password',user.password);
-  setValue('active',user.active)
+  setValue('username', user.username);
+  setValue('firstName', user.firstName);
+  setValue('lastName', user.lastName);
+  setValue('email', user.email);
+  setValue('password', user.password);
+  setValue('active', user.active)
 }
 
 const createUser = () => {
@@ -212,24 +250,24 @@ const updateBusiness = () => {
 }
 
 const loadBusiness = (business) => {
-  setValue('active',business.active);
-  setValue('city',business.city);
-  setValue('closeHour',business.closeHour);
-  setValue('country',business.country);
-  setValue('description',business.description);
-  setValue('email',business.email);
-  setValue('fiscalId',business.fiscalId);
-  setValue('name',business.name);
-  setValue('openHour',business.openHour);
-  setValue('phone',business.phone);
-  setValue('phonePrefix',business.phonePrefix);
-  setValue('state',business.state);
-  setValue('street1',business.street1);
-  setValue('street2',business.street2);
-  setValue('zipcode',business.zipcode);
-  setValue('aggregateRating',business.aggregateRating);
-  setValue('id',localStorage.user.id);
-  setValue('priceRange',business.priceRange);
+  setValue('active', business.active);
+  setValue('city', business.city);
+  setValue('closeHour', business.closeHour);
+  setValue('country', business.country);
+  setValue('description', business.description);
+  setValue('email', business.email);
+  setValue('fiscalId', business.fiscalId);
+  setValue('name', business.name);
+  setValue('openHour', business.openHour);
+  setValue('phone', business.phone);
+  setValue('phonePrefix', business.phonePrefix);
+  setValue('state', business.state);
+  setValue('street1', business.street1);
+  setValue('street2', business.street2);
+  setValue('zipcode', business.zipcode);
+  setValue('aggregateRating', business.aggregateRating);
+  setValue('id', localStorage.user.id);
+  setValue('priceRange', business.priceRange);
   createBusiness(business);
 }
 
@@ -242,9 +280,19 @@ const createProduct = (businessId) => {
   product.photoLink = getValue('photoLink');
   product.retailPrice = getValue('retailPrice');
   product.wholeSalePrice = getValue('wholeSalePrice');
-  createProductCall(businessId,product);
+  createProductCall(businessId, product);
 }
 
+
+const productLoadForm = (product) => {
+  setValue('productId', product.productId);
+  setValue('active', product.active);
+  setValue('description', product.description);
+  setValue('name', product.name);
+  setValue('photoLink', product.photoLink);
+  setValue('retailPrice', product.retailPrice);
+  setValue('wholeSalePrice', product.wholeSalePrice);
+}
 
 
 const getValue = (fieldName) => {
