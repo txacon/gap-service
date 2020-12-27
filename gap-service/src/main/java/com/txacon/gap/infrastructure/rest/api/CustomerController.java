@@ -1,6 +1,5 @@
 package com.txacon.gap.infrastructure.rest.api;
 
-
 import com.txacon.gap.application.api.CustomerService;
 import com.txacon.gap.application.aspect.Loggable;
 import com.txacon.gap.infrastructure.rest.dto.customer.CustomerDTO;
@@ -16,7 +15,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.security.Principal;
-
 
 @RestController
 @Api(tags = "Customers")
@@ -47,36 +45,30 @@ public class CustomerController {
     @Loggable
     @PreAuthorize("hasRole({'ROLE_ADMIN'})")
     @GetMapping(value = "/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CustomerDTO> getCustomer(@PathVariable
-                                                   @NotNull
-                                                   @Min(0) @Max(Long.MAX_VALUE) Long customerId) {
+    public ResponseEntity<CustomerDTO> getCustomer(
+            @PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long customerId) {
         return ResponseEntity.ok(getCustomerDTOById(customerId));
     }
 
     @Loggable
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CustomerDTO> createCustomer(@RequestBody
-                                                      @NotNull CustomerDTO customerDTO) {
+    public ResponseEntity<CustomerDTO> createCustomer(@RequestBody @NotNull CustomerDTO customerDTO) {
         return ResponseEntity.accepted().body(mapper.toDTO(service.addCustomer(mapper.toDomain(customerDTO))));
     }
 
     @Loggable
     @PreAuthorize("hasRole({'ROLE_ADMIN'})")
     @PutMapping(value = "/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable
-                                                      @NotNull
-                                                      @Min(0) @Max(Long.MAX_VALUE) Long customerId,
-                                                      @RequestBody
-                                                      @NotNull CustomerDTO customerDTO) {
+    public ResponseEntity<CustomerDTO> updateCustomer(Principal principal,
+            @RequestBody @NotNull CustomerDTO customerDTO) {
+        Long customerId = Long.parseLong(principal.getName());
         customerDTO.setId(customerId);
         return ResponseEntity.accepted().body(updateCustomerDTO(customerDTO));
     }
 
     @PreAuthorize("hasRole({'ROLE_ADMIN'})")
     @DeleteMapping(value = "/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> deleteCustomer(@PathVariable
-                                               @NotNull
-                                               @Min(0) @Max(Long.MAX_VALUE) Long customerId) {
+    public ResponseEntity<Void> deleteCustomer(@PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long customerId) {
         service.deleteById(customerId);
         return ResponseEntity.ok().build();
     }

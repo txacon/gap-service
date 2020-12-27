@@ -62,7 +62,7 @@ const productsLoad = (businessId) => {
     data.forEach(item => {
       var onsItem = document.createElement('ons-list-item');
       onsItem.setAttribute('modifier', "chevron");
-      onsItem.setAttribute('onclick', "loadPage('html/product.html'); productLoad(" + businessId + "," + item.id + ")");
+      onsItem.setAttribute('onclick', "loadPage('html/product.html'); productLoad(" + businessId + ", " + item.id + ")");
       onsItem.innerHTML = '<img src="" alt="' + item.name + '" />';
       document.getElementById('business-list').appendChild(onsItem);
     });
@@ -151,6 +151,25 @@ const createUserCall = (user) => {
 }
 
 
+const updateUserCall = (user) => {
+  $.ajax({
+    type: 'PUT',
+    url: server + '/customers',
+    data: JSON.stringify(user),
+    contentType: 'application/json',
+    beforeSend: function (xhr) {   //Include the bearer token in header
+      xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.token);
+    }
+  }).done((data) => {
+    console.log("Xhr response: " + JSON.stringify(data))
+    loadPage('index.html')
+  }).fail((error) => {
+    console.log("Error: " + error)
+    ons.notification.alert('Error en la creación de usuario');
+  })
+}
+
+
 const createBusinessCall = (business) => {
   $.ajax({
     type: 'POST',
@@ -220,6 +239,7 @@ const login = () => {
 
 const loadUserData = () => {
   var user = localStorage.user;
+  setValue('id', user.id);
   setValue('username', user.username);
   setValue('firstName', user.firstName);
   setValue('lastName', user.lastName);
@@ -236,6 +256,17 @@ const createUser = () => {
   user.email = getValue('email');
   user.password = getValue('password');
   createUserCall(user);
+}
+
+const updateUser = () => {
+  var user = new Object();
+  user.id = getValue('id')
+  user.username = getValue('username');
+  user.firstName = getValue('firstName');
+  user.lastName = getValue('lastName');
+  user.email = getValue('email');
+  user.password = getValue('password');
+  updateUserCall(user);
 }
 
 const createBusiness = () => {
