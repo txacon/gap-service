@@ -1,4 +1,4 @@
-<ons-page>
+<ons-page id="restaurant-update" init="">
   <ons-toolbar>
     <div class="left">
       <ons-back-button>Back</ons-back-button>
@@ -53,7 +53,7 @@
       <input id="priceRange" type="text" class="text-input--underbar width-full" placeholder="PriceRange">
     </div>
     <ons-list id="opt-list">
-      <ons-list-item class="menu_item" modifier="chevron" tappable onclick="loadPage('html/products.html'); ">
+      <ons-list-item class="menu_item" modifier="chevron" onclick="loadPage('html/products.html'); productsLoad()">
         <ons-icon icon="md-information"></ons-icon>&ThinSpace; Productos
       </ons-list-item>
     </ons-list>

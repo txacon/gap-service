@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -21,5 +22,5 @@ public class AggregateRatingEntity extends BaseEntity implements Serializable {
     private String id;
     @Getter
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "aggregateRating")
-    private Set<BusinessEntity> businesses;
+    private Set<BusinessEntity> businesses = new HashSet<>();
 }

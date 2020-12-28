@@ -5,8 +5,16 @@ const localStorage = {
   username: undefined,
   password: undefined,
   user: undefined,
-  businesses: undefined,
-  current: undefined
+  businessId: undefined,
+  productId: undefined
+}
+
+const setProductId = (productId) => {
+  localStorage.productId = productId;
+}
+
+const setBusinessId = (businessId) => {
+  localStorage.businessId = businessId;
 }
 
 const restaurantsLoad = () => {
@@ -19,11 +27,12 @@ const restaurantsLoad = () => {
     }
   }).done((data) => {
     console.log("Xhr response: " + JSON.stringify(data));
+    $("#business-list").empty();
     data.forEach(item => {
       var onsItem = document.createElement('ons-list-item');
       onsItem.setAttribute('modifier', "chevron");
-      onsItem.setAttribute('onclick', "loadPage('html/restaurant.html'); restaurantLoad(" + item.id + ")");
-      onsItem.innerHTML = '<img src="" alt="' + item.name + '" />';
+      onsItem.setAttribute('onclick', "setBusinessId(" + item.id + "); loadPage('html/restaurant.html');");
+      onsItem.innerHTML = '<ons-icon icon="md-information"></ons-icon>&ThinSpace; ' + item.name ;
       document.getElementById('business-list').appendChild(onsItem);
     });
   }).fail((error) => {
@@ -32,10 +41,10 @@ const restaurantsLoad = () => {
   })
 }
 
-const restaurantLoad = (businessId) => {
+const restaurantLoad = () => {
   $.ajax({
     type: 'GET',
-    url: server + '/businesses/' + businessId,
+    url: server + '/businesses/' + localStorage.businessId,
     contentType: 'application/json',
     beforeSend: function (xhr) {   //Include the bearer token in header
       xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.token);
@@ -49,22 +58,23 @@ const restaurantLoad = (businessId) => {
   })
 }
 
-const productsLoad = (businessId) => {
+const productsLoad = () => {
   $.ajax({
     type: 'GET',
-    url: server + '/businesses/' + businessId + '/products',
+    url: server + '/businesses/' + localStorage.businessId + '/products',
     contentType: 'application/json',
     beforeSend: function (xhr) {   //Include the bearer token in header
       xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.token);
     }
   }).done((data) => {
     console.log("Xhr response: " + JSON.stringify(data));
+    $("#product-list").empty();
     data.forEach(item => {
       var onsItem = document.createElement('ons-list-item');
       onsItem.setAttribute('modifier', "chevron");
-      onsItem.setAttribute('onclick', "loadPage('html/product.html'); productLoad(" + businessId + ", " + item.id + ")");
-      onsItem.innerHTML = '<img src="" alt="' + item.name + '" />';
-      document.getElementById('business-list').appendChild(onsItem);
+      onsItem.setAttribute('onclick', "setProductId("+ item.id +"); loadPage('html/product.html');");
+      onsItem.innerHTML = '<ons-icon icon="md-information"></ons-icon>&ThinSpace; ' + item.name;
+      document.getElementById('product-list').appendChild(onsItem);
     });
   }).fail((error) => {
     console.error("Error: " + error)
@@ -72,10 +82,10 @@ const productsLoad = (businessId) => {
   })
 }
 
-const productLoad = (businessId, productId) => {
+const productLoad = () => {
   $.ajax({
     type: 'GET',
-    url: server + '/businesses/' + businessId + '/products/' + productId,
+    url: server + '/businesses/' + localStorage.businessId + '/products/' + localStorage.productId,
     contentType: 'application/json',
     beforeSend: function (xhr) {   //Include the bearer token in header
       xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.token);
@@ -87,14 +97,6 @@ const productLoad = (businessId, productId) => {
     console.error("Error: " + error)
     ons.notification.alert('Error en la obtención de los businesses');
   })
-}
-
-const loadPage = (page) => {
-  document.querySelector('#navigator').bringPageTop(page, { animation: 'fade' });
-}
-
-const setCurrent = (currentId) => {
-  localStorage.current = currentId;
 }
 
 const getUserInfoCall = () => {
@@ -137,13 +139,9 @@ const createUserCall = (user) => {
     type: 'POST',
     url: server + '/customers',
     data: JSON.stringify(user),
-    contentType: 'application/json',
-    beforeSend: function (xhr) {   //Include the bearer token in header
-      xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.token);
-    }
+    contentType: 'application/json'
   }).done((data) => {
     console.log("Xhr response: " + JSON.stringify(data))
-    loadPage('index.html')
   }).fail((error) => {
     console.log("Error: " + error)
     ons.notification.alert('Error en la creación de usuario');
@@ -173,7 +171,7 @@ const updateUserCall = (user) => {
 const createBusinessCall = (business) => {
   $.ajax({
     type: 'POST',
-    url: server + '/business',
+    url: server + '/businesses',
     data: JSON.stringify(business),
     contentType: 'application/json',
     beforeSend: function (xhr) {   //Include the bearer token in header
@@ -192,7 +190,7 @@ const createBusinessCall = (business) => {
 const updateBusinessCall = (business) => {
   $.ajax({
     type: 'PUT',
-    url: server + '/business',
+    url: server + '/businesses',
     data: JSON.stringify(business),
     contentType: 'application/json',
     beforeSend: function (xhr) {   //Include the bearer token in header
@@ -204,14 +202,14 @@ const updateBusinessCall = (business) => {
     restaurantsLoad();
   }).fail((error) => {
     console.log("Error: " + error)
-    ons.notification.alert('Error en la actualización de negocio');
+    ons.notification.alert('Error en la creación de negocio');
   })
 }
 
-const createProductCall = (businessId, product) => {
+const createProductCall = (product) => {
   $.ajax({
     type: 'POST',
-    url: server + '/business/' + businessId,
+    url: server + '/businesses/' + localStorage.businessId +"/products",
     data: JSON.stringify(product),
     contentType: 'application/json',
     beforeSend: function (xhr) {   //Include the bearer token in header
@@ -220,10 +218,56 @@ const createProductCall = (businessId, product) => {
   }).done((data) => {
     console.log("Xhr response: " + JSON.stringify(data))
     loadPage('html/products.html')
+    productsLoad();
   }).fail((error) => {
     console.log("Error: " + error)
     ons.notification.alert('Error en la creación de producto');
   })
+}
+
+const updateProductCall = (product) => {
+  $.ajax({
+    type: 'PUT',
+    url: server + '/businesses/' + localStorage.businessId +"/products",
+    data: JSON.stringify(product),
+    contentType: 'application/json',
+    beforeSend: function (xhr) {   //Include the bearer token in header
+      xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.token);
+    }
+  }).done((data) => {
+    console.log("Xhr response: " + JSON.stringify(data));
+    loadPage('html/products.html');
+    productsLoad();
+  }).fail((error) => {
+    console.log("Error: " + error)
+    ons.notification.alert('Error en la actualización de producto');
+  })
+}
+
+const deleteProductCall = (product) => {
+  $.ajax({
+    type: 'DELETE',
+    url: server + '/businesses/' + localStorage.businessId +"/products/"+product.id,
+    contentType: 'application/json',
+    beforeSend: function (xhr) {   //Include the bearer token in header
+      xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.token);
+    }
+  }).done((data) => {
+    console.log("Xhr response: " + JSON.stringify(data));
+    loadPage('html/products.html');
+    productsLoad();
+  }).fail((error) => {
+    console.log("Error: " + error)
+    ons.notification.alert('Error en la actualización de producto');
+  })
+}
+
+const loadPage = (page) => {
+  document.querySelector('#navigator').bringPageTop(page, { animation: 'fade' });
+}
+
+const setCurrent = (currentId) => {
+  localStorage.current = currentId;
 }
 
 const logout = () => {
@@ -231,10 +275,36 @@ const logout = () => {
   loadPage('index.html');
 }
 
+const createBusiness = () => {
+  var business = extractFormBusinessData();
+  business.id = undefined;
+  createBusinessCall(business);
+}
+
+const updateBusiness = () => {
+  var business = extractFormBusinessData();
+  updateBusinessCall(business);
+}
+
 const login = () => {
   const username = getValue('emailLogin');
   const password = getValue('passwordLogin');
   getAuthTokenCall(username, password);
+}
+
+const createProduct = () => {
+  var product = extractProductForm();
+  createProductCall(product);
+}
+
+const updateProduct = () => {
+  var product = extractProductForm();
+  updateProductCall(product);
+}
+
+const deleteProduct = () => {
+  var product = extractProductForm();
+  deleteProductCall(product);
 }
 
 const loadUserData = () => {
@@ -269,17 +339,6 @@ const updateUser = () => {
   updateUserCall(user);
 }
 
-const createBusiness = () => {
-  var business = extractFormBusinessData();
-  business.id = undefined;
-  createBusinessCall(business);
-}
-
-const updateBusiness = () => {
-  var business = extractFormBusinessData();
-  updateBusinessCall(business);
-}
-
 const loadBusiness = (business) => {
   setValue('active', business.active);
   setValue('city', business.city);
@@ -297,32 +356,33 @@ const loadBusiness = (business) => {
   setValue('street2', business.street2);
   setValue('zipcode', business.zipcode);
   setValue('aggregateRating', business.aggregateRating);
-  setValue('id', localStorage.user.id);
+  setValue('id', business.id);
   setValue('priceRange', business.priceRange);
-  createBusiness(business);
 }
 
-const createProduct = (businessId) => {
+
+
+const extractProductForm = () => {
   var product = new Object();
-  product.productId = getValue('productId');
-  product.active = getValue('active');
-  product.description = getValue('description');
-  product.name = getValue('name');
-  product.photoLink = getValue('photoLink');
-  product.retailPrice = getValue('retailPrice');
-  product.wholeSalePrice = getValue('wholeSalePrice');
-  createProductCall(businessId, product);
+  product.id = getValue('product_id');
+  product.active = getValue('product_active');
+  product.description = getValue('product_description');
+  product.name = getValue('product_name');
+  product.photoLink = getValue('product_photoLink');
+  product.retailPrice = getValue('product_retailPrice');
+  product.wholeSalePrice = getValue('product_wholeSalePrice');
+  return product;
 }
 
 
 const productLoadForm = (product) => {
-  setValue('productId', product.productId);
-  setValue('active', product.active);
-  setValue('description', product.description);
-  setValue('name', product.name);
-  setValue('photoLink', product.photoLink);
-  setValue('retailPrice', product.retailPrice);
-  setValue('wholeSalePrice', product.wholeSalePrice);
+  setValue('product_id', product.id);
+  setValue('product_active', product.active);
+  setValue('product_description', product.description);
+  setValue('product_name', product.name);
+  setValue('product_photoLink', product.photoLink);
+  setValue('product_retailPrice', product.retailPrice);
+  setValue('product_wholeSalePrice', product.wholeSalePrice);
 }
 
 
@@ -347,6 +407,13 @@ document.addEventListener('init', (event) => {
   if (event.target.matches('#user-update.page')) {
     loadUserData();
   }
+  if (event.target.matches('#product-update.page')) {
+    productLoad();
+  }
+  if (event.target.matches('#restaurant-update.page')) {
+    restaurantLoad();
+  }
+
 });
 
 document.addEventListener('prechange', (event) => {
@@ -373,6 +440,7 @@ const extractFormBusinessData = () => {
   business.zipcode = getValue('zipcode');
   business.aggregateRating = getValue('aggregateRating');
   business.own = localStorage.user.id;
+  business.id = getValue('id');
   business.priceRange = getValue('priceRange');
   return business;
 }

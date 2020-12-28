@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -24,6 +25,6 @@ public class PaymentMethodEntity extends BaseEntity implements Serializable {
     private String id;
     @Getter
     @ManyToMany(mappedBy = "paymentMethods")
-    private Set<BusinessEntity> businesses;
+    private Set<BusinessEntity> businesses = new HashSet<>();
 
 }

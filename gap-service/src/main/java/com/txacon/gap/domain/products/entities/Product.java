@@ -15,7 +15,6 @@ import java.util.List;
 public class Product {
 
     private Long id;
-    private Long businessId;
     private BigDecimal wholeSalePrice;
     private BigDecimal retailPrice;
     private String photoLink;

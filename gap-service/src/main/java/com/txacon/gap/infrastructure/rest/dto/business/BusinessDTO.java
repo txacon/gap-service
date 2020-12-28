@@ -32,7 +32,7 @@ public class BusinessDTO {
     private String aggregateRating;
     private String priceRange;
     private List<String> paymentMethods;
-    private List<ProductDTO> productDTOs;
+    private List<ProductDTO> products;
     private boolean active;
 
     private Long own;

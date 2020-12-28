@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import java.security.Principal;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Api(tags = "Customers")
 @RequestMapping("/customers")
 @RequiredArgsConstructor

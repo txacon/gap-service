@@ -1,5 +1,6 @@
 package com.txacon.gap.infrastructure.rest.security;
 
+import com.txacon.gap.application.aspect.Loggable;
 import com.txacon.gap.domain.role.entities.Role;
 import com.txacon.gap.domain.role.entities.RoleName;
 import com.txacon.gap.domain.security.entities.MyGrantedAuthority;
@@ -33,6 +34,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         this.secret = secret;
     }
 
+    @Loggable
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
             throws IOException, ServletException {

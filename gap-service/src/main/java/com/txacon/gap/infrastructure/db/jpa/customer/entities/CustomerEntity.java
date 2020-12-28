@@ -53,6 +53,8 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     private LocalDateTime lastLogin;
 
     public void setRoles(Set<RoleEntity> roles) {
+        if (Objects.isNull(roles))
+            return;
         this.roles.clear();
         for (RoleEntity role : roles) {
             role.addCustomer(this);

@@ -8,14 +8,16 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity(name = "product")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@EqualsAndHashCode(of = {"id"})
+@EqualsAndHashCode(of = { "id" })
 @ToString
 public class ProductEntity extends BaseEntity implements Serializable {
 
@@ -31,15 +33,14 @@ public class ProductEntity extends BaseEntity implements Serializable {
     private String photoLink;
     private String name;
     private String description;
-    @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "product_tags",
-            joinColumns = @JoinColumn(name = "tag_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<TagEntity> productTags;
+    @ManyToMany(cascade = { CascadeType.REFRESH }, fetch = FetchType.EAGER)
+    @JoinTable(name = "product_tags", joinColumns = @JoinColumn(name = "tag_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<TagEntity> productTags = new ArrayList<>();
     private boolean active;
 
     public void setProductTags(List<TagEntity> productTags) {
+        if (Objects.isNull(productTags))
+            return;
         this.productTags.clear();
         for (TagEntity productTag : productTags) {
             productTag.getProducts().add(this);

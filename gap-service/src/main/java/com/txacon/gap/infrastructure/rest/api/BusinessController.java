@@ -62,7 +62,7 @@ public class BusinessController {
 
     @Loggable
     @PreAuthorize("hasRole({'ROLE_SELLER'})")
-    @PutMapping(value = "/{businessId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BusinessDTO> updateBusiness(Principal principal,
             @RequestBody @NotNull BusinessDTO businessDTO) {
         Long customerId = Long.parseLong(principal.getName());
@@ -84,7 +84,7 @@ public class BusinessController {
     @GetMapping(value = "/{businessId}/products", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ProductDTO>> getBussinessProducts(
             @PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long businessId) {
-        return ResponseEntity.ok(mapper.toDTO(service.findById(businessId)).getProductDTOs());
+        return ResponseEntity.ok(mapper.toDTO(service.findById(businessId)).getProducts());
     }
 
     @Loggable
@@ -93,7 +93,7 @@ public class BusinessController {
     public ResponseEntity<ProductDTO> getBusinessProductById(
             @PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long businessId,
             @PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long productId) {
-                Optional<ProductDTO> productSearch = mapper.toDTO(service.findById(businessId)).getProductDTOs().stream().filter(e->e.getId().equals(productId)).findFirst();
+                Optional<ProductDTO> productSearch = mapper.toDTO(service.findById(businessId)).getProducts().stream().filter(e->e.getId().equals(productId)).findFirst();
                 return ResponseEntity.ok(productSearch.orElseThrow(() -> new BusinessNotFoundException(ApiError.ERROR_PRODUCT_NOT_FOUND)));
     }
 
@@ -120,7 +120,7 @@ public class BusinessController {
     @DeleteMapping(value = "/{businessId}/products/{productId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> deleteBussinessProduct(
             @PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long businessId, @PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long productId) {
-                boolean removed = mapper.toDTO(service.findById(businessId)).getProductDTOs().removeIf(e -> e.getId().equals(productId));
+                boolean removed = mapper.toDTO(service.findById(businessId)).getProducts().removeIf(e -> e.getId().equals(productId));
                 if (!removed) throw new BusinessNotFoundException(ApiError.ERROR_PRODUCT_NOT_FOUND);
                 return ResponseEntity.accepted().build();
     }

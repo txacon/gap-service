@@ -1,5 +1,9 @@
 package com.txacon.gap.application.adapter;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Stream;
+
 import com.txacon.gap.application.api.BusinessService;
 import com.txacon.gap.application.aspect.Loggable;
 import com.txacon.gap.application.exceptions.ApiError;
@@ -10,13 +14,9 @@ import com.txacon.gap.domain.bussines.port.BusinessRepository;
 import com.txacon.gap.domain.customer.entities.Customer;
 import com.txacon.gap.domain.products.entities.Product;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Stream;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -52,6 +52,7 @@ public class BusinessServiceImpl implements BusinessService {
     @Loggable
     public Business add(Business business, Long idOwner) {
         business.setId(null);
+        business.setActive(true);
         return saveBussines(business, idOwner);
     }
 
@@ -71,11 +72,12 @@ public class BusinessServiceImpl implements BusinessService {
 
     @Override
     public Product addBussinessProduct(Long businessId, Product product) {
-        Business bussiness = repository.findById(businessId)
+        Business business = repository.findById(businessId)
                 .orElseThrow(() -> new BusinessInvalidException(ApiError.ERROR_BUSINESS_INVALID_TO_UPDATE));
         product.setId(null);
-        bussiness.getProducts().add(product);
-        repository.save(bussiness);
+        product.setActive(true);
+        business.getProducts().add(product);
+        repository.save(business);
         return product;
     }
 

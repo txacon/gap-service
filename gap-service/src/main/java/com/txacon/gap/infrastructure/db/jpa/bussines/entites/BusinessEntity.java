@@ -46,11 +46,11 @@ public class BusinessEntity extends BaseEntity implements Serializable {
     private Date openHour;
     @Temporal(TemporalType.TIME)
     private Date closeHour;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "aggregate_rating_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "aggregate_rating_id", nullable = true)
     private AggregateRatingEntity aggregateRating;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "price_range_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "price_range_id", nullable = true)
     private PriceRangeEntity priceRange;
     private boolean active;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -60,10 +60,12 @@ public class BusinessEntity extends BaseEntity implements Serializable {
     @ManyToMany(cascade = { CascadeType.REFRESH }, fetch = FetchType.EAGER)
     @JoinTable(name = "business_payment_method", joinColumns = @JoinColumn(name = "business_id"), inverseJoinColumns = @JoinColumn(name = "payment_method_id"))
     private final Set<PaymentMethodEntity> paymentMethods = new HashSet<>();
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "business")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "business", fetch = FetchType.EAGER)
     private final List<ProductEntity> products = new ArrayList<>();
 
     public void setProducts(List<ProductEntity> products) {
+        if (products == null)
+            return;
         this.products.clear();
         products.forEach(e -> {
             e.setBusiness(this);
@@ -72,6 +74,8 @@ public class BusinessEntity extends BaseEntity implements Serializable {
     }
 
     public void setPaymentMethods(Set<PaymentMethodEntity> paymentMethods) {
+        if (paymentMethods == null)
+            return;
         this.paymentMethods.clear();
         for (PaymentMethodEntity paymentMethod : paymentMethods) {
             paymentMethod.getBusinesses().add(this);
