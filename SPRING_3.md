@@ -64,3 +64,7 @@ Las tablas django_session y django_migrations contienen los token de sessión y 
 ## VIDEO DEMOSTRACIÓN DE AVANCE.
 
 https://drive.google.com/file/d/119vBcKptkiOUoCutcJ5AVlsrNxOa0mwY/view?usp=sharing
+
+Continuación:
+
+https://drive.google.com/file/d/1E0rTK-ZurPgpAwI5Scd-eVEqaCFYg417/view?usp=sharing
