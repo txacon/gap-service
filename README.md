@@ -136,6 +136,8 @@ db706300cc38        gap_service         0.15%               752.4MiB / 15.58GiB 
 d2a3e3e83d71        gap_postgres        0.75%               28.17MiB / 15.58GiB   0.18%               113kB / 143kB       57.1MB / 401kB      18
 ```
 
+Para liberar la consola del comando, pulsar Ctrl+C.
+
 ### Revisión de los logs de los servicios.
 
 Para ver los logs en vivo de los distintos servicios, podemos utilizar la siguiente orden:
@@ -187,4 +189,6 @@ La aplicación vendrá identificada por el prefijo de cada linea.
 
 - Spring_1: [Spring 1](SPRING_1.md)
 - Spring_2: [Spring 2](SPRING_2.md)
-- Spring_3: [Spring 2](SPRING_3.md)
+- Spring_3: [Spring 3](SPRING_3.md)
+- Spring_4: [Spring 3](SPRING_4.md)
+- Spring_5: [Spring 3](SPRING_5.md)
