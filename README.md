@@ -32,7 +32,7 @@ Para mantener las cosas simples, todos los componentes se ejecutarán usando [Do
 - Para instalar Docker en Mac siga las instrucciones [aquí](https://docs.docker.com/docker-for-mac/)
 - Para instalar Docker en Linux siga las instrucciones [aquí](https://docs.docker.com/install/)
 
-## Docker Compose (Opcional)
+## Docker Compose
 
 **Docker Compose** es una herramienta para definir y ejecutar aplicaciones Docker multi-contenedor.
 
