@@ -14,7 +14,7 @@ El proyecto tiene una arquitectura multiservicio, se ha intentado seguir el prin
 
 La arquitectura actual de proyecto es la siguiente:
 
-![Diagrama de arquitectura](doc_images/arch_diagram.png)
+![Diagrama de arquitectura](doc_images/arch-diagram.png)
 
 ## Prerequisitos
 
