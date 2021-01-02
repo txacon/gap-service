@@ -14,7 +14,8 @@ public enum ApiError {
     ERROR_BUSINESS_INVALID_TO_CREATE("Business fields (fiscalId, Address and email) ara mandatory"),
     ERROR_BUSINESS_INVALID_TO_UPDATE("Business need id to update"),
     PRODUCT_INVALID_TO_UPDATE("Invalid producto to update, need to have valid id"),
-    ERROR_PRODUCT_NOT_FOUND("Product not found by Id");
+    ERROR_PRODUCT_NOT_FOUND("Product not found by Id"),
+    ERROR_ON_REPORT_RENDER("Error on report render");
 
 
     @Getter

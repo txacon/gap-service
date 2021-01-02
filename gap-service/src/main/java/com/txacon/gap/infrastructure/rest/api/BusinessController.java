@@ -1,28 +1,45 @@
 package com.txacon.gap.infrastructure.rest.api;
 
+import java.io.IOException;
+import java.security.Principal;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 import com.txacon.gap.application.api.BusinessService;
 import com.txacon.gap.application.aspect.Loggable;
 import com.txacon.gap.application.exceptions.ApiError;
 import com.txacon.gap.application.exceptions.BusinessNotFoundException;
+import com.txacon.gap.domain.bussines.entities.Business;
+import com.txacon.gap.domain.report.port.MenuReport;
 import com.txacon.gap.infrastructure.rest.dto.business.BusinessDTO;
 import com.txacon.gap.infrastructure.rest.dto.product.ProductDTO;
 import com.txacon.gap.infrastructure.rest.mapper.business.BusinessRestMapper;
 import com.txacon.gap.infrastructure.rest.mapper.product.ProductRestMapper;
 
-import io.swagger.annotations.Api;
-import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import java.security.Principal;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import io.swagger.annotations.Api;
+import lombok.RequiredArgsConstructor;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 @RestController
 @Api(tags = "Businesses")
@@ -31,6 +48,7 @@ import java.util.stream.Collectors;
 public class BusinessController {
 
     private final BusinessService service;
+    private final MenuReport menuReport;
     private final BusinessRestMapper mapper;
     private final ProductRestMapper productRestMapper;
 
@@ -93,13 +111,15 @@ public class BusinessController {
     public ResponseEntity<ProductDTO> getBusinessProductById(
             @PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long businessId,
             @PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long productId) {
-                Optional<ProductDTO> productSearch = mapper.toDTO(service.findById(businessId)).getProducts().stream().filter(e->e.getId().equals(productId)).findFirst();
-                return ResponseEntity.ok(productSearch.orElseThrow(() -> new BusinessNotFoundException(ApiError.ERROR_PRODUCT_NOT_FOUND)));
+        Optional<ProductDTO> productSearch = mapper.toDTO(service.findById(businessId)).getProducts().stream()
+                .filter(e -> e.getId().equals(productId)).findFirst();
+        return ResponseEntity
+                .ok(productSearch.orElseThrow(() -> new BusinessNotFoundException(ApiError.ERROR_PRODUCT_NOT_FOUND)));
     }
 
     @Loggable
     @PreAuthorize("hasRole({'ROLE_SELLER'})")
-    @PostMapping(value = "/{businessId}/products", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/products", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> addBussinessProduct(@PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long businessId,
             @RequestBody ProductDTO productDTO) {
         service.addBussinessProduct(businessId, productRestMapper.toDomain(productDTO));
@@ -119,10 +139,29 @@ public class BusinessController {
     @PreAuthorize("hasRole({'ROLE_SELLER'})")
     @DeleteMapping(value = "/{businessId}/products/{productId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> deleteBussinessProduct(
-            @PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long businessId, @PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long productId) {
-                boolean removed = mapper.toDTO(service.findById(businessId)).getProducts().removeIf(e -> e.getId().equals(productId));
-                if (!removed) throw new BusinessNotFoundException(ApiError.ERROR_PRODUCT_NOT_FOUND);
-                return ResponseEntity.accepted().build();
+            @PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long businessId,
+            @PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long productId) {
+        boolean removed = mapper.toDTO(service.findById(businessId)).getProducts()
+                .removeIf(e -> e.getId().equals(productId));
+        if (!removed)
+            throw new BusinessNotFoundException(ApiError.ERROR_PRODUCT_NOT_FOUND);
+        return ResponseEntity.accepted().build();
+    }
+
+    @GetMapping("/{businessId}/menu")
+    public ResponseEntity<byte []> businessMenu(@PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long businessId) throws JRException, IOException {
+        final String filename = "menu.pdf";
+        Business business = service.findById(businessId);
+        JasperPrint jasperPrint = menuReport.createPdfReport(business);
+        
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData(filename, filename);
+        headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+
+        ResponseEntity<byte[]> response = new ResponseEntity<>(JasperExportManager.exportReportToPdf(jasperPrint), headers, HttpStatus.OK);
+        return response;
     }
 
 }

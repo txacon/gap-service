@@ -1,9 +1,12 @@
 package com.txacon.gap.application.adapter;
 
+import java.io.File;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+import com.google.common.collect.ImmutableMap;
 import com.txacon.gap.application.api.BusinessService;
 import com.txacon.gap.application.aspect.Loggable;
 import com.txacon.gap.application.exceptions.ApiError;
@@ -13,11 +16,19 @@ import com.txacon.gap.domain.bussines.entities.Business;
 import com.txacon.gap.domain.bussines.port.BusinessRepository;
 import com.txacon.gap.domain.customer.entities.Customer;
 import com.txacon.gap.domain.products.entities.Product;
+import com.txacon.gap.domain.report.port.MenuReport;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BusinessServiceImpl implements BusinessService {
@@ -110,5 +121,7 @@ public class BusinessServiceImpl implements BusinessService {
         business.setOwn(idOwner);
         return repository.save(business);
     }
+
+   
 
 }

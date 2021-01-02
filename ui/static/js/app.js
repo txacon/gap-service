@@ -32,7 +32,7 @@ const restaurantsLoad = () => {
       var onsItem = document.createElement('ons-list-item');
       onsItem.setAttribute('modifier', "chevron");
       onsItem.setAttribute('onclick', "setBusinessId(" + item.id + "); loadPage('html/restaurant.html');");
-      onsItem.innerHTML = '<ons-icon icon="md-information"></ons-icon>&ThinSpace; ' + item.name ;
+      onsItem.innerHTML = '<ons-icon icon="md-information"></ons-icon>&ThinSpace; ' + item.name;
       document.getElementById('business-list').appendChild(onsItem);
     });
   }).fail((error) => {
@@ -72,7 +72,7 @@ const productsLoad = () => {
     data.forEach(item => {
       var onsItem = document.createElement('ons-list-item');
       onsItem.setAttribute('modifier', "chevron");
-      onsItem.setAttribute('onclick', "setProductId("+ item.id +"); loadPage('html/product.html');");
+      onsItem.setAttribute('onclick', "setProductId(" + item.id + "); loadPage('html/product.html');");
       onsItem.innerHTML = '<ons-icon icon="md-information"></ons-icon>&ThinSpace; ' + item.name;
       document.getElementById('product-list').appendChild(onsItem);
     });
@@ -97,6 +97,15 @@ const productLoad = () => {
     console.error("Error: " + error)
     ons.notification.alert('Error en la obtención de los businesses');
   })
+}
+
+const downloadMenu = () => {
+  var params = {
+    access_token: 'An access_token',
+    other_header: 'other_header'
+  };
+  var url = server + '/businesses/' + localStorage.businessId + '/menu'
+  window.open(url, '_blank');
 }
 
 const getUserInfoCall = () => {
@@ -209,7 +218,7 @@ const updateBusinessCall = (business) => {
 const createProductCall = (product) => {
   $.ajax({
     type: 'POST',
-    url: server + '/businesses/' + localStorage.businessId +"/products",
+    url: server + '/businesses/' + localStorage.businessId + "/products",
     data: JSON.stringify(product),
     contentType: 'application/json',
     beforeSend: function (xhr) {   //Include the bearer token in header
@@ -228,7 +237,7 @@ const createProductCall = (product) => {
 const updateProductCall = (product) => {
   $.ajax({
     type: 'PUT',
-    url: server + '/businesses/' + localStorage.businessId +"/products",
+    url: server + '/businesses/' + localStorage.businessId + "/products",
     data: JSON.stringify(product),
     contentType: 'application/json',
     beforeSend: function (xhr) {   //Include the bearer token in header
@@ -247,7 +256,7 @@ const updateProductCall = (product) => {
 const deleteProductCall = (product) => {
   $.ajax({
     type: 'DELETE',
-    url: server + '/businesses/' + localStorage.businessId +"/products/"+product.id,
+    url: server + '/businesses/' + localStorage.businessId + "/products/" + product.id,
     contentType: 'application/json',
     beforeSend: function (xhr) {   //Include the bearer token in header
       xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.token);
