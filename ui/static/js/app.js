@@ -41,6 +41,30 @@ const restaurantsLoad = () => {
   })
 }
 
+const restaurantsLoadToSelect = () => {
+  $.ajax({
+    type: 'GET',
+    url: server + '/businesses',
+    contentType: 'application/json',
+    beforeSend: function (xhr) {   //Include the bearer token in header
+      xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.token);
+    }
+  }).done((data) => {
+    console.log("Xhr response: " + JSON.stringify(data));
+    $("#business-list").empty();
+    data.forEach(item => {
+      var onsItem = document.createElement('ons-list-item');
+      onsItem.setAttribute('modifier', "chevron");
+      onsItem.setAttribute('onclick', "setBusinessId(" + item.id + "); loadPage('html/productsSelection.html');");
+      onsItem.innerHTML = '<ons-icon icon="md-information"></ons-icon>&ThinSpace; ' + item.name;
+      document.getElementById('business-list').appendChild(onsItem);
+    });
+  }).fail((error) => {
+    console.error("Error: " + error)
+    ons.notification.alert('Error en la obtención de los businesses');
+  })
+}
+
 const restaurantLoad = () => {
   $.ajax({
     type: 'GET',
@@ -57,6 +81,7 @@ const restaurantLoad = () => {
     ons.notification.alert('Error en la obtención de los businesses');
   })
 }
+
 
 const productsLoad = () => {
   $.ajax({
@@ -75,6 +100,68 @@ const productsLoad = () => {
       onsItem.setAttribute('onclick', "setProductId(" + item.id + "); loadPage('html/product.html');");
       onsItem.innerHTML = '<ons-icon icon="md-information"></ons-icon>&ThinSpace; ' + item.name;
       document.getElementById('product-list').appendChild(onsItem);
+    });
+  }).fail((error) => {
+    console.error("Error: " + error)
+    ons.notification.alert('Error en la obtención de los businesses');
+  })
+}
+
+const productsSelection = () => {
+  $.ajax({
+    type: 'GET',
+    url: server + '/businesses/' + localStorage.businessId + '/products',
+    contentType: 'application/json',
+    beforeSend: function (xhr) {   //Include the bearer token in header
+      xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.token);
+    }
+  }).done((data) => {
+    console.log("Xhr response: " + JSON.stringify(data));
+    $("#product-list").empty();
+    var counter = 0
+    data.forEach(item => {
+      var onsItem = document.createElement('ons-list-item');
+      onsItem.setAttribute('expandable','');
+      var label_check = document.createElement('label');
+      label_check.setAttribute('class', 'left');
+      var check_box = document.createElement('ons-checkbox');
+      check_box.setAttribute('input-id', 'check-' + counter);
+      label_check.appendChild(check_box);
+      var label_name = document.createElement('label');
+      label_name.setAttribute('for', 'check-' + counter);
+      label_name.setAttribute('class', 'center');
+      label_name.innerHTML = item.name;
+      var label_price = document.createElement('label'); 
+      label_price.innerHTML = item.wholeSalePrice+" €";
+      label_price.setAttribute('class','right');
+
+      var div_expandable = document.createElement('div');
+      div_expandable.setAttribute('class','expandable-content');
+      var lable_numele = document.createElement('label');
+      lable_numele.setAttribute('class','left');
+      lable_numele.innerHTML='Cantidad: '
+      var num_ele = document.createElement('ons-input');
+      num_ele.setAttribute('type','number');
+      num_ele.setAttribute('class','right');
+      num_ele.setAttribute('placeholder','Cantidad');
+      num_ele.value = 1;
+      var label_description = document.createElement('label');
+      label_description.innerHTML = item.description;
+      var div_description = document.createElement('div');
+      div_description.appendChild(label_description);
+      var div_numele = document.createElement('div');
+      div_numele.appendChild(lable_numele);
+      div_numele.appendChild(num_ele);
+      div_expandable.appendChild(div_description);
+      div_expandable.appendChild(document.createElement("br"))
+      div_expandable.appendChild(div_numele);
+      
+      onsItem.appendChild(label_check);
+      onsItem.appendChild(label_name);
+      onsItem.appendChild(label_price);
+      onsItem.appendChild (div_expandable);
+      document.getElementById('product-list').appendChild(onsItem);
+      counter = counter + 1;
     });
   }).fail((error) => {
     console.error("Error: " + error)
@@ -416,13 +503,21 @@ document.addEventListener('init', (event) => {
   if (event.target.matches('#user-update.page')) {
     loadUserData();
   }
-  if (event.target.matches('#product-update.page')) {
+  else if (event.target.matches('#product-update.page')) {
     productLoad();
   }
-  if (event.target.matches('#restaurant-update.page')) {
+  else if (event.target.matches('#restaurant-update.page')) {
     restaurantLoad();
   }
-
+  else if (event.target.matches('#restaurants.page')) {
+    restaurantsLoad();
+  }
+  else if (event.target.matches('#new_order.page')) {
+    restaurantsLoadToSelect();
+  }
+  else if (event.target.matches('#products-selection.page')) {
+    productsSelection();
+  }
 });
 
 document.addEventListener('prechange', (event) => {
