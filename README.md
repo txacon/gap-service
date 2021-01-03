@@ -185,6 +185,10 @@ La aplicación vendrá identificada por el prefijo de cada linea.
   - user: test
   - pass: test
 
+### Sistema de backup y recovery.
+
+- Backup and recovery: [Backup and recovery](BACKUP_AND_RECOVER.md)
+
 ## Evolución del proyecto.
 
 - Spring_1: [Spring 1](SPRING_1.md)
