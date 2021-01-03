@@ -5,66 +5,51 @@
         </div>
         <div class="center">Order Pay (Mock)</div>
     </ons-toolbar>
-    <div class="formarea">
-        <div class="form-row">
-            <label id="name" type="text">Restaurante el gallo</label>
-        </div>
-    </div>
-    <div class="form-row">
-        <label id="description" type="text">Especialidad en carnes y todo tipo de productos típicos</label>
-    </div>
-    <div class="form-row">
-        <label id="email" type="email">atencioncliente@elgallo.com</label>
-    </div>
-    </div>
-    <ons-list id="product-list">
-        <ons-list-item expandable="" modifier="material" class="list-item list-item--expandable list-item--material">
-            <div class="top list-item__top"><label for="check-0"
-                    class="center list-item__center list-item--material__center">Pizza</label><label
-                    class="left list-item__left list-item--material__left">
-                    <ons-checkbox input-id="check-0" modifier="material" class="checkbox checkbox--material">
-                        <input type="checkbox" class="checkbox__input checkbox--material__input" id="check-0">
-                        <span class="checkbox__checkmark checkbox--material__checkmark"></span>
-                    </ons-checkbox>
-                </label>
-                <label class="right list-item__right list-item--material__right">12 €</label>
-            </div>
-            <div class="expandable-content list-item__expandable-content">
-                <div><label>Pizza margarita</label></div><br>
-                <div><label class="left">Cantidad: </label>
-                    <ons-input type="number" class="right" placeholder="Cantidad" modifier="material">
-                        <label type="number" placeholder="Cantidad">1</label>
-                        <span
-                            class="text-input__label text-input--material__label text-input--material__label--active">Cantidad</span>
-                    </ons-input>
-                </div>
-            </div>
-        </ons-list-item>
-        <ons-list-item expandable modifier="material" class="list-item list-item--expandable list-item--material">
-            <div class="top list-item__top"><label for="check-0"
-                    class="center list-item__center list-item--material__center">Hamburguesa</label><label
-                    class="left list-item__left list-item--material__left">
-                    <ons-checkbox input-id="check-0" modifier="material" class="checkbox checkbox--material">
-                        <input type="checkbox" class="checkbox__input checkbox--material__input" id="check-0">
-                        <span class="checkbox__checkmark checkbox--material__checkmark"></span>
-                    </ons-checkbox>
-                </label>
-                <label class="right list-item__right list-item--material__right">12 €</label>
-            </div>
-            <div class="expandable-content list-item__expandable-content">
-                <div><label>Hamburguesa clasica</label></div><br>
-                <div><label class="left">Cantidad: </label>
-                    <ons-input type="number" class="right" placeholder="Cantidad" modifier="material">
-                        <label type="number" placeholder="Cantidad">1</label>
-                        <span
-                            class="text-input__label text-input--material__label text-input--material__label--active">Cantidad</span>
-                    </ons-input>
-                </div>
-            </div>
-        </ons-list-item>
-    </ons-list>
-    <div>
-        <label class="right">Total price: 24 €</label>
+    <div class="content">
+        <ons-list id="product-list">
+            <ons-list-header>Datos de contacto:</ons-list-header>
+            <ons-list-item>
+                <label id="name" type="text">Restaurante el gallo</label>
+            </ons-list-item>
+            <ons-list-item>
+                <label class="left">Email: </label>
+                <label id="email" type="email">atencioncliente@elgallo.com</label>
+            </ons-list-item>
+            <ons-list-header>Productos:</ons-list-header>
+            <ons-list-item>
+                <label type="number" class="left">1</label>
+                <label class="center">Pizza</label>
+                <label class="right">12 €</label>
+            </ons-list-item>
+            <ons-list-item>
+                <label type="number" class="left">1</label>
+                <label class="center">Hamburguesa</label>
+                <label class="right">12 €</label>
+            </ons-list-item>
+            <ons-list-item>
+                <label class="right">Total price: 24 €</label>
+            </ons-list-item>
+            <ons-list-header>Metodos de pago:</ons-list-header>
+            <ons-list-item>
+                <ons-row class="user_cover">
+                    <ons-col style="border: 5px;">
+                        <div class="user_thumbnail" style="background-color: #ffffff; border: 5px;"><img
+                                src="static/images/paypal.svg" /></div>
+    
+                    </ons-col>
+                    <ons-col style="border: 5px;">
+                        <div class="user_thumbnail" style="background-color: #ffffff; border: 5px;"><img
+                                src="static/images/visa.svg" /></div>
+    
+                    </ons-col>
+                    <ons-col style="border: 5px;">
+                        <div class="user_thumbnail" style="background-color: #ffffff; border: 5px;"><img
+                                src="static/images/master_card.svg" /></div>
+    
+                    </ons-col>
+                </ons-row>
+            </ons-list-item>
+        </ons-list>
     </div>
 
 </ons-page>
