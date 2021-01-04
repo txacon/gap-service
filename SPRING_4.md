@@ -69,3 +69,4 @@ Queda pendiente en el sprint 5 añadir la tabla para guardar el estado de las or
 
 ## VIDEO DEMOSTRACIÓN DE AVANCE.
 
+Link al video, pinche [aquí](https://drive.google.com/file/d/1RY7kavPAkYY5wRdlvDaq4OpaZtZphzfe/view?usp=sharing)
