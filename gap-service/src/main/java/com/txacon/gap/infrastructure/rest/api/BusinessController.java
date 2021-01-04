@@ -119,7 +119,7 @@ public class BusinessController {
 
     @Loggable
     @PreAuthorize("hasRole({'ROLE_SELLER'})")
-    @PostMapping(value = "/products", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/{businessId}/products", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> addBussinessProduct(@PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long businessId,
             @RequestBody ProductDTO productDTO) {
         service.addBussinessProduct(businessId, productRestMapper.toDomain(productDTO));
