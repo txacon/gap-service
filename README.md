@@ -176,7 +176,7 @@ La aplicación vendrá identificada por el prefijo de cada linea.
 ### Acceso a las distintas partes del sistema.
 
 - Acceso a la interfaz de administración: [Interfaz Admin](http://localhost:8081/admin)
-- Acceso a la interfaz web movil: [Interfaz Admin](http://localhost:8081/)
+- Acceso a la interfaz web movil: [Interfaz Web Movil](http://localhost:8081/)
 - Acceso a la documentación de la API: [Documentación API](http://localhost:8081/gap-service/swagger-ui/)
 - Acceso a la db: 
   - Host: localhost
