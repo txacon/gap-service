@@ -1,6 +1,5 @@
 package com.txacon.gap.infrastructure.db.jpa.bussines.entites;
 
-import com.txacon.gap.domain.products.entities.Product;
 import com.txacon.gap.infrastructure.db.jpa.BaseEntity;
 import com.txacon.gap.infrastructure.db.jpa.customer.entities.CustomerEntity;
 import com.txacon.gap.infrastructure.db.jpa.payment.entities.PaymentMethodEntity;
@@ -11,18 +10,13 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Entity(name = "business")
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = { "id", "fiscalId" })
+@EqualsAndHashCode(of = {"id", "fiscalId"})
 @ToString
 public class BusinessEntity extends BaseEntity implements Serializable {
 
@@ -30,7 +24,10 @@ public class BusinessEntity extends BaseEntity implements Serializable {
     @Column(name = "business_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String fiscalId;
+    @Getter
+    @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinTable(name = "business_payment_method", joinColumns = @JoinColumn(name = "business_id"), inverseJoinColumns = @JoinColumn(name = "payment_method_id"))
+    private final Set<PaymentMethodEntity> paymentMethods = new HashSet<>();
     private String name;
     private String phonePrefix;
     private String phone;
@@ -41,7 +38,8 @@ public class BusinessEntity extends BaseEntity implements Serializable {
     private String state;
     private String country;
     private String email;
-    private String description;
+    @Column(unique = true)
+    private String fiscalId;
     @Temporal(TemporalType.TIME)
     private Date openHour;
     @Temporal(TemporalType.TIME)
@@ -56,10 +54,8 @@ public class BusinessEntity extends BaseEntity implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "customer_id", nullable = false)
     private CustomerEntity own;
-    @Getter
-    @ManyToMany(cascade = { CascadeType.REFRESH }, fetch = FetchType.EAGER)
-    @JoinTable(name = "business_payment_method", joinColumns = @JoinColumn(name = "business_id"), inverseJoinColumns = @JoinColumn(name = "payment_method_id"))
-    private final Set<PaymentMethodEntity> paymentMethods = new HashSet<>();
+    @Column(length = 1000)
+    private String description;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "business", fetch = FetchType.EAGER)
     private final List<ProductEntity> products = new ArrayList<>();
 

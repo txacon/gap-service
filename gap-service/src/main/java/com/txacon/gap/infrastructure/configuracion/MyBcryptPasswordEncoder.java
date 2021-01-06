@@ -3,13 +3,11 @@ package com.txacon.gap.infrastructure.configuracion;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.regex.Pattern;
-
 public class MyBcryptPasswordEncoder implements PasswordEncoder {
 
     private static final String PREFIX_BCRYPT = "bcrypt$";
 
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public MyBcryptPasswordEncoder(BCryptPasswordEncoder.BCryptVersion version, int strength) {
         bCryptPasswordEncoder = new BCryptPasswordEncoder(version, strength);
@@ -24,7 +22,7 @@ public class MyBcryptPasswordEncoder implements PasswordEncoder {
 
     @Override
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
-        String customEncodedPassword = encodedPassword.replace(PREFIX_BCRYPT,"");
-        return bCryptPasswordEncoder.matches(rawPassword,customEncodedPassword);
+        String customEncodedPassword = encodedPassword.replace(PREFIX_BCRYPT, "");
+        return bCryptPasswordEncoder.matches(rawPassword, customEncodedPassword);
     }
 }

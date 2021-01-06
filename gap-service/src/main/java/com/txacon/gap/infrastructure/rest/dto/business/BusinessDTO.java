@@ -1,10 +1,9 @@
 package com.txacon.gap.infrastructure.rest.dto.business;
 
+import com.txacon.gap.infrastructure.rest.dto.product.ProductDTO;
 import lombok.*;
 
 import java.util.List;
-
-import com.txacon.gap.infrastructure.rest.dto.product.ProductDTO;
 
 @Data
 @Builder

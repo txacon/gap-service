@@ -61,7 +61,7 @@ public class CustomerController {
     @PreAuthorize("hasRole({'ROLE_ADMIN'})")
     @PutMapping(value = "/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CustomerDTO> updateCustomer(Principal principal,
-            @RequestBody @NotNull CustomerDTO customerDTO) {
+                                                      @RequestBody @NotNull CustomerDTO customerDTO) {
         Long customerId = Long.parseLong(principal.getName());
         customerDTO.setId(customerId);
         return ResponseEntity.accepted().body(updateCustomerDTO(customerDTO));

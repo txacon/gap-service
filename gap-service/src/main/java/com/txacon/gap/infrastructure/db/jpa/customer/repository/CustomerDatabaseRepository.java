@@ -7,7 +7,6 @@ import com.txacon.gap.domain.role.port.RoleRepository;
 import com.txacon.gap.infrastructure.db.jpa.customer.entities.CustomerEntity;
 import com.txacon.gap.infrastructure.db.jpa.customer.mapper.CustomerMapper;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;

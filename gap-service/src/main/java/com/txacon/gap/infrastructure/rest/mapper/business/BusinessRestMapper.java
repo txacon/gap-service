@@ -6,17 +6,14 @@ import com.txacon.gap.domain.rating.entities.AggregateRating;
 import com.txacon.gap.infrastructure.rest.dto.business.BusinessDTO;
 import com.txacon.gap.infrastructure.rest.mapper.GenericRestMapper;
 import com.txacon.gap.infrastructure.rest.mapper.product.ProductRestMapper;
-
 import org.mapstruct.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Mapper(componentModel = "spring", uses = {ProductRestMapper.class})
 public interface BusinessRestMapper extends GenericRestMapper<BusinessDTO, Business> {
 
-    static final Logger log = LoggerFactory.getLogger(BusinessRestMapper.class);
+    Logger log = LoggerFactory.getLogger(BusinessRestMapper.class);
 
     default AggregateRating toAggregateRating(String value) {
         if (value == null)

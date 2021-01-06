@@ -12,8 +12,8 @@ import org.mapstruct.Mapper;
 
 import java.util.Objects;
 
-@Mapper(componentModel = "spring", uses = { LocalTimeMapper.class, AggregateRatingMapper.class, PriceRangeMapper.class,
-        PaymentMethodMapper.class, ProductMapper.class })
+@Mapper(componentModel = "spring", uses = {LocalTimeMapper.class, AggregateRatingMapper.class, PriceRangeMapper.class,
+        PaymentMethodMapper.class, ProductMapper.class})
 public interface BusinessEntityMapper extends GenericDomainMapper<Business, BusinessEntity> {
 
     default Long mapToId(CustomerEntity customer) {

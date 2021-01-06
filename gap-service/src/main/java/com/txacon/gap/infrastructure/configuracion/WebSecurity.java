@@ -1,13 +1,11 @@
 package com.txacon.gap.infrastructure.configuracion;
 
-import static com.txacon.gap.domain.security.SecurityConstants.LOGIN_URL;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.txacon.gap.application.adapter.JwtUserDetailsServiceImpl;
 import com.txacon.gap.infrastructure.rest.security.JWTAuthenticationFilter;
 import com.txacon.gap.infrastructure.rest.security.JWTAuthorizationFilter;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +23,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import lombok.RequiredArgsConstructor;
+import static com.txacon.gap.domain.security.SecurityConstants.LOGIN_URL;
 
 @Configuration
 @EnableWebSecurity

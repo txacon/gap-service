@@ -1,9 +1,10 @@
 package com.txacon.gap;
 
 import com.google.common.collect.Lists;
+import com.txacon.gap.application.api.CustomerService;
+import com.txacon.gap.application.exceptions.CustomerNotFoundException;
 import com.txacon.gap.domain.common.port.KeyEntityRepository;
 import com.txacon.gap.domain.customer.entities.Customer;
-import com.txacon.gap.domain.customer.port.CustomerRepository;
 import com.txacon.gap.domain.pricerange.entities.PriceRange;
 import com.txacon.gap.domain.pricerange.port.PriceRangeRepository;
 import com.txacon.gap.domain.rating.entities.AggregateRating;
@@ -13,13 +14,13 @@ import com.txacon.gap.domain.role.entities.RoleName;
 import com.txacon.gap.domain.role.port.RoleRepository;
 import com.txacon.gap.domain.tags.entities.TagName;
 import com.txacon.gap.domain.tags.port.TagRepository;
+import com.txacon.gap.infrastructure.rest.mapper.PasswordEncoderMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -29,7 +30,8 @@ public class LoadMasterTablesCommandLineRunner implements CommandLineRunner {
     private final TagRepository tagRepository;
     private final RatingRepository ratingRepository;
     private final PriceRangeRepository priceRangeRepository;
-    private final CustomerRepository customerRepository;
+    private final CustomerService customerService;
+    private final PasswordEncoderMapper passwordEncoderMapper;
 
     @Override
     public void run(String... args) throws Exception {
@@ -46,9 +48,11 @@ public class LoadMasterTablesCommandLineRunner implements CommandLineRunner {
     }
 
     private void createUser(Customer customer) {
-        Optional<Customer> customerOptional = customerRepository.findByEmail(customer.getEmail());
-        if (!customerOptional.isPresent()){
-            customerRepository.save(customer);
+        try {
+            customerService.getByEmail(customer.getEmail());
+        } catch (CustomerNotFoundException e) {
+            customer.setPassword(passwordEncoderMapper.encodePassword(customer.getPassword()));
+            customerService.addCustomer(customer);
         }
     }
 
@@ -64,7 +68,7 @@ public class LoadMasterTablesCommandLineRunner implements CommandLineRunner {
         return customer;
     }
 
-    private Customer createAdminUser(){
+    private Customer createAdminUser() {
         Customer customer = new Customer();
         customer.setEmail("admin@test.com");
         customer.setPassword("pass");
