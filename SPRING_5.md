@@ -1,3 +1,11 @@
+# Spring 5
+
+## User histories
+
+- US_0013: Como cliente quiero recibir notificaciones del estado de los distintos pedidos para estar informado y tomar acciones en base a la información.
+- US_0014: Como cliente quiero tener la posibilidad de cancelar un pedido si este no ha sido atendido aun por el negocio para evitar el cargo económico del mismo.
+- US_0015: Como cliente quiero poder pagar mis pedidos a través de la plataforma para evitar el contacto con el repartidor pues es uno de los puntos clave en esta pandemia.
+- US_0016: Como administrador del sistemas quiero poder visualizar desde un único sitio todos los eventos del sistema para controlar el estado y detectar contingencias.
 
 
 ## Sistema de notificaciones
@@ -105,16 +113,17 @@ El sistema automáticamente mandará una nueva contraseña que podrá ser cambia
 
 ![Diagrama de secuencia de cambio de contraseña](doc_images/password_recovery_secuence.png)
 
-
 #### Cancelación de la cuenta de un usuario.
 
 El usuario tiene la posibilidad de desactivar su cuenta en la interfaz de información de usuario.
 
 ![Información de usuario UI](doc_images/update_user_ui.png)
 
-El flujo que dispará la desactivación es el envio de un email con la notificación de desactivación de cuenta.
+El flujo que dispará la desactivación es el envío de un email con la notificación de desactivado de cuenta.
 
 Informando que el sistema pasara a borrar la cuenta permanentemente en 60 días.
 
 ![Diagrama de secuencia de eliminación de cuenta](doc_images/deactivate_account.png)
+
+## Diagrama de la base de datos.
 

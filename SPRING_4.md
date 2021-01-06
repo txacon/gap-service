@@ -7,13 +7,13 @@
 - US_0012: Como cliente quiero gestionar mis pedidos para visualizar sus estados y realizar las acciones oportunas en base a los mismos.
 - US_0017: Como administrador del sistema quiero tener la posibilidad de restaurar el sistema ante una contingencia, minimizando los daños o riesgos para garantizar la resiliencia del mismo.
 
-# Documentación del backup
+## Documentación del backup
 
 Se ha añadido la documentación de backup junto con la estrategía del mismo.
 
 Se peude encontrar en [Documentación de backup](https://github.com/txacon/gap-service/blob/main/BACKUP_AND_RECOVER.md)
 
-# Manual de montaje de la aplicación y actualización con un diagrama de arquitectura.
+## Manual de montaje de la aplicación y actualización con un diagrama de arquitectura.
 
 Se ha añadido la documentación para la puesta en marcha y entendimiento de la arquitectura del proyecto.
 
