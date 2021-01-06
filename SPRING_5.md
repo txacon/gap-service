@@ -71,17 +71,40 @@ En este caso el diagrama representa la notificiación por email, pero la secuenc
 
 #### Modificación de estado
 
-La modificación de un estado, generalmente es disparada por el negocio siguiendo el siguiente diagrama de flujo.
+La modificación de un estado, generalmente es disparada por el negocio, siguiendo el siguiente diagrama de flujo.
 
 ![Diagrama de estados de un pedido](doc_images/diagrama_estados_pedido.png)
 
+Existen excepciones como pueden ser la cancelación del pedido, pero en general atenderán al cauce generado por el negocio.
 
+En este caso el diagrama de secuencia será el siguiente, el cambio de estado se hará mediante una actualización del pedido.
+
+![Diagrama de secuencia de cambio de estado](doc_images/cambio_estado_secuence.png)
 
 #### Cancelación
 
+La cancelación era la excepción anteriormente planteada a los cambios de estado. Esta se puede realizar cuando el pedido aún no esta en elaboración.
+
+El diagrama de secuencia será el siguiente:
+
+![Diagrama de secuencia de cancelación de pedido](doc_images/pedido_cancelado_secuence.png)
 #### Creación de la cuenta de un usuario.
 
+La creación de la cuenta de usuario también vendrá acompañada de un mensaje de bienvenida que sirva como ack de la acción.
+
+En este caso la notifiación se lanzara como parte del flujo de la creación de un cliente.
+
+El diagrama de secuencia es el siguiente:
+
+![Diagrama de secuencia de creación de cuenta](doc_images/creacion_usuario_secuence.png)
 #### Cambio de contraseña.
+
+El cambio de contraseña es otra de las opciones disparadas por el cliente, con la introducción de su correo en el formulario.
+
+El sistema automáticamente mandará una nueva contraseña que podrá ser cambiada posteriormente en el formulario de actualización de cliente.
+
+![Diagrama de secuencia de cambio de contraseña](doc_images/password_recovery_secuence.png)
+
 
 #### Cancelación de la cuenta de un usuario.
 
