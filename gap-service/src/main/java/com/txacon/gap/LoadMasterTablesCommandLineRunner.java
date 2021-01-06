@@ -35,11 +35,11 @@ public class LoadMasterTablesCommandLineRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        inserRoles();
-        insertKeyEntity(tagRepository, TagName.values());
-        insertKeyEntity(ratingRepository, AggregateRating.values());
-        insertKeyEntity(priceRangeRepository, PriceRange.values());
-        insertTestUser();
+//        inserRoles();
+//        insertKeyEntity(tagRepository, TagName.values());
+//        insertKeyEntity(ratingRepository, AggregateRating.values());
+//        insertKeyEntity(priceRangeRepository, PriceRange.values());
+//        insertTestUser();
     }
 
     private void insertTestUser() {

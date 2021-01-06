@@ -3,7 +3,9 @@ version: '3.3'
 services:
   gap_postgres:
     container_name: gap_postgres
-    image: postgres:latest
+    build:
+      context: postgres/
+      dockerfile: Dockerfile
     volumes:
       - db_data:/var/lib/postgresql/data
     restart: always
@@ -29,23 +31,23 @@ services:
       - gap_postgres
     expose: 
       - 8080
-  backend_migrate:
-    container_name: backend_migrate
-    build:
-      context: backend/
-      dockerfile: Dockerfile
-    command: manage.py migrate
-    image: backend:latest
-    environment: 
-      DATABASE_NAME: gap
-      DATABASE_USER: test
-      DATABASE_PASS: test
-      DATABASE_HOSTNAME: gap_postgres
-      DATABASE_PORT: '5432'
-    depends_on: 
-      - "gap_postgres"
-      - "gap_service"
-      - "nginx"
+#  backend_migrate:
+#    container_name: backend_migrate
+#    build:
+#      context: backend/
+#      dockerfile: Dockerfile
+#    command: manage.py migrate
+#    image: backend:latest
+#    environment: 
+#      DATABASE_NAME: gap
+#      DATABASE_USER: test
+#      DATABASE_PASS: test
+#      DATABASE_HOSTNAME: gap_postgres
+#      DATABASE_PORT: '5432'
+#    depends_on: 
+#      - "gap_postgres"
+#      - "gap_service"
+#      - "nginx"
   backend:
     container_name: backend
     build:
@@ -58,8 +60,8 @@ services:
       DATABASE_PASS: test
       DATABASE_HOSTNAME: gap_postgres
       DATABASE_PORT: '5432'
-    depends_on: 
-      - backend_migrate
+#    depends_on: 
+#      - backend_migrate
     expose: 
       - 8000
   nginx:

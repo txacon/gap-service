@@ -44,7 +44,7 @@ const restaurantsLoad = () => {
 const restaurantsLoadToSelect = () => {
   $.ajax({
     type: 'GET',
-    url: server + '/businesses',
+    url: server + '/businesses/all',
     contentType: 'application/json',
     beforeSend: function (xhr) {   //Include the bearer token in header
       xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.token);
@@ -121,7 +121,7 @@ const productsSelection = () => {
     var counter = 0
     data.forEach(item => {
       var onsItem = document.createElement('ons-list-item');
-      onsItem.setAttribute('expandable','');
+      onsItem.setAttribute('expandable', '');
       var label_check = document.createElement('label');
       label_check.setAttribute('class', 'left');
       var check_box = document.createElement('ons-checkbox');
@@ -131,19 +131,19 @@ const productsSelection = () => {
       label_name.setAttribute('for', 'check-' + counter);
       label_name.setAttribute('class', 'center');
       label_name.innerHTML = item.name;
-      var label_price = document.createElement('label'); 
-      label_price.innerHTML = item.wholeSalePrice+" €";
-      label_price.setAttribute('class','right');
+      var label_price = document.createElement('label');
+      label_price.innerHTML = item.wholeSalePrice + " €";
+      label_price.setAttribute('class', 'right');
 
       var div_expandable = document.createElement('div');
-      div_expandable.setAttribute('class','expandable-content');
+      div_expandable.setAttribute('class', 'expandable-content');
       var lable_numele = document.createElement('label');
-      lable_numele.setAttribute('class','left');
-      lable_numele.innerHTML='Cantidad: '
+      lable_numele.setAttribute('class', 'left');
+      lable_numele.innerHTML = 'Cantidad: '
       var num_ele = document.createElement('ons-input');
-      num_ele.setAttribute('type','number');
-      num_ele.setAttribute('class','right');
-      num_ele.setAttribute('placeholder','Cantidad');
+      num_ele.setAttribute('type', 'number');
+      num_ele.setAttribute('class', 'right');
+      num_ele.setAttribute('placeholder', 'Cantidad');
       num_ele.value = 1;
       var label_description = document.createElement('label');
       label_description.innerHTML = item.description;
@@ -155,11 +155,11 @@ const productsSelection = () => {
       div_expandable.appendChild(div_description);
       div_expandable.appendChild(document.createElement("br"))
       div_expandable.appendChild(div_numele);
-      
+
       onsItem.appendChild(label_check);
       onsItem.appendChild(label_name);
       onsItem.appendChild(label_price);
-      onsItem.appendChild (div_expandable);
+      onsItem.appendChild(div_expandable);
       document.getElementById('product-list').appendChild(onsItem);
       counter = counter + 1;
     });
@@ -456,6 +456,26 @@ const loadBusiness = (business) => {
   setValue('priceRange', business.priceRange);
 }
 
+const resetRestaurantForm = () => {
+  setValue('active', undefined);
+  setValue('city', undefined);
+  setValue('closeHour', undefined);
+  setValue('country', undefined);
+  setValue('description', undefined);
+  setValue('email', undefined);
+  setValue('fiscalId', undefined);
+  setValue('name', undefined);
+  setValue('openHour', undefined);
+  setValue('phone', undefined);
+  setValue('phoneprefix', undefined);
+  setValue('state', undefined);
+  setValue('street1', undefined);
+  setValue('street2', undefined);
+  setValue('zipcode', undefined);
+  setValue('aggregateRating', undefined);
+  setValue('id', undefined);
+  setValue('priceRange', undefined);
+}
 
 
 const extractProductForm = () => {
@@ -481,6 +501,16 @@ const productLoadForm = (product) => {
   setValue('product_wholeSalePrice', product.wholeSalePrice);
 }
 
+const resetProductForm = () => {
+  setValue('product_id', undefined);
+  setValue('product_active', undefined);
+  setValue('product_description', undefined);
+  setValue('product_name', undefined);
+  setValue('product_photoLink', undefined);
+  setValue('product_retailPrice', undefined);
+  setValue('product_wholeSalePrice', undefined);
+}
+
 
 const getValue = (fieldName) => {
   if (!document.querySelector('#' + fieldName)) {
@@ -495,7 +525,12 @@ const setValue = (fieldName, value) => {
     console.error("No found field: " + fieldName);
     return undefined;
   }
-  document.querySelector('#' + fieldName).value = value;
+  if (value === undefined){
+    document.querySelector('#' + fieldName).empty();
+  }
+  else {
+    document.querySelector('#' + fieldName).value = value;
+  }
 }
 
 
@@ -518,6 +553,13 @@ document.addEventListener('init', (event) => {
   else if (event.target.matches('#products-selection.page')) {
     productsSelection();
   }
+  else if (event.target.matches('#product-new.page')) {
+    resetProductForm();
+  }
+  else if (event.target.matches('#restaurant-new.page')) {
+    resetRestaurantForm();
+  }
+
 });
 
 document.addEventListener('prechange', (event) => {

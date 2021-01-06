@@ -185,6 +185,16 @@ La aplicación vendrá identificada por el prefijo de cada linea.
   - user: test
   - pass: test
 
+### Acceso a la aplicación
+
+- Cliente normal (Solo acceso a la parte web movil):
+  - User: user@test.com
+  - Pass: pass
+
+- Cliente admin (Acceso al backend y parte movil)
+  - User: admin@test.com
+  - Pass: pass
+
 ### Sistema de backup y recovery.
 
 - Backup and recovery: [Backup and recovery](BACKUP_AND_RECOVER.md)

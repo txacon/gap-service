@@ -53,6 +53,15 @@ public class BusinessController {
 
     @Loggable
     @PreAuthorize("hasRole({'ROLE_SELLER'})")
+    @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<BusinessDTO>> getAllBusiness(Principal principal) {
+        Long customerId = Long.parseLong(principal.getName());
+        return ResponseEntity
+                .ok(service.findAll().stream().map(mapper::toDTO).collect(Collectors.toList()));
+    }
+
+    @Loggable
+    @PreAuthorize("hasRole({'ROLE_SELLER'})")
     @GetMapping(value = "/{businessId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BusinessDTO> getBusiness(
             @PathVariable @NotNull @Min(0) @Max(Long.MAX_VALUE) Long businessId) {
