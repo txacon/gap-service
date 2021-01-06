@@ -1,6 +1,9 @@
 package com.txacon.gap;
 
+import com.google.common.collect.Lists;
 import com.txacon.gap.domain.common.port.KeyEntityRepository;
+import com.txacon.gap.domain.customer.entities.Customer;
+import com.txacon.gap.domain.customer.port.CustomerRepository;
 import com.txacon.gap.domain.pricerange.entities.PriceRange;
 import com.txacon.gap.domain.pricerange.port.PriceRangeRepository;
 import com.txacon.gap.domain.rating.entities.AggregateRating;
@@ -15,6 +18,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -24,6 +29,7 @@ public class LoadMasterTablesCommandLineRunner implements CommandLineRunner {
     private final TagRepository tagRepository;
     private final RatingRepository ratingRepository;
     private final PriceRangeRepository priceRangeRepository;
+    private final CustomerRepository customerRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -31,6 +37,43 @@ public class LoadMasterTablesCommandLineRunner implements CommandLineRunner {
         insertKeyEntity(tagRepository, TagName.values());
         insertKeyEntity(ratingRepository, AggregateRating.values());
         insertKeyEntity(priceRangeRepository, PriceRange.values());
+        insertTestUser();
+    }
+
+    private void insertTestUser() {
+        Customer customer = createTestUser();
+        createUser(customer);
+    }
+
+    private void createUser(Customer customer) {
+        Optional<Customer> customerOptional = customerRepository.findByEmail(customer.getEmail());
+        if (!customerOptional.isPresent()){
+            customerRepository.save(customer);
+        }
+    }
+
+    private Customer createTestUser() {
+        Customer customer = new Customer();
+        customer.setEmail("user@test.com");
+        customer.setPassword("pass");
+        customer.setFirstName("FirstName");
+        customer.setLastName("LastName");
+        customer.setRoles(Lists.newArrayList(Role.builder().role(RoleName.ROLE_USER).build(), Role.builder().role(RoleName.ROLE_SELLER).build()));
+        customer.setUsername("User");
+        customer.setActive(true);
+        return customer;
+    }
+
+    private Customer createAdminUser(){
+        Customer customer = new Customer();
+        customer.setEmail("admin@test.com");
+        customer.setPassword("pass");
+        customer.setFirstName("FirstName");
+        customer.setLastName("LastName");
+        customer.setRoles(Collections.singletonList(Role.builder().role(RoleName.ROLE_ADMIN).build()));
+        customer.setUsername("Admin");
+        customer.setActive(true);
+        return customer;
     }
 
     private <T extends Enum> void insertKeyEntity(KeyEntityRepository<T> keyEntityRepository, T... values) {
