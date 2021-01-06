@@ -33,14 +33,14 @@ Este tipo de comunicación se utiliza sobre todo para la comunicación asíncron
 Permite diferentes tipos de configuración:
 - Tradicional: Cada suscriptor está asociado a uno o varios topic en concreto. Existen muchas variaciones:
   - Cada suscriptor está escuchando 1 topic propio.
-  - Cada suscriptor está escuchando X topics independientes.
-  - Cada suscriptor está escuchando X topics independientes y Y topics compartido.
+  - Cada suscriptor está escuchando N topics independientes.
+  - Cada suscriptor está escuchando N topics independientes y Y topics compartido.
 - Grupos de consumo: Los suscriptores se pueden agrupar por grupo, este grupo está escuchando un topic y sólo un miembro del grupo tendrá la capacidad de atender el mensaje.
 - Radio Difusión: Todos los suscriptores que están escuchando el topic reciben el mensaje (cada suscriptor es responsable de interpretar el mensaje de forma independiente).
 
 ### Diagrama de arquitectura del sistema de notificaciones.
 
-Basados en este patrón el diagrama de arquitectura del sistema de notificaciones quedaría de la siguiente manera:
+Basados en este patrón, el diagrama de arquitectura del sistema de notificaciones, quedaría de la siguiente manera:
 
 ![Arquitectura del sistema de notificaciones](doc_images/notification_arch.png)
 
@@ -108,4 +108,13 @@ El sistema automáticamente mandará una nueva contraseña que podrá ser cambia
 
 #### Cancelación de la cuenta de un usuario.
 
+El usuario tiene la posibilidad de desactivar su cuenta en la interfaz de información de usuario.
+
+![Información de usuario UI](doc_images/update_user_ui.png)
+
+El flujo que dispará la desactivación es el envio de un email con la notificación de desactivación de cuenta.
+
+Informando que el sistema pasara a borrar la cuenta permanentemente en 60 días.
+
+![Diagrama de secuencia de eliminación de cuenta](doc_images/deactivate_account.png)
 
