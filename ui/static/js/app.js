@@ -74,7 +74,7 @@ const restaurantLoad = () => {
       xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.token);
     }
   }).done((data) => {
-    console.error("Xhr response: " + JSON.stringify(data));
+    console.log("Xhr response: " + JSON.stringify(data));
     loadBusiness(data);
   }).fail((error) => {
     console.error("Error: " + error)
@@ -515,7 +515,7 @@ const resetProductForm = () => {
 const getValue = (fieldName) => {
   if (!document.querySelector('#' + fieldName)) {
     console.error("No found field: " + fieldName);
-    return undefined;
+    return;
   }
   return document.querySelector('#' + fieldName).value;
 }
@@ -523,7 +523,7 @@ const getValue = (fieldName) => {
 const setValue = (fieldName, value) => {
   if (!document.querySelector('#' + fieldName)) {
     console.error("No found field: " + fieldName);
-    return undefined;
+    return;
   }
   if (value === undefined){
     document.querySelector('#' + fieldName).empty();

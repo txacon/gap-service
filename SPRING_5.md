@@ -125,5 +125,35 @@ Informando que el sistema pasara a borrar la cuenta permanentemente en 60 días.
 
 ![Diagrama de secuencia de eliminación de cuenta](doc_images/deactivate_account.png)
 
+
+## Integración con la pasarela de pago.
+
+La integración con la pasarela de pago depende de un proveedor externo, en el caso que nos ocupa un banco.
+
+El protocolo de pagos es muy estricto en este caso **optamos por no guardar información de pago** en nuestra página y **optar por un sistema de redirecciones**, esto hará que el **nivel de información a guardar en nuestro sistema sea menos sensible**.
+
+Además de tener que integrar (Según normativa de la comunidad Europea) un sistema de autenticación de doble factor.
+
+Toda la seguridad recaerá sobre la pasarela bancaría la cual nos devolverá el estado del pago mediante un callback a nuestra plataforma.
+
+El diagrama de secuencia de la realización del pago, es el siguiente.
+
+La información del flujo ha sido extraida de [Visa Integration Payments](https://developer.visa.com/capabilities/vpp/docs)
+
+![Diagrama secuencia pago pedido](doc_images/pay_secuence_diagram.png)
+
 ## Diagrama de la base de datos.
 
+Debido a lo expuesto anteriormente no conservaremos en nuestro sistema tarjetas ni datos bancarios asociados al usuario.
+
+Esto supone un ahorro de costes sobre la implementación así como una **descarga de responsabilidad en la plataforma bancaría** ante posibles intrusiones en nuestro sistema.
+
+Para conservar la información de facturación que en este caso, si nos compete a nosotros, se han añadido las siguientes columnas a la tabla pedido.
+
+Quedando de la siguiente manera:
+
+![Columnas añadidas a la tabla order](doc_images/order_update_sprint_5.png)
+
+El diagrama completo de base de datos queda de la siguiente manera:
+
+![Diagrama completo de db](doc_images/diagrama_completo_sprint5.png)
