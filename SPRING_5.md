@@ -4,9 +4,9 @@
 
 Para el sistema de notificaciones vamos a utilizar un patrón publicador-subscriptor con una cola de mensajes como canal de comunicación.
 
-La elección de esta arquitectura es debido a la naturaleza asincrona de los canales de comunicación ya sean email, sms, o mensajería de cualquier red social.
+La elección de esta arquitectura es debido a la naturaleza asíncrona de los canales de comunicación ya sean email, sms, o mensajería de cualquier red social.
 
-Además estos sistemas generalmente dependen de un sistema externo, por lo que lograremos el desacoplamiento de nuestro sistema del servicio encargado del envio.
+Además estos sistemas generalmente dependen de un sistema externo, por lo que lograremos el desacoplamiento de nuestro sistema del servicio encargado del envío.
 
 ### Colas de mensajes. Apache Kafka.
 
@@ -22,7 +22,7 @@ Apache Kafka es un sistema de transmisión de datos distribuido con capacidad de
 
 Es un patrón dentro de la tipología de arquitectura de "Cola de mensajes" utilizado para la comunicación de aplicaciones.
 
-El funcionamiento generico y salvando mucho las distancias funcionaría como una memoria de intercambio de información o un apartado de correos (Es solamente una metáfora, ahora pasaremos a explicarlo).
+El funcionamiento genérico y salvando mucho las distancias funcionaría como una memoria de intercambio de información o un apartado de correos (Es solamente una metáfora, ahora pasaremos a explicarlo).
 
 Existe un elemento "publisher" (productor) que al generar un dato  no lo dirige o referencia específicamente a un "subscriber" (receptor) en concreto, es decir, no lo envía de forma directa a la "dirección" del subscriber.
 
