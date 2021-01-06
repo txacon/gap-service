@@ -22,6 +22,7 @@ public class PhoneEntity extends BaseEntity implements Serializable {
     private String countryPrefix;
     private String phoneNumber;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "customer_id", nullable = false)
     private CustomerEntity customer;

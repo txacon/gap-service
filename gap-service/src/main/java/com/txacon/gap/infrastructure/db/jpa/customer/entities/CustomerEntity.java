@@ -28,15 +28,6 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
     private Long id;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
-    private final Set<PhoneEntity> phones = new HashSet<>();
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
-    private final Set<AddressEntity> addresses = new HashSet<>();
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "own")
-    private final Set<BusinessEntity> businesses = new HashSet<>();
-    @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    @JoinTable(name = "customer_role", joinColumns = @JoinColumn(name = "customer_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private final Set<RoleEntity> roles = new HashSet<>();
     @NotEmpty(message = "*Please provide an name")
     private String username;
     private String firstName;
@@ -50,6 +41,19 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     private boolean isStaff = false;
     private boolean isSuperuser = false;
     private LocalDateTime lastLogin;
+    @ToString.Exclude
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private final Set<PhoneEntity> phones = new HashSet<>();
+    @ToString.Exclude
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private final Set<AddressEntity> addresses = new HashSet<>();
+    @ToString.Exclude
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "own")
+    private final Set<BusinessEntity> businesses = new HashSet<>();
+    @ToString.Exclude
+    @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinTable(name = "customer_role", joinColumns = @JoinColumn(name = "customer_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private final Set<RoleEntity> roles = new HashSet<>();
 
     public void setRoles(Set<RoleEntity> roles) {
         if (Objects.isNull(roles))

@@ -27,6 +27,7 @@ public class AddressEntity extends BaseEntity implements Serializable {
     private String country;
     private Integer zipcode;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "customer_id", nullable = false)
     private CustomerEntity customer;

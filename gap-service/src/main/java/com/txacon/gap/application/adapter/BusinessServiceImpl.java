@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -87,10 +88,22 @@ public class BusinessServiceImpl implements BusinessService {
                 .orElseThrow(() -> new BusinessInvalidException(ApiError.ERROR_BUSINESS_INVALID_TO_UPDATE));
         if (product.getId() == null)
             throw new BusinessInvalidException(ApiError.PRODUCT_INVALID_TO_UPDATE);
-        bussiness.getProducts().add(product);
+        Optional<Product> productToUpdate = bussiness.getProducts().stream().filter(e -> Objects.equals(e.getId(), product.getId())).findFirst();
+        if (!productToUpdate.isPresent()) {
+            throw new BusinessInvalidException(ApiError.ERROR_PRODUCT_NOT_FOUND);
+        }
+        updateProduct(productToUpdate.get(), product);
         repository.save(bussiness);
         return product;
 
+    }
+
+    private void updateProduct(Product toUpdate, Product product) {
+        toUpdate.setWholeSalePrice(product.getWholeSalePrice());
+        toUpdate.setRetailPrice(product.getRetailPrice());
+        toUpdate.setName(product.getName());
+        toUpdate.setDescription(product.getDescription());
+        toUpdate.setPhotoLink(product.getPhotoLink());
     }
 
     @Override

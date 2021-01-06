@@ -18,15 +18,15 @@ import java.util.Set;
 @Table(name = "role")
 public class RoleEntity extends BaseEntity implements Serializable {
 
-    @ManyToMany(mappedBy = "roles")
-    Set<CustomerEntity> customers = new HashSet<>();
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")
     private Long roleId;
     @Column(name = "name", unique = true)
     private String name;
+    @ToString.Exclude
+    @ManyToMany(mappedBy = "roles")
+    Set<CustomerEntity> customers = new HashSet<>();
 
 
     public Set<CustomerEntity> getCustomers() {

@@ -21,6 +21,7 @@ public class AggregateRatingEntity extends BaseEntity implements Serializable {
     @Column(name = "aggregate_rating_id")
     private String id;
     @Getter
+    @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "aggregateRating")
     private Set<BusinessEntity> businesses = new HashSet<>();
 }

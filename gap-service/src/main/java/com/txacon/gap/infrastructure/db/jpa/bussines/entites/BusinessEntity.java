@@ -24,10 +24,6 @@ public class BusinessEntity extends BaseEntity implements Serializable {
     @Column(name = "business_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Getter
-    @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    @JoinTable(name = "business_payment_method", joinColumns = @JoinColumn(name = "business_id"), inverseJoinColumns = @JoinColumn(name = "payment_method_id"))
-    private final Set<PaymentMethodEntity> paymentMethods = new HashSet<>();
     private String name;
     private String phonePrefix;
     private String phone;
@@ -56,8 +52,14 @@ public class BusinessEntity extends BaseEntity implements Serializable {
     private CustomerEntity own;
     @Column(length = 1000)
     private String description;
+    @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "business", fetch = FetchType.EAGER)
     private final List<ProductEntity> products = new ArrayList<>();
+    @Getter
+    @ToString.Exclude
+    @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinTable(name = "business_payment_method", joinColumns = @JoinColumn(name = "business_id"), inverseJoinColumns = @JoinColumn(name = "payment_method_id"))
+    private final Set<PaymentMethodEntity> paymentMethods = new HashSet<>();
 
     public void setProducts(List<ProductEntity> products) {
         if (products == null)
