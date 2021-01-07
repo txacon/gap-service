@@ -154,7 +154,7 @@ Las acciones se dispararan desde esta pantalla al seleccionar una forma de pago.
 
 En la primera redirección el cliente entrará en la plataforma de pago donde podrá introducir sus datos bancarios.
 
-![Introducción de los datos banacarios](doc_images/datos_tarjeta.jpeg)
+![Introducción de los datos bancarios](doc_images/datos_tarjeta.jpeg)
 
 Una vez comprobados los datos la plataforma validará el pago y redirigirá al cliente a nuestra plataforma:
 
