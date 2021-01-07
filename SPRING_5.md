@@ -93,9 +93,17 @@ En este caso el diagrama de secuencia será el siguiente, el cambio de estado se
 
 La cancelación era la excepción anteriormente planteada a los cambios de estado. Esta se puede realizar cuando el pedido aún no esta en elaboración.
 
+El flujo sería el siguiente:
+
+![Flujo de cancelación](doc_images/cancel_order_flow.png)
+
+La cancelación de pedido se puede realizar desde la interfaz de revisión de pedido, siempre y cuando el pedido aún este en estado pendiente. (Tal y como marca el diagrama de estados de los pedidos).
+
 El diagrama de secuencia será el siguiente:
 
 ![Diagrama de secuencia de cancelación de pedido](doc_images/pedido_cancelado_secuence.png)
+
+Con esto se le ofrece al cliente la posibilidad de cancelar un pedidos, sin perjudicar al negocio.
 #### Creación de la cuenta de un usuario.
 
 La creación de la cuenta de usuario también vendrá acompañada de un mensaje de bienvenida que sirva como ack de la acción.
@@ -124,7 +132,6 @@ El flujo que dispará la desactivación es el envío de un email con la notifica
 Informando que el sistema pasara a borrar la cuenta permanentemente en 60 días.
 
 ![Diagrama de secuencia de eliminación de cuenta](doc_images/deactivate_account.png)
-
 
 ## Integración con la pasarela de pago.
 
@@ -168,6 +175,14 @@ La plataforma nos ofrece la posibilidad de revisar las transacciones realizadas:
 
 ![Revisión de transacciones](doc_images/revision_transacciones.jpeg)
 
+
+## Diagrama completo de la interfaz.
+
+El diagrama de flujo de la interfaz sería el siguiente, excluyo las pantallas de la pasarela de pago por ser un servicio externo a la aplicación y utilizarse en un flujo de redirección.
+
+Es mas el día de mañana este flujo podría ser multiproveedor dependiendo de la forma de pago.
+
+![Diagrama de flujo UI Completo](doc_images/interfaz_spring_5.png)
 
 ## Diagrama de la base de datos.
 

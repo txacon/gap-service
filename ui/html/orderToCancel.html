@@ -1,0 +1,47 @@
+<ons-page id="order_to_cancel">
+    <ons-toolbar>
+        <div class="left">
+            <ons-back-button>Atras</ons-back-button>
+        </div>
+        <div class="center">Order Status (Mock)</div>
+    </ons-toolbar>
+    <div class="content">
+        <ons-list id="product-list">
+            <ons-list-header>Datos de contacto:</ons-list-header>
+            <ons-list-item>
+                <label id="name" type="text">Restaurante el gallo</label>
+            </ons-list-item>
+            <ons-list-item>
+                <label class="left">Email: </label>
+                <label id="email" type="email">atencioncliente@elgallo.com</label>
+            </ons-list-item>
+            <ons-list-header>Productos:</ons-list-header>
+            <ons-list-item>
+                <label type="number" class="left">1</label>
+                <label class="center">Pizza</label>
+                <label class="right">12 €</label>
+            </ons-list-item>
+            <ons-list-item>
+                <label type="number" class="left">1</label>
+                <label class="center">Hamburguesa</label>
+                <label class="right">12 €</label>
+            </ons-list-item>
+            <ons-list-item>
+                <label class="right">Total price: 24 €</label>
+            </ons-list-item>
+            <ons-list-header>Estado:</ons-list-header>
+            <ons-list-item>
+                <ons-row class="user_cover">
+                    <ons-col style="border: 5px;">
+                        <div class="user_thumbnail" style="background-color: #ffffff; border: 5px; max-width: 100%; max-height: 100%;"><img
+                                src="static/images/pendiente.png" style="background-color: #ffffff; border: 5px; max-width: 100%; max-height: 100%;"/></div>
+                    </ons-col>
+                </ons-row>
+            </ons-list-item>
+        </ons-list>
+        <div class="vspc form-row">
+            <ons-button modifier="large--cta" onclick="loadPage('html/orderCanceled.html');">Cancelar Pedido</ons-button>
+        </div>
+    </div>
+  
+</ons-page>
