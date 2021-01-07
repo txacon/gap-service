@@ -130,17 +130,44 @@ Informando que el sistema pasara a borrar la cuenta permanentemente en 60 días.
 
 La integración con la pasarela de pago depende de un proveedor externo, en el caso que nos ocupa un banco.
 
-El protocolo de pagos es muy estricto en este caso **optamos por no guardar información de pago** en nuestra página y **optar por un sistema de redirecciones**, esto hará que el **nivel de información a guardar en nuestro sistema sea menos sensible**.
+El protocolo de pagos es muy estricto en este caso **optamos por no guardar información de pago** en nuestra página y **optar por un sistema conexión por redirección**, esto hará que el **nivel de información a guardar en nuestro sistema sea menos sensible**.
 
 Además de tener que integrar (Según normativa de la comunidad Europea) un sistema de autenticación de doble factor.
 
+Es una de las opciones que provee uno de los operadores mas importantes des españa [**_Redsys_**](https://pagosonline.redsys.es/modelos-de-integracion.html)
+
+Entre los requisitos de seguridad más conocidos están los certificados de seguridad SSL, los Sistemas de Verificación de Dirección (AVS), además de las normas de seguridad reguladas por la Industria de las Tarjetas de Pago (PCI).
+
 Toda la seguridad recaerá sobre la pasarela bancaría la cual nos devolverá el estado del pago mediante un callback a nuestra plataforma.
+
+El sistema básico de redirección viene descrito en la siguiente ilustración:
+
+![Diagrama básico de integración](doc_images/redireccion_tpv_basico.png)
 
 El diagrama de secuencia de la realización del pago, es el siguiente.
 
-La información del flujo ha sido extraida de [Visa Integration Payments](https://developer.visa.com/capabilities/vpp/docs)
+La información del flujo ha sido extraída de [**_Redsys_**](https://pagosonline.redsys.es/conexion-redireccion.html)
 
 ![Diagrama secuencia pago pedido](doc_images/pay_secuence_diagram.png)
+
+Las acciones se dispararan desde esta pantalla al seleccionar una forma de pago.
+
+En la primera redirección el cliente entrará en la plataforma de pago donde podrá introducir sus datos bancarios.
+
+![Introducción de los datos banacarios](doc_images/datos_tarjeta.jpeg)
+
+Una vez comprobados los datos la plataforma validará el pago y redirigirá al cliente a nuestra plataforma:
+
+![Validación del pago](doc_images/pago_realizado.jpeg)
+
+En caso de error el tpv mostrará al cliente una pantalla de error y lo indicará al sistema mediante una redirección
+
+![Error en el pago](doc_images/error_en_pedido.jpeg)
+
+La plataforma nos ofrece la posibilidad de revisar las transacciones realizadas:
+
+![Revisión de transacciones](doc_images/revision_transacciones.jpeg)
+
 
 ## Diagrama de la base de datos.
 
