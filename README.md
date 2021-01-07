@@ -206,3 +206,7 @@ La aplicación vendrá identificada por el prefijo de cada linea.
 - Spring_3: [Spring 3](SPRING_3.md)
 - Spring_4: [Spring 4](SPRING_4.md)
 - Spring_5: [Spring 5](SPRING_5.md)
+
+## VIDEO DEMOSTRACIÓN DE AVANCE.
+
+Link al video, pinche [aquí](https://drive.google.com/file/d/1yIpxmY1TWkivcjUBjP7G-RZP1_8GTw_0/view?usp=sharing)
