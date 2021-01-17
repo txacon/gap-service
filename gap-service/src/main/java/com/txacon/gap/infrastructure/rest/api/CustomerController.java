@@ -6,6 +6,7 @@ import com.txacon.gap.infrastructure.rest.dto.customer.CustomerDTO;
 import com.txacon.gap.infrastructure.rest.mapper.customer.CustomerRestMapper;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +17,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.security.Principal;
 
+@Slf4j
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Api(tags = "Customers")
@@ -38,6 +40,7 @@ public class CustomerController {
     @PreAuthorize("hasRole({'ROLE_USER','ROLE_ADMIN'})")
     @PutMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CustomerDTO> updateMe(Principal principal, @RequestBody CustomerDTO customerDTO) {
+        log.info("Customer to update: {}",customerDTO);
         Long customerId = Long.parseLong(principal.getName());
         customerDTO.setId(customerId);
         return ResponseEntity.ok(updateCustomerDTO(customerDTO));
@@ -79,6 +82,9 @@ public class CustomerController {
     }
 
     private CustomerDTO updateCustomerDTO(@RequestBody @NotNull CustomerDTO customerDTO) {
+        if ("".equals(customerDTO.getPassword())){
+            customerDTO.setPassword(null);
+        }
         return mapper.toDTO(service.update(mapper.toDomain(customerDTO)));
     }
 

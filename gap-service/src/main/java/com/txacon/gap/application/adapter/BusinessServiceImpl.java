@@ -62,7 +62,7 @@ public class BusinessServiceImpl implements BusinessService {
     public Business update(Business business, Long idOwner) {
         if (business.getId() == null)
             throw new BusinessInvalidException(ApiError.ERROR_BUSINESS_INVALID_TO_UPDATE);
-        return saveBussines(business, idOwner);
+        return updateBussines(business, idOwner);
     }
 
     @Override
@@ -78,14 +78,13 @@ public class BusinessServiceImpl implements BusinessService {
         product.setId(null);
         product.setActive(true);
         business.getProducts().add(product);
-        repository.save(business);
+        repository.update(business);
         return product;
     }
 
     @Override
     public Product updateBussinessProduct(Long bussinessId, Product product) {
-        Business bussiness = repository.findById(bussinessId)
-                .orElseThrow(() -> new BusinessInvalidException(ApiError.ERROR_BUSINESS_INVALID_TO_UPDATE));
+        Business bussiness = findById(bussinessId);
         if (product.getId() == null)
             throw new BusinessInvalidException(ApiError.PRODUCT_INVALID_TO_UPDATE);
         Optional<Product> productToUpdate = bussiness.getProducts().stream().filter(e -> Objects.equals(e.getId(), product.getId())).findFirst();
@@ -93,7 +92,7 @@ public class BusinessServiceImpl implements BusinessService {
             throw new BusinessInvalidException(ApiError.ERROR_PRODUCT_NOT_FOUND);
         }
         updateProduct(productToUpdate.get(), product);
-        repository.save(bussiness);
+        repository.update(bussiness);
         return product;
 
     }
@@ -113,15 +112,26 @@ public class BusinessServiceImpl implements BusinessService {
         if (product.getId() == null)
             throw new BusinessInvalidException(ApiError.PRODUCT_INVALID_TO_UPDATE);
         business.getProducts().removeIf(e -> e.getId().equals(product.getId()));
-        repository.save(business);
+        repository.update(business);
     }
 
     private Business saveBussines(Business business, Long idOwner) {
+        checkBusiness(business);
+        business.setOwn(idOwner);
+        return repository.save(business);
+    }
+
+    private Business updateBussines(Business business, Long idOwner) {
+        checkBusiness(business);
+        findById(business.getId());
+        business.setOwn(idOwner);
+        return repository.update(business);
+    }
+
+    private void checkBusiness(Business business) {
         if (Stream.of(business.getEmail(), business.getFiscalId(), business.getPhone(), business.getCity(),
                 business.getZipcode(), business.getStreet1()).anyMatch(Objects::isNull))
             throw new BusinessInvalidException(ApiError.ERROR_BUSINESS_INVALID_TO_CREATE);
-        business.setOwn(idOwner);
-        return repository.save(business);
     }
 
 

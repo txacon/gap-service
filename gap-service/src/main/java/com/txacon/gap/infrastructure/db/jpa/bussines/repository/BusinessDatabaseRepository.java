@@ -57,6 +57,17 @@ public class BusinessDatabaseRepository implements BusinessRepository {
     }
 
     @Override
+    public Business update(Business business) {
+        Optional<BusinessEntity> toSaveOptional = repository.findById(business.getId());
+        if (toSaveOptional.isPresent()){
+            BusinessEntity e = toSaveOptional.get();
+            mapper.updateBussines(business, e);
+            return mapper.toDomain(repository.save(e));
+        }
+        return null;
+    }
+
+    @Override
     public void deleteById(Long bussinesId) {
         if (!Objects.isNull(bussinesId)) repository.deleteById(bussinesId);
     }

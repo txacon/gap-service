@@ -7,11 +7,13 @@ import com.txacon.gap.domain.role.port.RoleRepository;
 import com.txacon.gap.infrastructure.db.jpa.customer.entities.CustomerEntity;
 import com.txacon.gap.infrastructure.db.jpa.customer.mapper.CustomerMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class CustomerDatabaseRepository implements CustomerRepository {
@@ -37,6 +39,7 @@ public class CustomerDatabaseRepository implements CustomerRepository {
 
     @Override
     public Customer save(Customer customer) {
+        log.info("Customer to save: {}",customer);
         customer.setRoles(customer.getRoles().stream().map(this::findRole)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
@@ -44,6 +47,17 @@ public class CustomerDatabaseRepository implements CustomerRepository {
         CustomerEntity customerEntity = mapper.toEntity(customer);
         if (customerEntity == null) return null;
         return mapper.toDomain(crud.save(customerEntity));
+    }
+
+    public Customer update(Customer customer){
+        Optional<CustomerEntity> customerEntity = crud.findById(customer.getId());
+        if (customerEntity.isPresent()) {
+            CustomerEntity toSaveEntity = customerEntity.get();
+            mapper.updateCustomerEntity(customer, toSaveEntity);
+            log.info("CustomerEntity to save: {}", toSaveEntity);
+            return mapper.toDomain(crud.save(toSaveEntity));
+        }
+        return null;
     }
 
 

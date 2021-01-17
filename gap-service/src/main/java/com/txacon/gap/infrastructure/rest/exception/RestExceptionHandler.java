@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
@@ -33,6 +34,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({CustomerInvalidException.class, BusinessInvalidException.class})
     public ResponseEntity<Object> handleInvalidRequest(DefaultServiceException ex, HttpServletRequest request) {
         return new ResponseEntity<>(handleExceptionResponse(ex, request), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({ConstraintViolationException.class})
+    public ResponseEntity<Object> handleConstraint(ConstraintViolationException ex, HttpServletRequest request){
+        return new ResponseEntity<>(handleExceptionResponse(ex,request), HttpStatus.BAD_REQUEST);
     }
 
     private Map<String, Object> handleExceptionResponse(Throwable exception, HttpServletRequest request) {

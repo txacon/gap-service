@@ -55,7 +55,6 @@ public class BusinessController {
     @PreAuthorize("hasRole({'ROLE_SELLER'})")
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<BusinessDTO>> getAllBusiness(Principal principal) {
-        Long customerId = Long.parseLong(principal.getName());
         return ResponseEntity
                 .ok(service.findAll().stream().map(mapper::toDTO).collect(Collectors.toList()));
     }

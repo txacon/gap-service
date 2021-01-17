@@ -6,8 +6,9 @@ import com.txacon.gap.infrastructure.db.jpa.GenericDomainMapper;
 import com.txacon.gap.infrastructure.db.jpa.role.entities.RoleEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface RoleMapper extends GenericDomainMapper<Role, RoleEntity> {
 
     @Mapping(target = "role", source = "name")

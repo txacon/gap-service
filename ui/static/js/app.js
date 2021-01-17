@@ -36,7 +36,7 @@ const restaurantsLoad = () => {
       document.getElementById('business-list').appendChild(onsItem);
     });
   }).fail((error) => {
-    console.error("Error: " + error)
+    console.log("Error: " + error.responseJSON);
     ons.notification.alert('Error en la obtención de los businesses');
   })
 }
@@ -60,7 +60,7 @@ const restaurantsLoadToSelect = () => {
       document.getElementById('business-list').appendChild(onsItem);
     });
   }).fail((error) => {
-    console.error("Error: " + error)
+    console.log("Error: " + error.responseJSON);
     ons.notification.alert('Error en la obtención de los businesses');
   })
 }
@@ -77,7 +77,7 @@ const restaurantLoad = () => {
     console.log("Xhr response: " + JSON.stringify(data));
     loadBusiness(data);
   }).fail((error) => {
-    console.error("Error: " + error)
+    console.log("Error: " + error.responseJSON);
     ons.notification.alert('Error en la obtención de los businesses');
   })
 }
@@ -102,7 +102,7 @@ const productsLoad = () => {
       document.getElementById('product-list').appendChild(onsItem);
     });
   }).fail((error) => {
-    console.error("Error: " + error)
+    console.log("Error: " + error.responseJSON);
     ons.notification.alert('Error en la obtención de los businesses');
   })
 }
@@ -164,7 +164,7 @@ const productsSelection = () => {
       counter = counter + 1;
     });
   }).fail((error) => {
-    console.error("Error: " + error)
+    console.log("Error: " + error.responseJSON);
     ons.notification.alert('Error en la obtención de los businesses');
   })
 }
@@ -181,7 +181,7 @@ const productLoad = () => {
     console.error("Xhr response: " + JSON.stringify(data));
     productLoadForm(data);
   }).fail((error) => {
-    console.error("Error: " + error)
+    console.log("Error: " + error.responseJSON);
     ons.notification.alert('Error en la obtención de los businesses');
   })
 }
@@ -206,7 +206,7 @@ const getUserInfoCall = () => {
   }).done((data) => {
     localStorage['user'] = new Object(data);
   }).fail((error) => {
-    console.error("Error: " + error)
+    console.log("Error: " + error.responseJSON);
     ons.notification.alert('Error en la obtención de información de usuario');
   })
 }
@@ -225,7 +225,7 @@ const getAuthTokenCall = (username, password) => {
     getUserInfoCall();
     loadPage('html/home.html')
   }).fail((error) => {
-    console.error("Error: " + error)
+    console.log("Error: " + error.responseJSON);
     ons.notification.alert('Error en el usuario o password');
   })
 }
@@ -237,9 +237,10 @@ const createUserCall = (user) => {
     data: JSON.stringify(user),
     contentType: 'application/json'
   }).done((data) => {
-    console.log("Xhr response: " + JSON.stringify(data))
+    console.log("Xhr response: " + JSON.stringify(data));
+    ons.notification.alert("Usuario creado");
   }).fail((error) => {
-    console.log("Error: " + error)
+    console.log("Error: " + error.responseJSON);
     ons.notification.alert('Error en la creación de usuario');
   })
 }
@@ -248,17 +249,17 @@ const createUserCall = (user) => {
 const updateUserCall = (user) => {
   $.ajax({
     type: 'PUT',
-    url: server + '/customers',
+    url: server + '/customers/me',
     data: JSON.stringify(user),
     contentType: 'application/json',
     beforeSend: function (xhr) {   //Include the bearer token in header
       xhr.setRequestHeader("Authorization", 'Bearer ' + localStorage.token);
     }
   }).done((data) => {
-    console.log("Xhr response: " + JSON.stringify(data))
-    loadPage('index.html')
+    console.log("Xhr response: " + JSON.stringify(data));
+    ons.notification.alert("Usuario Actualizado");
   }).fail((error) => {
-    console.log("Error: " + error)
+    console.log("Error: " + error.responseJSON);
     ons.notification.alert('Error en la creación de usuario');
   })
 }
@@ -276,9 +277,8 @@ const createBusinessCall = (business) => {
   }).done((data) => {
     console.log("Xhr response: " + JSON.stringify(data))
     loadPage('html/restaurants.html');
-    restaurantsLoad();
   }).fail((error) => {
-    console.log("Error: " + error)
+    console.log("Error: " + error.responseJSON);
     ons.notification.alert('Error en la creación de negocio');
   })
 }
@@ -297,7 +297,7 @@ const updateBusinessCall = (business) => {
     loadPage('html/restaurants.html');
     restaurantsLoad();
   }).fail((error) => {
-    console.log("Error: " + error)
+    console.log("Error: " + error.responseJSON);
     ons.notification.alert('Error en la creación de negocio');
   })
 }
@@ -316,7 +316,7 @@ const createProductCall = (product) => {
     loadPage('html/products.html')
     productsLoad();
   }).fail((error) => {
-    console.log("Error: " + error)
+    console.log("Error: " + error.responseJSON);
     ons.notification.alert('Error en la creación de producto');
   })
 }
@@ -335,7 +335,7 @@ const updateProductCall = (product) => {
     loadPage('html/products.html');
     productsLoad();
   }).fail((error) => {
-    console.log("Error: " + error)
+    console.log("Error: " + error.responseJSON);
     ons.notification.alert('Error en la actualización de producto');
   })
 }
@@ -353,8 +353,8 @@ const deleteProductCall = (product) => {
     loadPage('html/products.html');
     productsLoad();
   }).fail((error) => {
-    console.log("Error: " + error)
-    ons.notification.alert('Error en la actualización de producto');
+    console.log("Error: " + error.responseJSON)
+    ons.notification.alert('Error en el borrado de producto: ' + error.responseJSON.messages);
   })
 }
 
@@ -432,6 +432,13 @@ const updateUser = () => {
   user.lastName = getValue('lastName');
   user.email = getValue('email');
   user.password = getValue('password');
+  user.active = getValue('active');
+  if (user.password === "") {
+    user.password = undefined;
+  }
+  if (user.active === "" || user.active === undefined) {
+    user.active = true;
+  }
   updateUserCall(user);
 }
 
@@ -472,9 +479,9 @@ const resetRestaurantForm = () => {
   setValue('street1', undefined);
   setValue('street2', undefined);
   setValue('zipcode', undefined);
-  setValue('aggregateRating', undefined);
+  //setValue('aggregateRating', undefined);
   setValue('id', undefined);
-  setValue('priceRange', undefined);
+  //setValue('priceRange', undefined);
 }
 
 
@@ -492,13 +499,13 @@ const extractProductForm = () => {
 
 
 const productLoadForm = (product) => {
-  setValue('product_id', product.id);
-  setValue('product_active', product.active);
   setValue('product_description', product.description);
   setValue('product_name', product.name);
-  setValue('product_photoLink', product.photoLink);
   setValue('product_retailPrice', product.retailPrice);
   setValue('product_wholeSalePrice', product.wholeSalePrice);
+  setValue('product_id', product.id);
+  setValue('product_active', product.active);
+  setValue('product_photoLink', product.photoLink);
 }
 
 const resetProductForm = () => {
@@ -525,7 +532,7 @@ const setValue = (fieldName, value) => {
     console.error("No found field: " + fieldName);
     return;
   }
-  if (value === undefined){
+  if (value === undefined) {
     document.querySelector('#' + fieldName).empty();
   }
   else {
@@ -559,10 +566,14 @@ document.addEventListener('init', (event) => {
   else if (event.target.matches('#restaurant-new.page')) {
     resetRestaurantForm();
   }
-
 });
 
 document.addEventListener('prechange', (event) => {
+  document.querySelector('ons-toolbar .center')
+    .innerHTML = event.tabItem.getAttribute('label');
+});
+
+document.addEventListener('postchange', (event) => {
   document.querySelector('ons-toolbar .center')
     .innerHTML = event.tabItem.getAttribute('label');
 });

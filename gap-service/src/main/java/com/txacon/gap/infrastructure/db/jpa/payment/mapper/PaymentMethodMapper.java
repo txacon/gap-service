@@ -3,8 +3,9 @@ package com.txacon.gap.infrastructure.db.jpa.payment.mapper;
 import com.txacon.gap.domain.payment.entities.PaymentType;
 import com.txacon.gap.infrastructure.db.jpa.payment.entities.PaymentMethodEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public class PaymentMethodMapper {
 
     public PaymentType toDomain(PaymentMethodEntity paymentMethodEntity) {

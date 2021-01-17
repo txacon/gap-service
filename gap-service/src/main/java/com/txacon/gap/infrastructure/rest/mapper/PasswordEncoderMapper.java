@@ -14,6 +14,7 @@ public class PasswordEncoderMapper {
 
     @Named("passwordEncoding")
     public String encodePassword(String password) {
+        if (password == null) return null;
         return passwordEncoder.encode(password);
     }
 }

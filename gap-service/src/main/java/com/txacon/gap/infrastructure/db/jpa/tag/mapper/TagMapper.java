@@ -3,8 +3,9 @@ package com.txacon.gap.infrastructure.db.jpa.tag.mapper;
 import com.txacon.gap.domain.tags.entities.TagName;
 import com.txacon.gap.infrastructure.db.jpa.tag.entities.TagEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",  nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public class TagMapper {
 
     public TagEntity toEntity(TagName tagName) {

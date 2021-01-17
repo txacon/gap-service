@@ -3,8 +3,9 @@ package com.txacon.gap.infrastructure.db.jpa.pricerange.mapper;
 import com.txacon.gap.domain.pricerange.entities.PriceRange;
 import com.txacon.gap.infrastructure.db.jpa.pricerange.entities.PriceRangeEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public class PriceRangeMapper {
 
     public PriceRange toDomain(PriceRangeEntity priceRangeEntity) {

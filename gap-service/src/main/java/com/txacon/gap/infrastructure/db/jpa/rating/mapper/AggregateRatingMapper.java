@@ -3,8 +3,9 @@ package com.txacon.gap.infrastructure.db.jpa.rating.mapper;
 import com.txacon.gap.domain.rating.entities.AggregateRating;
 import com.txacon.gap.infrastructure.db.jpa.rating.entities.AggregateRatingEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public class AggregateRatingMapper {
 
     public AggregateRating toDomain(AggregateRatingEntity aggregateRatingEntity) {

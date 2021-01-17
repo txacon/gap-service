@@ -11,11 +11,12 @@ import com.txacon.gap.domain.role.entities.RoleName;
 import com.txacon.gap.domain.role.port.RoleRepository;
 import com.txacon.gap.infrastructure.db.jpa.customer.mapper.CustomerMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
@@ -52,9 +53,8 @@ public class CustomerServiceImpl implements CustomerService {
     @Loggable
     public Customer update(Customer customer) {
         if (customer.getId() == null) throw new CustomerInvalidException(ApiError.ERROR_CUSTOMER_INVALID_TO_CREATE);
-        Customer customerToUpd = repository.findById(customer.getId()).orElseThrow(() -> new CustomerNotFoundException(ApiError.ERROR_CUSTOMER_NOT_FOUND_BY_ID));
-        mapper.updateCustomer(customer, customerToUpd);
-        return repository.save(customerToUpd);
+        getById(customer.getId());
+        return repository.update(customer);
     }
 
     @Override

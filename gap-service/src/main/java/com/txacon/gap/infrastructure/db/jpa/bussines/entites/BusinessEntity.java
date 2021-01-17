@@ -65,19 +65,23 @@ public class BusinessEntity extends BaseEntity implements Serializable {
         if (products == null)
             return;
         this.products.clear();
-        products.forEach(e -> {
-            e.setBusiness(this);
-            this.getProducts().add(e);
-        });
+        products.forEach(this::addProduct);
+    }
+
+    public void addProduct(ProductEntity productEntity) {
+        productEntity.setBusiness(this);
+        this.products.add(productEntity);
     }
 
     public void setPaymentMethods(Set<PaymentMethodEntity> paymentMethods) {
         if (paymentMethods == null)
             return;
         this.paymentMethods.clear();
-        for (PaymentMethodEntity paymentMethod : paymentMethods) {
-            paymentMethod.getBusinesses().add(this);
-            this.paymentMethods.add(paymentMethod);
-        }
+        paymentMethods.forEach(this::addPaymentMethod);
+    }
+
+    public void addPaymentMethod(PaymentMethodEntity paymentMethodEntity){
+        paymentMethodEntity.getBusinesses().add(this);
+        this.paymentMethods.add(paymentMethodEntity);
     }
 }

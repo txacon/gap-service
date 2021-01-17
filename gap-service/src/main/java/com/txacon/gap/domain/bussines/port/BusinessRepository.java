@@ -20,5 +20,7 @@ public interface BusinessRepository {
 
     Business save(Business business);
 
+    Business update(Business business);
+
     void deleteById(Long bussinesId);
 }
