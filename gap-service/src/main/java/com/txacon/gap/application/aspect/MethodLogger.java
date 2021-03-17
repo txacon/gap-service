@@ -12,17 +12,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class MethodLogger {
 
-    @Around("@annotation(com.txacon.gap.application.aspect.Loggable)")
-    public Object around(ProceedingJoinPoint point) throws Throwable {
-        long start = System.currentTimeMillis();
-        Object result = point.proceed();
-        log.info(
-                "{} ({}): {} - {} in %[msec]s",
-                ((MethodSignature) point.getSignature()).getMethod().getName(),
-                point.getArgs(),
-                result,
-                System.currentTimeMillis() - start
-        );
-        return result;
-    }
+  @Around("@annotation(com.txacon.gap.application.aspect.Loggable)")
+  public Object around(ProceedingJoinPoint point) throws Throwable {
+    long start = System.currentTimeMillis();
+    Object result = point.proceed();
+    log.info(
+        "{} ({}): {} - {} in %[msec]s",
+        ((MethodSignature) point.getSignature()).getMethod().getName(),
+        point.getArgs(),
+        result,
+        System.currentTimeMillis() - start);
+    return result;
+  }
 }

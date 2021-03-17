@@ -2,12 +2,23 @@ package com.txacon.gap.infrastructure.db.jpa.role.entities;
 
 import com.txacon.gap.infrastructure.db.jpa.BaseEntity;
 import com.txacon.gap.infrastructure.db.jpa.customer.entities.CustomerEntity;
-import lombok.*;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -18,27 +29,26 @@ import java.util.Set;
 @Table(name = "role")
 public class RoleEntity extends BaseEntity implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id")
-    private Long roleId;
-    @Column(name = "name", unique = true)
-    private String name;
-    @ToString.Exclude
-    @ManyToMany(mappedBy = "roles")
-    Set<CustomerEntity> customers = new HashSet<>();
+  @ToString.Exclude
+  @ManyToMany(mappedBy = "roles")
+  Set<CustomerEntity> customers = new HashSet<>();
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "role_id")
+  private Long roleId;
+  @Column(name = "name", unique = true)
+  private String name;
 
+  public Set<CustomerEntity> getCustomers() {
+    return customers;
+  }
 
-    public Set<CustomerEntity> getCustomers() {
-        return customers;
-    }
+  public void setCustomers(Set<CustomerEntity> customers) {
+    this.customers.clear();
+    this.customers.addAll(customers);
+  }
 
-    public void setCustomers(Set<CustomerEntity> customers) {
-        this.customers.clear();
-        this.customers.addAll(customers);
-    }
-
-    public void addCustomer(CustomerEntity customerEntity) {
-        this.customers.add(customerEntity);
-    }
+  public void addCustomer(CustomerEntity customerEntity) {
+    this.customers.add(customerEntity);
+  }
 }

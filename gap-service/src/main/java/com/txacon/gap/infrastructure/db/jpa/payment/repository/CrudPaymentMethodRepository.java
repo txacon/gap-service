@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 interface CrudPaymentMethodRepository extends JpaRepository<PaymentMethodEntity, String> {
+
 }

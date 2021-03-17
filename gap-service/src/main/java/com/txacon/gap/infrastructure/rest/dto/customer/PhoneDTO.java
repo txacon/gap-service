@@ -11,6 +11,6 @@ import lombok.ToString;
 @ToString
 public class PhoneDTO {
 
-    private String countryPrefix;
-    private String phoneNumber;
+  private String countryPrefix;
+  private String phoneNumber;
 }

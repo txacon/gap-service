@@ -14,14 +14,15 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class JwtUserDetailsServiceImpl implements UserDetailsService {
 
-    private final CustomerRepository respository;
+  private final CustomerRepository respository;
 
-    @Override
-    @Loggable
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Customer customer = respository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Invalid credentials"));
-        return new JwtUserDetails(customer);
-    }
-
-
+  @Override
+  @Loggable
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    Customer customer =
+        respository
+            .findByEmail(username)
+            .orElseThrow(() -> new UsernameNotFoundException("Invalid credentials"));
+    return new JwtUserDetails(customer);
+  }
 }

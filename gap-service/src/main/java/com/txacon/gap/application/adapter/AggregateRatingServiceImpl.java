@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AggregateRatingServiceImpl extends KeyAbstractService<AggregateRating> implements AggregateRatingService {
+public class AggregateRatingServiceImpl extends KeyAbstractService<AggregateRating>
+    implements AggregateRatingService {
 
-    @Autowired
-    public AggregateRatingServiceImpl(KeyEntityRepository<AggregateRating> repository) {
-        super(repository);
-    }
+  @Autowired
+  public AggregateRatingServiceImpl(KeyEntityRepository<AggregateRating> repository) {
+    super(repository);
+  }
 }

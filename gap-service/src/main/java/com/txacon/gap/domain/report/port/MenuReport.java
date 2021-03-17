@@ -5,6 +5,5 @@ import net.sf.jasperreports.engine.JasperPrint;
 
 public interface MenuReport {
 
-    JasperPrint createPdfReport(Business businessId);
-
+  JasperPrint createPdfReport(Business businessId);
 }
