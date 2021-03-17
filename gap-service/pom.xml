@@ -122,6 +122,12 @@
       <version>1.5.20</version>
       <scope>compile</scope>
     </dependency>
+    <!-- Site skin -->
+    <dependency>
+      <groupId>org.apache.maven.skins</groupId>
+      <artifactId>maven-default-skin</artifactId>
+      <version>1.2</version>
+    </dependency>
     <!-- TEST -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -233,7 +239,6 @@
             <goals>
               <!-- This goal will check code and generate report -->
               <goal>findbugs</goal>
-
               <!-- Fail the build if there were any findBugs violations in the source code. Uncomment if needed -->
               <!-- This goal includes both findbugs and check -->
               <!-- <goal>check</goal>-->
@@ -262,27 +267,21 @@
         <configuration>
           <!-- Run PMD on the tests. Default: false -->
           <includeTests>false</includeTests>
-
           <!-- Skip the PMD checks. Most useful on the command line via "-Dpmd.skip=true" -->
           <skip>false</skip>
-
           <!-- Print details of check failures to build output. -->
           <verbose>true</verbose>
-
 
           <!-- Link the violation line numbers to the source xref. Links will be created
                      automatically if the jxr plugin is being used. Default: true -->
           <linkXRef>true</linkXRef>
-
           <!-- Set the output format type, in addition to the HTML report. Must be
                      one of: "none", "csv", "xml", "txt" or the full class name of the PMD renderer
                      to use. See the net.sourceforge.pmd.renderers package javadoc for available
                      renderers. XML is required if the pmd:check goal is being used. Default: xml-->
           <format>xml</format>
-
           <!-- Fail build if there are high priority warnings during pmd:check. Default value is 5 -->
           <failurePriority>1</failurePriority>
-
           <!-- A list of files to include from checking. Can contain Ant-style wildcards
                      and double wildcards. Defaults to **\/*.java.-->
           <includes>
@@ -436,12 +435,12 @@
         </configuration>
       </plugin>
 
-      <!-- To publish JavaDocs -->
+      <!-- To publish JavaDocs
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>3.2.0</version>
-      </plugin>
+      </plugin> -->
     </plugins>
   </reporting>
 </project>
