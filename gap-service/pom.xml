@@ -271,7 +271,6 @@
           <skip>false</skip>
           <!-- Print details of check failures to build output. -->
           <verbose>true</verbose>
-
           <!-- Link the violation line numbers to the source xref. Links will be created
                      automatically if the jxr plugin is being used. Default: true -->
           <linkXRef>true</linkXRef>
@@ -311,14 +310,13 @@
             <goals>
               <!-- Creates a PMD report. -->
               <goal>pmd</goal>
-
               <!-- Fail the build if there were any PMD violations in the source code. Uncomment if needed -->
               <!--<goal>check</goal>-->
 
               <!-- Creates a report for PMD's copy paste detector tool -->
               <goal>cpd</goal>
-
               <!-- Fail the build if there were any CPD violations in the source code. Uncomment if needed -->
+
               <!-- <goal>cpd-check</goal> -->
             </goals>
           </execution>
