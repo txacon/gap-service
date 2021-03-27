@@ -11,7 +11,6 @@ import com.txacon.gap.infrastructure.rest.dto.product.ProductDTO;
 import com.txacon.gap.infrastructure.rest.mapper.business.BusinessRestMapper;
 import com.txacon.gap.infrastructure.rest.mapper.product.ProductRestMapper;
 import io.swagger.annotations.Api;
-import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;

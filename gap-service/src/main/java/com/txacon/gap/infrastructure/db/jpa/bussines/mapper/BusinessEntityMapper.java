@@ -42,9 +42,9 @@ public abstract class BusinessEntityMapper
   }
 
   public CustomerEntity mapToCustomer(Long id) {
-      if (id == null) {
-          return null;
-      }
+    if (id == null) {
+      return null;
+    }
     CustomerEntity customerEntity = new CustomerEntity();
     customerEntity.setId(id);
     return customerEntity;
