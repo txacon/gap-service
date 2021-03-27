@@ -55,7 +55,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         .cors()
         .and()
         .csrf()
-        .disable()
         // Swagger
         .authorizeRequests()
         .antMatchers(
