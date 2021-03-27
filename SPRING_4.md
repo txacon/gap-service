@@ -66,7 +66,3 @@ Queda pendiente en el sprint 5 añadir la tabla para guardar el estado de las or
 ### Digrama general de base de datos
 
 ![Diagrama general de DB](doc_images/db_completo_sprint4.png)
-
-## VIDEO DEMOSTRACIÓN DE AVANCE.
-
-Link al video, pinche [aquí](https://drive.google.com/file/d/1RY7kavPAkYY5wRdlvDaq4OpaZtZphzfe/view?usp=sharing)
