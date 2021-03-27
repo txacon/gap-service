@@ -1,6 +1,7 @@
 package com.txacon.gap.infrastructure.db.jpa.bussines.mapper;
 
 import com.txacon.gap.domain.bussines.entities.Business;
+import com.txacon.gap.domain.products.entities.Product;
 import com.txacon.gap.infrastructure.db.jpa.GenericDomainMapper;
 import com.txacon.gap.infrastructure.db.jpa.bussines.entites.BusinessEntity;
 import com.txacon.gap.infrastructure.db.jpa.customer.entities.CustomerEntity;
@@ -67,7 +68,7 @@ public abstract class BusinessEntityMapper
       return;
     }
     Set<Long> containProducts =
-        business.getProducts().stream().map(e -> e.getId()).collect(Collectors.toSet());
+        business.getProducts().stream().map(Product::getId).collect(Collectors.toSet());
     Set<ProductEntity> toRemoveProducts =
         entity.getProducts().stream()
             .filter(e -> !containProducts.contains(e.getId()))

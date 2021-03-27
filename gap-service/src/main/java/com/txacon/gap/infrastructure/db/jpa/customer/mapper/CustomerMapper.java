@@ -7,7 +7,6 @@ import com.txacon.gap.infrastructure.db.jpa.role.mapper.RoleMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.Mappings;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
 @Mapper(
@@ -27,16 +26,15 @@ public interface CustomerMapper extends GenericDomainMapper<Customer, CustomerEn
   @Mapping(target = "id", ignore = true)
   CustomerEntity toEntity(Customer customer);
 
-  @Mappings({
-      @Mapping(target = "username", source = "username"),
-      @Mapping(target = "firstName", source = "firstName"),
-      @Mapping(target = "lastName", source = "lastName"),
-      @Mapping(target = "active", source = "active"),
-      @Mapping(target = "password", source = "password"),
-      @Mapping(target = "roles", ignore = true),
-      @Mapping(target = "id", ignore = true),
-      @Mapping(target = "addresses", ignore = true),
-      @Mapping(target = "phones", ignore = true),
-  })
+
+  @Mapping(target = "username", source = "username")
+  @Mapping(target = "firstName", source = "firstName")
+  @Mapping(target = "lastName", source = "lastName")
+  @Mapping(target = "active", source = "active")
+  @Mapping(target = "password", source = "password")
+  @Mapping(target = "roles", ignore = true)
+  @Mapping(target = "id", ignore = true)
+  @Mapping(target = "addresses", ignore = true)
+  @Mapping(target = "phones", ignore = true)
   void updateCustomerEntity(Customer customer, @MappingTarget CustomerEntity customerEntity);
 }

@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class DefaultServiceException extends RuntimeException {
 
-  protected ApiError error;
+  protected final ApiError error;
 
   public String getExceptionMessage() {
     return error != null ? error.getMessageError() : "";

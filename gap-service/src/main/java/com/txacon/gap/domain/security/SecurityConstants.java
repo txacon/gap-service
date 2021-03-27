@@ -2,6 +2,9 @@ package com.txacon.gap.domain.security;
 
 public final class SecurityConstants {
 
+  private SecurityConstants() {
+  }
+
   public static final String LOGIN_URL = "/login";
   public static final String ISSUER_INFO = "http://gap.es";
   public static final long TOKEN_EXPIRATION_TIME = 60L * 60L * 1000L;

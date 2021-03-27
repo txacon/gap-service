@@ -25,7 +25,7 @@ public class AggregateRatingController {
 
   @GetMapping("")
   @Loggable
-  ResponseEntity<List<String>> findAll() {
+  public ResponseEntity<List<String>> findAll() {
     return ResponseEntity.ok(
         service.findAll().stream().map(Enum::name).collect(Collectors.toList()));
   }
@@ -33,7 +33,7 @@ public class AggregateRatingController {
   @PreAuthorize("hasRole({'ROLE_ADMIN'})")
   @PostMapping("")
   @Loggable
-  ResponseEntity<String> createNew(@RequestBody String name) {
+  public ResponseEntity<String> createNew(@RequestBody String name) {
     AggregateRating toAdd = AggregateRating.valueOf(name);
     service.add(toAdd);
     return ResponseEntity.accepted().body(toAdd.name());

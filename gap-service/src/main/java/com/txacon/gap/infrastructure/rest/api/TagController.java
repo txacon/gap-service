@@ -25,7 +25,7 @@ public class TagController {
 
   @Loggable
   @GetMapping("")
-  ResponseEntity<List<String>> findAll() {
+  public ResponseEntity<List<String>> findAll() {
     return ResponseEntity.ok(
         service.findAll().stream().map(Enum::name).collect(Collectors.toList()));
   }
@@ -33,7 +33,7 @@ public class TagController {
   @Loggable
   @PreAuthorize("hasRole({'ROLE_ADMIN'})")
   @PostMapping("")
-  ResponseEntity<String> createNew(@RequestBody String name) {
+  public ResponseEntity<String> createNew(@RequestBody String name) {
     TagName toAdd = TagName.valueOf(name);
     service.add(toAdd);
     return ResponseEntity.accepted().body(toAdd.name());
