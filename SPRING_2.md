@@ -66,7 +66,3 @@ Son tablas maestras con valores fijos.
 ### Digrama general de base de datos
 
 ![Diagrama general de DB](doc_images/diagrama_completo_spring2.png)
-
-## VIDEO DEMOSTRACIÓN DE AVANCE.
-
-https://drive.google.com/file/d/1rg7z2xkT1cSvtQpU2H_f5wmCr7E0uUVG/view?usp=sharing

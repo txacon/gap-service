@@ -39,7 +39,3 @@ Describimos las relaciones antes de pasar al diagrama general.
 ### Digrama general de base de datos
 
 ![Diagrama general de DB](doc_images/diagrama_completo.png)
-
-## VIDEO DEMOSTRACIÓN DE AVANCE.
-
-https://drive.google.com/file/d/17LbvvEpDxyPd80wlosc2gdBaLDFf6Ged/view?usp=sharing

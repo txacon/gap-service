@@ -199,7 +199,3 @@ Quedando de la siguiente manera:
 El diagrama completo de base de datos queda de la siguiente manera:
 
 ![Diagrama completo de db](doc_images/diagrama_completo_sprint5.png)
-
-## VIDEO DEMOSTRACIÓN DE AVANCE.
-
-Link al video, pinche [aquí](https://drive.google.com/file/d/1DlZVn4O9zSzTBf3fPR0YUGJzUn7xYRhl/view?usp=sharing)
