@@ -25,4 +25,5 @@ public class MethodLogger {
         );
         return result;
     }
+    
 }
