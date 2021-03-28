@@ -17,7 +17,7 @@ public class JwtUserDetails implements UserDetails {
   public JwtUserDetails(Customer customer) {
     this.grantedAuthorities =
         customer.getRoles().stream()
-            .map(r -> new MyGrantedAuthority(r))
+            .map(MyGrantedAuthority::new)
             .collect(Collectors.toList());
     this.username = customer.getId() + "";
     this.password = customer.getPassword();

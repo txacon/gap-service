@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -63,7 +62,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
       HttpServletResponse response,
       FilterChain chain,
       Authentication auth)
-      throws IOException, ServletException {
+      throws IOException {
 
     Map<String, Object> authoritiesMap = new HashMap<>();
     authoritiesMap.put(

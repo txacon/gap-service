@@ -63,7 +63,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     String user = jwtClaims.getBody().getSubject();
     List<GrantedAuthority> authorities = getAuthoritiesFromClaims(jwtClaims);
-    if (user != null && authorities != null) {
+    if (user != null) {
       return new UsernamePasswordAuthenticationToken(user, null, authorities);
     }
     return null;
