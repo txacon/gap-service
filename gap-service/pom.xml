@@ -22,6 +22,7 @@
 		<sonar.projectKey>gap-service</sonar.projectKey>
 		<sonar.organization>txacon</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    <sonar.exclusions>**/generated/**/*, **/*.xml</sonar.exclusions>
 	</properties>
 
   <repositories>
