@@ -37,8 +37,7 @@ import lombok.ToString;
 @Entity(name = "business")
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = {"id", "fiscalId"})
-@ToString
+@EqualsAndHashCode(of = {"id", "fiscalId"}, callSuper = false)
 public class BusinessEntity extends BaseEntity implements Serializable {
 
   @ToString.Exclude
