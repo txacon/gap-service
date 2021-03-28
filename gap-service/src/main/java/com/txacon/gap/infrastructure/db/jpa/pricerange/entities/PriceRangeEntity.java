@@ -2,12 +2,20 @@ package com.txacon.gap.infrastructure.db.jpa.pricerange.entities;
 
 import com.txacon.gap.infrastructure.db.jpa.BaseEntity;
 import com.txacon.gap.infrastructure.db.jpa.bussines.entites.BusinessEntity;
-import lombok.*;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @Entity(name = "price_range")
@@ -17,13 +25,11 @@ import java.util.Set;
 @ToString
 public class PriceRangeEntity extends BaseEntity implements Serializable {
 
-    @Id
-    @Column(name = "price_range_id")
-    private String id;
-    @ToString.Exclude
-    @Getter
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "priceRange")
-    Set<BusinessEntity> businesses = new HashSet<>();
-
-
+  @ToString.Exclude
+  @Getter
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "priceRange")
+  Set<BusinessEntity> businesses = new HashSet<>();
+  @Id
+  @Column(name = "price_range_id")
+  private String id;
 }

@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 interface CrudRatingRepository extends JpaRepository<AggregateRatingEntity, String> {
 
-
 }

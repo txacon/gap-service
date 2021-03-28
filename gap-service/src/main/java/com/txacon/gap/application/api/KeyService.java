@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface KeyService<T> {
 
-    T findByName(T name);
+  T findByName(T name);
 
-    List<T> findAll();
+  List<T> findAll();
 
-    T add(T name);
+  T add(T name);
 }

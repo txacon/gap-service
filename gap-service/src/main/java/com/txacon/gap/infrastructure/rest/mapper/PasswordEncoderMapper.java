@@ -9,12 +9,13 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class PasswordEncoderMapper {
 
-    private final PasswordEncoder passwordEncoder;
+  private final PasswordEncoder passwordEncoder;
 
-
-    @Named("passwordEncoding")
-    public String encodePassword(String password) {
-        if (password == null) return null;
-        return passwordEncoder.encode(password);
+  @Named("passwordEncoding")
+  public String encodePassword(String password) {
+    if (password == null) {
+      return null;
     }
+    return passwordEncoder.encode(password);
+  }
 }

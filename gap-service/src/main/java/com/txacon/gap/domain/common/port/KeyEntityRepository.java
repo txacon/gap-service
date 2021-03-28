@@ -5,10 +5,9 @@ import java.util.Optional;
 
 public interface KeyEntityRepository<T> {
 
-    Optional<T> findByName(T name);
+  Optional<T> findByName(T name);
 
-    List<T> findAll();
+  List<T> findAll();
 
-    T save(T name);
-
+  T save(T name);
 }

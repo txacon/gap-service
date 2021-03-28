@@ -5,18 +5,24 @@ import com.txacon.gap.infrastructure.db.jpa.rating.entities.AggregateRatingEntit
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
-@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+@Mapper(
+    componentModel = "spring",
+    nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public class AggregateRatingMapper {
 
-    public AggregateRating toDomain(AggregateRatingEntity aggregateRatingEntity) {
-        if (aggregateRatingEntity == null) return null;
-        return AggregateRating.valueOf(aggregateRatingEntity.getId());
+  public AggregateRating toDomain(AggregateRatingEntity aggregateRatingEntity) {
+    if (aggregateRatingEntity == null) {
+      return null;
     }
+    return AggregateRating.valueOf(aggregateRatingEntity.getId());
+  }
 
-    public AggregateRatingEntity toEntity(AggregateRating aggregateRating) {
-        if (aggregateRating == null) return null;
-        AggregateRatingEntity aggregateRatingEntity = new AggregateRatingEntity();
-        aggregateRatingEntity.setId(aggregateRating.name());
-        return aggregateRatingEntity;
+  public AggregateRatingEntity toEntity(AggregateRating aggregateRating) {
+    if (aggregateRating == null) {
+      return null;
     }
+    AggregateRatingEntity aggregateRatingEntity = new AggregateRatingEntity();
+    aggregateRatingEntity.setId(aggregateRating.name());
+    return aggregateRatingEntity;
+  }
 }

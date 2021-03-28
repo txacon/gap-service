@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PriceRangeServiceImpl extends KeyAbstractService<PriceRange> implements PriceRangeService {
+public class PriceRangeServiceImpl extends KeyAbstractService<PriceRange>
+    implements PriceRangeService {
 
-    @Autowired
-    public PriceRangeServiceImpl(KeyEntityRepository<PriceRange> repository) {
-        super(repository);
-    }
+  @Autowired
+  public PriceRangeServiceImpl(KeyEntityRepository<PriceRange> repository) {
+    super(repository);
+  }
 }

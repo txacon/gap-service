@@ -8,8 +8,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TagServiceImpl extends KeyAbstractService<TagName> implements TagService {
-    @Autowired
-    public TagServiceImpl(KeyEntityRepository<TagName> repository) {
-        super(repository);
-    }
+
+  @Autowired
+  public TagServiceImpl(KeyEntityRepository<TagName> repository) {
+    super(repository);
+  }
 }

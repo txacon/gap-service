@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 interface CrudPriceRangeRepository extends JpaRepository<PriceRangeEntity, String> {
 
-
 }
