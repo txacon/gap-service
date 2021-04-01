@@ -1,17 +1,17 @@
 package com.txacon.gap.infrastructure.rest.dto.customer;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import java.util.List;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.NoArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
-@ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor(access = PRIVATE)
 public class CustomerDTO {
 
   private Long id;

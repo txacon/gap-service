@@ -72,8 +72,8 @@ public class BusinessDatabaseRepository implements BusinessRepository {
 
   @Override
   public void deleteById(Long bussinesId) {
-      if (!Objects.isNull(bussinesId)) {
-          repository.deleteById(bussinesId);
-      }
+    if (Objects.nonNull(bussinesId)) {
+      repository.deleteById(bussinesId);
+    }
   }
 }

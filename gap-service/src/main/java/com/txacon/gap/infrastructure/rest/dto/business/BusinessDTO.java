@@ -1,5 +1,7 @@
 package com.txacon.gap.infrastructure.rest.dto.business;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.txacon.gap.infrastructure.rest.dto.product.ProductDTO;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -9,8 +11,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor(access = PRIVATE)
 public class BusinessDTO {
 
   private Long id;

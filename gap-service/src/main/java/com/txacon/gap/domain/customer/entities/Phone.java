@@ -1,16 +1,18 @@
 package com.txacon.gap.domain.customer.entities;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor(access = PRIVATE)
 @EqualsAndHashCode(of = {"countryPrefix", "phoneNumber"})
-@ToString
 public class Phone {
 
   private Long id;

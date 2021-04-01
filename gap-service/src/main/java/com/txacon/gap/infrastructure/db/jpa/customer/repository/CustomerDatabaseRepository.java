@@ -46,9 +46,9 @@ public class CustomerDatabaseRepository implements CustomerRepository {
             .map(Optional::get)
             .collect(Collectors.toList()));
     CustomerEntity customerEntity = mapper.toEntity(customer);
-      if (customerEntity == null) {
-          return null;
-      }
+    if (customerEntity == null) {
+      return null;
+    }
     return mapper.toDomain(crud.save(customerEntity));
   }
 

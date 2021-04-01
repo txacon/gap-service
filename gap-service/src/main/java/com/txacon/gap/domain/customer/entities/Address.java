@@ -1,18 +1,18 @@
 package com.txacon.gap.domain.customer.entities;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @Builder
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(access = PRIVATE)
 @EqualsAndHashCode(of = {"street1", "street2", "state", "city", "country", "zipcode"})
-@ToString
 public class Address {
 
   private Long id;

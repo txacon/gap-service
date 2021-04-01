@@ -1,5 +1,7 @@
 package com.txacon.gap.domain.bussines.entities;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.txacon.gap.domain.payment.entities.PaymentType;
 import com.txacon.gap.domain.pricerange.entities.PriceRange;
 import com.txacon.gap.domain.products.entities.Product;
@@ -13,8 +15,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor(access = PRIVATE)
 public class Business {
 
   private Long id;

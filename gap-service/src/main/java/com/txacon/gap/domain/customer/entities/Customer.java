@@ -1,18 +1,18 @@
 package com.txacon.gap.domain.customer.entities;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.txacon.gap.domain.role.entities.Role;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-@EqualsAndHashCode
-@ToString
+@AllArgsConstructor(access = PRIVATE)
 public class Customer {
 
   private Long id;

@@ -87,9 +87,9 @@ public class BusinessEntity extends BaseEntity implements Serializable {
   private String description;
 
   public void setProducts(List<ProductEntity> products) {
-      if (products == null) {
-          return;
-      }
+    if (products == null) {
+      return;
+    }
     this.products.clear();
     products.forEach(this::addProduct);
   }
@@ -100,9 +100,9 @@ public class BusinessEntity extends BaseEntity implements Serializable {
   }
 
   public void setPaymentMethods(Set<PaymentMethodEntity> paymentMethods) {
-      if (paymentMethods == null) {
-          return;
-      }
+    if (paymentMethods == null) {
+      return;
+    }
     this.paymentMethods.clear();
     paymentMethods.forEach(this::addPaymentMethod);
   }

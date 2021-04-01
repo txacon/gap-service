@@ -9,7 +9,6 @@ import com.txacon.gap.domain.customer.entities.Customer;
 import com.txacon.gap.domain.customer.port.CustomerRepository;
 import com.txacon.gap.domain.role.entities.RoleName;
 import com.txacon.gap.domain.role.port.RoleRepository;
-import com.txacon.gap.infrastructure.db.jpa.customer.mapper.CustomerMapper;
 import java.util.Arrays;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +21,6 @@ public class CustomerServiceImpl implements CustomerService {
 
   private final CustomerRepository repository;
   private final RoleRepository roleRepository;
-  private final CustomerMapper mapper;
 
   @Override
   @Loggable
