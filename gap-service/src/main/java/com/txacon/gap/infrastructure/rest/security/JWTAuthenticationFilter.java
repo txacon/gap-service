@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -52,7 +53,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
           new UsernamePasswordAuthenticationToken(
               credenciales.getUsername(), credenciales.getPassword(), new ArrayList<>()));
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      logger.error("Invalid credentials", e);
+      throw new AuthenticationCredentialsNotFoundException("Invalid creadentials");
     }
   }
 

@@ -31,7 +31,7 @@ public class RoleEntity extends BaseEntity implements Serializable {
 
   @ToString.Exclude
   @ManyToMany(mappedBy = "roles")
-  Set<CustomerEntity> customers = new HashSet<>();
+  private final Set<CustomerEntity> customers = new HashSet<>();
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "role_id")
