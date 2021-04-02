@@ -320,6 +320,12 @@
     <dependency>
       <artifactId>spring-boot-starter-test</artifactId>
       <groupId>org.springframework.boot</groupId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.junit.vintage</groupId>
+          <artifactId>junit-vintage-engine</artifactId>
+        </exclusion>
+      </exclusions>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -383,6 +389,7 @@
       <!-- To publish JUnit test results -->
       <plugin>
         <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>3.0.0-M5</version>
         <groupId>org.apache.maven.plugins</groupId>
       </plugin>
 

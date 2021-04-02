@@ -11,30 +11,28 @@ import com.txacon.gap.application.exceptions.CustomerInvalidException;
 import com.txacon.gap.application.exceptions.CustomerNotFoundException;
 import com.txacon.gap.domain.customer.entities.Customer;
 import com.txacon.gap.domain.customer.port.CustomerRepository;
-import com.txacon.gap.domain.role.port.RoleRepository;
 import java.util.Optional;
 import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@SpringBootTest
-public class CustomerServiceImplTest {
+
+@ExtendWith(MockitoExtension.class)
+class CustomerServiceImplTest {
 
   private final EasyRandom easyRandom = new EasyRandom();
 
   @Mock
   private CustomerRepository repository;
 
-  @Mock
-  private RoleRepository roleRepository;
-
   @InjectMocks
   private CustomerServiceImpl customerService;
 
   @Test
-  public void shouldGetById() {
+  void shouldGetById() {
     final long customerId = easyRandom.nextLong();
     final Customer customer = easyRandom.nextObject(Customer.class);
     when(repository.findById(customerId)).thenReturn(Optional.of(customer));
@@ -45,7 +43,7 @@ public class CustomerServiceImplTest {
   }
 
   @Test
-  public void shouldNotGetById() {
+  void shouldNotGetById() {
     final long customerId = easyRandom.nextLong();
     when(repository.findById(customerId)).thenReturn(Optional.empty());
 
@@ -53,7 +51,7 @@ public class CustomerServiceImplTest {
   }
 
   @Test
-  public void shouldGetByEmail() {
+  void shouldGetByEmail() {
     final String email = easyRandom.nextObject(String.class);
     final Customer customer = easyRandom.nextObject(Customer.class);
     when(repository.findByEmail(email)).thenReturn(Optional.of(customer));
@@ -64,7 +62,7 @@ public class CustomerServiceImplTest {
   }
 
   @Test
-  public void shouldNotGetByEmail() {
+  void shouldNotGetByEmail() {
     final String email = easyRandom.nextObject(String.class);
     when(repository.findByEmail(email)).thenReturn(Optional.empty());
 
@@ -72,7 +70,7 @@ public class CustomerServiceImplTest {
   }
 
   @Test
-  public void shouldGetByEmailAndPassword() {
+  void shouldGetByEmailAndPassword() {
     final String email = easyRandom.nextObject(String.class);
     final String password = easyRandom.nextObject(String.class);
     final Customer customer = easyRandom.nextObject(Customer.class);
@@ -84,7 +82,7 @@ public class CustomerServiceImplTest {
   }
 
   @Test
-  public void shouldNotGetByEmailAndPassword() {
+  void shouldNotGetByEmailAndPassword() {
     final String email = easyRandom.nextObject(String.class);
     final String password = easyRandom.nextObject(String.class);
     when(repository.findByEmailAndPassword(email, password)).thenReturn(Optional.empty());
@@ -94,7 +92,7 @@ public class CustomerServiceImplTest {
   }
 
   @Test
-  public void shouldDeleteById() {
+  void shouldDeleteById() {
     final long customerId = easyRandom.nextLong();
     final Customer customer = easyRandom.nextObject(Customer.class);
     when(repository.findById(customerId)).thenReturn(Optional.of(customer));
@@ -105,7 +103,7 @@ public class CustomerServiceImplTest {
   }
 
   @Test
-  public void shouldNotDeleteById() {
+  void shouldNotDeleteById() {
     final long customerId = easyRandom.nextLong();
     when(repository.findById(customerId)).thenReturn(Optional.empty());
 
@@ -113,7 +111,7 @@ public class CustomerServiceImplTest {
   }
 
   @Test
-  public void shouldUpdate() {
+  void shouldUpdate() {
     final Customer customer = easyRandom.nextObject(Customer.class);
     when(repository.findById(customer.getId())).thenReturn(Optional.of(customer));
     when(repository.update(customer)).thenReturn(customer);
@@ -124,7 +122,7 @@ public class CustomerServiceImplTest {
   }
 
   @Test
-  public void shouldNotUpdate() {
+  void shouldNotUpdate() {
     final Customer customer = easyRandom.nextObject(Customer.class);
     customer.setId(null);
 
@@ -132,7 +130,7 @@ public class CustomerServiceImplTest {
   }
 
   @Test
-  public void shouldAddCustomer() {
+  void shouldAddCustomer() {
     final Customer customer = easyRandom.nextObject(Customer.class);
     customer.setId(null);
     when(repository.save(customer)).thenReturn(customer);
@@ -149,7 +147,7 @@ public class CustomerServiceImplTest {
   }
 
   @Test
-  public void shouldNotAddCustomerByEmail() {
+  void shouldNotAddCustomerByEmail() {
     final Customer customer = easyRandom.nextObject(Customer.class);
     customer.setId(null);
     customer.setEmail(null);
@@ -158,7 +156,7 @@ public class CustomerServiceImplTest {
   }
 
   @Test
-  public void shouldNotAddCustomerByPassword() {
+  void shouldNotAddCustomerByPassword() {
     final Customer customer = easyRandom.nextObject(Customer.class);
     customer.setId(null);
     customer.setPassword(null);
@@ -167,7 +165,7 @@ public class CustomerServiceImplTest {
   }
 
   @Test
-  public void shouldNotAddCustomerById() {
+  void shouldNotAddCustomerById() {
     final Customer customer = easyRandom.nextObject(Customer.class);
 
     assertThrows(CustomerInvalidException.class, () -> customerService.addCustomer(customer));

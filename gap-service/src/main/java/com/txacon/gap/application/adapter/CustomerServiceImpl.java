@@ -25,8 +25,7 @@ public class CustomerServiceImpl implements CustomerService {
   @Override
   @Loggable
   public Customer getById(Long customerId) {
-    return repository
-        .findById(customerId)
+    return repository.findById(customerId)
         .orElseThrow(() -> new CustomerNotFoundException(ApiError.ERROR_CUSTOMER_NOT_FOUND_BY_ID));
   }
 
