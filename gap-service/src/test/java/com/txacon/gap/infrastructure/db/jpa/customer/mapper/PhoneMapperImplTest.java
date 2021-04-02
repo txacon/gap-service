@@ -8,11 +8,12 @@ import com.txacon.gap.domain.customer.entities.Phone;
 import com.txacon.gap.infrastructure.db.jpa.customer.entities.PhoneEntity;
 import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@SpringBootTest
-public class PhoneMapperImplTest {
+@ExtendWith(MockitoExtension.class)
+class PhoneMapperImplTest {
 
   private final EasyRandom easyRandom = new EasyRandom();
 
@@ -20,7 +21,7 @@ public class PhoneMapperImplTest {
   private PhoneMapperImpl phoneMapper;
 
   @Test
-  public void toDomain() {
+  void toDomain() {
     final PhoneEntity input = easyRandom.nextObject(PhoneEntity.class);
 
     final Phone result = phoneMapper.toDomain(input);
@@ -32,7 +33,7 @@ public class PhoneMapperImplTest {
   }
 
   @Test
-  public void toEntity() {
+  void toEntity() {
     final Phone input = easyRandom.nextObject(Phone.class);
 
     final PhoneEntity result = phoneMapper.toEntity(input);
