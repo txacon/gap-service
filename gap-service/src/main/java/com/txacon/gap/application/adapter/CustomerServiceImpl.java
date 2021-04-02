@@ -53,7 +53,8 @@ public class CustomerServiceImpl implements CustomerService {
   @Override
   @Loggable
   public void deleteById(Long customerId) {
-    repository.deleteById(customerId);
+    final Customer customer = getById(customerId);
+    repository.deleteById(customer.getId());
   }
 
   @Override
