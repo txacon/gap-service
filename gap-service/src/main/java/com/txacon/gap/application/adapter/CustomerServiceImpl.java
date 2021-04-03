@@ -3,6 +3,7 @@ package com.txacon.gap.application.adapter;
 import com.txacon.gap.application.api.CustomerService;
 import com.txacon.gap.application.aspect.Loggable;
 import com.txacon.gap.application.exceptions.ApiError;
+import com.txacon.gap.application.exceptions.CustomerAlreadyExistsException;
 import com.txacon.gap.application.exceptions.CustomerInvalidException;
 import com.txacon.gap.application.exceptions.CustomerNotFoundException;
 import com.txacon.gap.domain.customer.entities.Customer;
@@ -70,6 +71,9 @@ public class CustomerServiceImpl implements CustomerService {
   public Customer addCustomer(Customer customer) {
     if (customer.getId() != null || customer.getEmail() == null || customer.getPassword() == null) {
       throw new CustomerInvalidException(ApiError.ERROR_CUSTOMER_INVALID_TO_CREATE);
+    }
+    if (repository.findByEmail(customer.getEmail()).isPresent()) {
+      throw new CustomerAlreadyExistsException(ApiError.ERROR_CUSTOMER_ALLREADY_EXISTS);
     }
     customer.setActive(true);
     if (customer.getRoles() == null || customer.getRoles().isEmpty()) {

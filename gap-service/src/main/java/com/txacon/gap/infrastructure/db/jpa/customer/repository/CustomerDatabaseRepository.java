@@ -1,5 +1,7 @@
 package com.txacon.gap.infrastructure.db.jpa.customer.repository;
 
+import static java.util.Collections.emptyList;
+
 import com.txacon.gap.domain.customer.entities.Customer;
 import com.txacon.gap.domain.customer.port.CustomerRepository;
 import com.txacon.gap.domain.role.entities.Role;
@@ -40,11 +42,12 @@ public class CustomerDatabaseRepository implements CustomerRepository {
   public Customer save(Customer customer) {
     log.info("Customer to save: {}", customer);
     customer.setRoles(
-        customer.getRoles().stream()
+        Optional.ofNullable(customer.getRoles()).map(e -> e.stream()
             .map(this::findRole)
             .filter(Optional::isPresent)
             .map(Optional::get)
-            .collect(Collectors.toList()));
+            .collect(Collectors.toList()))
+            .orElse(emptyList()));
     CustomerEntity customerEntity = mapper.toEntity(customer);
     if (customerEntity == null) {
       return null;
