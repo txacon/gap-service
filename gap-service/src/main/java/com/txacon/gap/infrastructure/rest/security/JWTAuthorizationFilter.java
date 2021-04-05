@@ -79,7 +79,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     for (String e : roles) {
       try {
         MyGrantedAuthority myGrantedAuthority =
-            new MyGrantedAuthority(Role.builder().role(RoleName.valueOf(e)).build());
+            new MyGrantedAuthority(Role.builder().roleName(RoleName.valueOf(e)).build());
         authorities.add(myGrantedAuthority);
       } catch (IllegalArgumentException ex) {
         log.warn("Illegal role name: {}", e);

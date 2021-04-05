@@ -60,8 +60,8 @@ public class LoadMasterTablesCommandLineRunner implements CommandLineRunner {
     customer.setLastName("LastName");
     customer.setRoles(
         Lists.newArrayList(
-            Role.builder().role(RoleName.ROLE_USER).build(),
-            Role.builder().role(RoleName.ROLE_SELLER).build()));
+            Role.builder().roleName(RoleName.ROLE_USER).build(),
+            Role.builder().roleName(RoleName.ROLE_SELLER).build()));
     customer.setUsername("User");
     customer.setActive(true);
     return customer;
@@ -73,7 +73,7 @@ public class LoadMasterTablesCommandLineRunner implements CommandLineRunner {
     customer.setPassword("pass");
     customer.setFirstName("FirstName");
     customer.setLastName("LastName");
-    customer.setRoles(Collections.singletonList(Role.builder().role(RoleName.ROLE_ADMIN).build()));
+    customer.setRoles(Collections.singletonList(Role.builder().roleName(RoleName.ROLE_ADMIN).build()));
     customer.setUsername("Admin");
     customer.setActive(true);
     return customer;
@@ -95,7 +95,7 @@ public class LoadMasterTablesCommandLineRunner implements CommandLineRunner {
         .forEach(
             e -> {
               if (!roleRepository.findByName(e).isPresent()) {
-                roleRepository.save(Role.builder().role(e).build());
+                roleRepository.save(Role.builder().roleName(e).build());
               }
             });
   }

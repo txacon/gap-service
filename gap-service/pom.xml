@@ -15,14 +15,14 @@
   <modelVersion>4.0.0</modelVersion>
   <name>gap-service</name>
   <artifactId>gap-service</artifactId>
-  <version>0.0.2-SNAPSHOT</version>
+  <version>0.0.3-SNAPSHOT</version>
 
   <properties>
     <java.version>1.8</java.version>
     <mapstruct.version>1.4.1.Final</mapstruct.version>
     <!-- Sonar properties -->
     <sonar.coverage.exclusions>
-      **/domain/**/*
+      **/domain/**/*, **/application/exceptions/**/*
     </sonar.coverage.exclusions>
     <sonar.exclusions>**/generated/**/*, **/*.xml,
       src/main/java/com/txacon/gap/LoadMasterTablesCommandLineRunner.java
@@ -31,6 +31,8 @@
     <sonar.organization>txacon</sonar.organization>
     <sonar.projectKey>gap-service</sonar.projectKey>
     <sonar.projectVersion>${version}</sonar.projectVersion>
+    <sonarcube.cpd.exclusions>**/domain/**/entities/*, **/infraestructure/**/rest/dto/**/*</sonarcube.cpd.exclusions>
+
     <!-- Cucumber -->
     <cucumber.version>6.10.1</cucumber.version>
   </properties>
@@ -43,7 +45,6 @@
       <url>https://mvnrepository.com/artifact/org.springframework.boot/spring-boot</url>
     </repository>
   </repositories>
-
 
   <build>
     <plugins>

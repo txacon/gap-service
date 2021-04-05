@@ -77,6 +77,6 @@ public class CustomerDatabaseRepository implements CustomerRepository {
   }
 
   private Optional<Role> findRole(Role e) {
-    return roleRepository.findByName(e.getRole());
+    return roleRepository.findByName(e.getRoleName());
   }
 }
