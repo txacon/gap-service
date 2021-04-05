@@ -31,7 +31,7 @@
     <sonar.organization>txacon</sonar.organization>
     <sonar.projectKey>gap-service</sonar.projectKey>
     <sonar.projectVersion>${version}</sonar.projectVersion>
-    <sonar.cpd.exclusions>**/domain/**/entities/*, **/infraestructure/**/rest/dto/**/*</sonar.cpd.exclusions>
+    <sonar.cpd.exclusions>**/domain/**/entities/*, **/infraestructure/**/rest/dto/**/*, **/infrastructure/db/**/entites/*</sonar.cpd.exclusions>
 
     <!-- Cucumber -->
     <cucumber.version>6.10.1</cucumber.version>
