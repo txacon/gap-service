@@ -13,10 +13,10 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
     nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface RoleMapper extends GenericDomainMapper<Role, RoleEntity> {
 
-  @Mapping(target = "role", source = "name")
+  @Mapping(target = "roleName", source = "name")
   Role toDomain(RoleEntity roleEntity);
 
-  @Mapping(target = "name", source = "role")
+  @Mapping(target = "name", source = "roleName")
   RoleEntity toEntity(Role role);
 
   default RoleName toRoleName(String name) {
