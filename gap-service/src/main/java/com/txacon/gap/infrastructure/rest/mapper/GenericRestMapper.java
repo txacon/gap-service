@@ -1,8 +1,8 @@
 package com.txacon.gap.infrastructure.rest.mapper;
 
-public interface GenericRestMapper<DTO, DOMAIN> {
+public interface GenericRestMapper<D, T> {
 
-  DTO toDTO(DOMAIN entity);
+  D toDTO(T entity);
 
-  DOMAIN toDomain(DTO dto);
+  T toDomain(D dto);
 }

@@ -1,8 +1,8 @@
 package com.txacon.gap.infrastructure.db.jpa;
 
-public interface GenericDomainMapper<DOMAIN, ENTITY> {
+public interface GenericDomainMapper<D, E> {
 
-  DOMAIN toDomain(ENTITY entity);
+  D toDomain(E entity);
 
-  ENTITY toEntity(DOMAIN domain);
+  E toEntity(D domain);
 }
