@@ -441,8 +441,12 @@
         <artifactId>maven-pmd-plugin</artifactId>
         <configuration>
           <includes>
-            <include>com/**/*.java</include>
+            <include>com/txacon/gap/*.java</include>
           </includes>
+          <excludes>
+            <exclude>com/txacon/gap/**/entities/*.java</exclude>
+            <exclude>com/txacon/gap/LoadMasterTablesCommandLineRunner.java</exclude>
+          </excludes>
           <outputDirectory>${project.reporting.outputDirectory}</outputDirectory>
           <rulesets>
             <ruleset>${basedir}/pmd_ruleset.xml</ruleset>

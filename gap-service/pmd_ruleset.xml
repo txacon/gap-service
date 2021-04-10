@@ -132,9 +132,6 @@
     <rule ref="rulesets/java/design.xml/AvoidDeeplyNestedIfStmts">
         <priority>3</priority>
     </rule>
-    <rule ref="rulesets/java/design.xml/AvoidReassigningParameters">
-        <priority>2</priority>
-    </rule>
     <rule ref="rulesets/java/design.xml/SwitchDensity">
         <priority>3</priority>
     </rule>
@@ -187,10 +184,6 @@
         <priority>1</priority>
     </rule>
     <rule ref="rulesets/java/design.xml/AssignmentToNonFinalStatic">
-        <priority>1</priority>
-    </rule>
-    <rule
-            ref="rulesets/java/design.xml/MissingStaticMethodInNonInstantiatableClass">
         <priority>1</priority>
     </rule>
     <rule ref="rulesets/java/design.xml/AvoidSynchronizedAtMethodLevel">
@@ -315,9 +308,6 @@
     </rule>
     <rule
             ref="rulesets/java/strictexception.xml/AvoidLosingExceptionInformation">
-        <priority>1</priority>
-    </rule>
-    <rule ref="rulesets/java/unusedcode.xml/UnusedPrivateField">
         <priority>1</priority>
     </rule>
     <rule ref="rulesets/java/unusedcode.xml/UnusedLocalVariable">
@@ -468,9 +458,6 @@
         <priority>3</priority>
     </rule>
     <rule ref="rulesets/java/optimizations.xml/MethodArgumentCouldBeFinal">
-        <priority>1</priority>
-    </rule>
-    <rule ref="rulesets/java/optimizations.xml/LocalVariableCouldBeFinal">
         <priority>1</priority>
     </rule>
     <rule
@@ -804,9 +791,6 @@
         <priority>1</priority>
     </rule>
     <rule ref="rulesets/java/logging-jakarta-commons.xml/ProperLogger">
-        <priority>3</priority>
-    </rule>
-    <rule ref="rulesets/java/javabeans.xml/BeanMembersShouldSerialize">
         <priority>3</priority>
     </rule>
     <rule ref="rulesets/java/javabeans.xml/MissingSerialVersionUID">
