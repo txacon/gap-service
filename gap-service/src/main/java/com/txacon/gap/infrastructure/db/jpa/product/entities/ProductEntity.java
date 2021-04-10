@@ -32,6 +32,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(of = {"id"})
 public class ProductEntity extends BaseEntity implements Serializable {
 
+  private static final long serialVersionUID = 2150665180895681686L;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "product_id")

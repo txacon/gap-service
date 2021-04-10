@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 public class MyGrantedAuthority implements GrantedAuthority {
 
+  private static final long serialVersionUID = 4713990827324153281L;
   private final Role role;
 
   public MyGrantedAuthority(Role role) {

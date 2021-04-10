@@ -48,6 +48,7 @@ import lombok.ToString;
     })
 public class CustomerEntity extends BaseEntity implements Serializable {
 
+  private static final long serialVersionUID = -9015516140599044508L;
   @ToString.Exclude
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
   private final Set<PhoneEntity> phones = new HashSet<>();

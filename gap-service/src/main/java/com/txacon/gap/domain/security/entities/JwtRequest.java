@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class JwtRequest implements Serializable {
 
+  private static final long serialVersionUID = -1785582702668216278L;
   private String username;
   private String password;
 }

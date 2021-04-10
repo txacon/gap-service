@@ -25,6 +25,7 @@ import lombok.ToString;
 @ToString
 public class PriceRangeEntity extends BaseEntity implements Serializable {
 
+  private static final long serialVersionUID = -2105435404963828536L;
   @ToString.Exclude
   @Getter
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "priceRange")

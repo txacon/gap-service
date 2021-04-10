@@ -26,6 +26,7 @@ import lombok.ToString;
 @EqualsAndHashCode(of = "id")
 public class PhoneEntity extends BaseEntity implements Serializable {
 
+  private static final long serialVersionUID = 95012687193230376L;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "phone_id")

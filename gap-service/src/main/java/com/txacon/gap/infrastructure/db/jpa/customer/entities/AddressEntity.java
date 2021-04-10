@@ -26,6 +26,7 @@ import lombok.ToString;
 @EqualsAndHashCode(of = "id")
 public class AddressEntity extends BaseEntity implements Serializable {
 
+  private static final long serialVersionUID = 2217747444773755709L;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "address_id")

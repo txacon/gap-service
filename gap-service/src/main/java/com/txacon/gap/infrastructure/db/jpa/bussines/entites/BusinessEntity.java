@@ -6,6 +6,7 @@ import com.txacon.gap.infrastructure.db.jpa.payment.entities.PaymentMethodEntity
 import com.txacon.gap.infrastructure.db.jpa.pricerange.entities.PriceRangeEntity;
 import com.txacon.gap.infrastructure.db.jpa.product.entities.ProductEntity;
 import com.txacon.gap.infrastructure.db.jpa.rating.entities.AggregateRatingEntity;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,8 +39,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"id", "fiscalId"}, callSuper = false)
+@SuppressFBWarnings(value = {"EI_EXPOSE_REP","EI_EXPOSE_REP2"}, justification = "Is a entity class, take same fields as domain")
 public class BusinessEntity extends BaseEntity implements Serializable {
 
+  private static final long serialVersionUID = 1580618849468839503L;
   @Id
   @Column(name = "business_id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)

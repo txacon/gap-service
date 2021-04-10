@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(access = PRIVATE)
 public class Role implements Serializable {
 
+  private static final long serialVersionUID = -2245613998201353609L;
   private Long roleId;
 
   @Enumerated(EnumType.STRING)

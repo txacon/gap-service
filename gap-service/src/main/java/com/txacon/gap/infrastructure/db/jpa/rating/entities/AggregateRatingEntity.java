@@ -25,6 +25,7 @@ import lombok.ToString;
 @ToString
 public class AggregateRatingEntity extends BaseEntity implements Serializable {
 
+  private static final long serialVersionUID = -2694276084133464777L;
   @Id
   @Getter
   @Column(name = "aggregate_rating_id")

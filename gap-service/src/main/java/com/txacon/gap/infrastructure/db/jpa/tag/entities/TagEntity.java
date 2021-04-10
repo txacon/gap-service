@@ -24,6 +24,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(of = "id")
 public class TagEntity extends BaseEntity implements Serializable {
 
+  private static final long serialVersionUID = 8219358318594383278L;
   @ManyToMany(mappedBy = "productTags")
   private final Set<ProductEntity> products = new HashSet<>();
   @Id

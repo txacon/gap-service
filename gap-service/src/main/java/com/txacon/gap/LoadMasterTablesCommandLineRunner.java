@@ -12,15 +12,17 @@ import com.txacon.gap.domain.role.entities.RoleName;
 import com.txacon.gap.domain.role.port.RoleRepository;
 import com.txacon.gap.domain.tags.port.TagRepository;
 import com.txacon.gap.infrastructure.rest.mapper.PasswordEncoderMapper;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+
 @Component
 @RequiredArgsConstructor
-@SuppressWarnings("UPM_UNCALLED_PRIVATE_METHOD,URF_UNREAD_FIELD")
+@SuppressFBWarnings(value = {"UPM_UNCALLED_PRIVATE_METHOD","URF_UNREAD_FIELD"}, justification = "Is a util class")
 public class LoadMasterTablesCommandLineRunner implements CommandLineRunner {
 
   private final RoleRepository roleRepository;
@@ -74,7 +76,8 @@ public class LoadMasterTablesCommandLineRunner implements CommandLineRunner {
     customer.setPassword("pass");
     customer.setFirstName("FirstName");
     customer.setLastName("LastName");
-    customer.setRoles(Collections.singletonList(Role.builder().roleName(RoleName.ROLE_ADMIN).build()));
+    customer
+        .setRoles(Collections.singletonList(Role.builder().roleName(RoleName.ROLE_ADMIN).build()));
     customer.setUsername("Admin");
     customer.setActive(true);
     return customer;

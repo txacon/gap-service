@@ -24,6 +24,7 @@ import lombok.ToString;
 @ToString
 public class PaymentMethodEntity extends BaseEntity implements Serializable {
 
+  private static final long serialVersionUID = -632313500770095954L;
   @Id
   @Column(name = "payment_method_id")
   private String id;

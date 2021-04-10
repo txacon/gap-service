@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class JwtResponse implements Serializable {
 
+  private static final long serialVersionUID = -1874235246649529094L;
   private String token;
 }

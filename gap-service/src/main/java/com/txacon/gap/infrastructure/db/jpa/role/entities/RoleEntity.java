@@ -29,6 +29,7 @@ import lombok.ToString;
 @Table(name = "role")
 public class RoleEntity extends BaseEntity implements Serializable {
 
+  private static final long serialVersionUID = -1415232412964430211L;
   @ToString.Exclude
   @ManyToMany(mappedBy = "roles")
   private final Set<CustomerEntity> customers = new HashSet<>();
