@@ -7,6 +7,7 @@ import com.google.common.collect.Lists;
 import com.txacon.gap.application.adapter.JwtUserDetailsServiceImpl;
 import com.txacon.gap.infrastructure.rest.security.JWTAuthenticationFilter;
 import com.txacon.gap.infrastructure.rest.security.JWTAuthorizationFilter;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -97,7 +98,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
   }
 
   @Bean
-  @SuppressWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
+  @SuppressFBWarnings(value = {"SIC_INNER_SHOULD_BE_STATIC_ANON"})
   public WebMvcConfigurer corsConfigurer() {
     return new WebMvcConfigurer() {
       @Override
