@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@SuppressWarnings("UPM_UNCALLED_PRIVATE_METHOD,URF_UNREAD_FIELD")
 public class LoadMasterTablesCommandLineRunner implements CommandLineRunner {
 
   private final RoleRepository roleRepository;

@@ -112,7 +112,8 @@
         <artifactId>findbugs-maven-plugin</artifactId>
         <configuration>
           <!-- FindBugs will show what is doing during analysis.  -->
-          <debug>true</debug>
+          <findbugsXmlOutput>true</findbugsXmlOutput>
+          <xmlOutput>true</xmlOutput>
           <!--
                      Enables analysis which takes more memory but finds more bugs.
                      If you run out of memory, changes the value of the effort element
@@ -124,10 +125,7 @@
           <threshold>High</threshold>
           <!-- Optional directory to save findbugs xdoc xml report -->
           <xmlOutput>true</xmlOutput>
-
-          <!-- Indicates to analyze only given java packages, We are allowing everything here. -->
-          <!-- <onlyAnalyze>com.*</onlyAnalyze> -->
-
+          <excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
           <xmlOutputDirectory>${project.reporting.outputDirectory}</xmlOutputDirectory>
         </configuration>
         <executions>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+  <Match>
+    <Package name="com.txacon.gap.*"/>
+    <Bug pattern="EI_EXPOSE_REP2"/>
+  </Match>
+  <Match>
+    <Package name="com.txacon.gap.*"/>
+    <Bug pattern="EI_EXPOSE_REP"/>
+  </Match>
+  <Match>
+    <Package name="com.txacon.gap.*"/>
+    <Bug pattern=" 	SE_NO_SERIALVERSIONID"/>
+  </Match>
+  <Match>
+    <Class name="com.txacon.gap.LoadMasterTablesCommandLineRunner" />
+  </Match>
+</FindBugsFilter>

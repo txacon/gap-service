@@ -12,6 +12,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.FilterChain;
@@ -58,7 +59,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     Jws<Claims> jwtClaims =
         Jwts.parser()
-            .setSigningKey(secret.getBytes())
+            .setSigningKey(secret.getBytes(StandardCharsets.UTF_8))
             .parseClaimsJws(token.replace(TOKEN_BEARER_PREFIX, ""));
 
     String user = jwtClaims.getBody().getSubject();

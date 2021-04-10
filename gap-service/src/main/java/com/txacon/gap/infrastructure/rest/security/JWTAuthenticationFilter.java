@@ -13,6 +13,7 @@ import com.txacon.gap.domain.security.entities.JwtUserDetails;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -80,7 +81,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             .setSubject(((JwtUserDetails) auth.getPrincipal()).getUsername())
             .addClaims(authoritiesMap)
             .setExpiration(new Date(System.currentTimeMillis() + TOKEN_EXPIRATION_TIME))
-            .signWith(SignatureAlgorithm.HS512, secret.getBytes())
+            .signWith(SignatureAlgorithm.HS512, secret.getBytes(StandardCharsets.UTF_8))
             .compact();
     response.addHeader(HEADER_AUTHORIZACION_KEY, TOKEN_BEARER_PREFIX + " " + token);
     response.addHeader("Content-Type", "application/json");

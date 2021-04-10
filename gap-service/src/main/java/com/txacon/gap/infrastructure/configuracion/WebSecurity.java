@@ -97,6 +97,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
   }
 
   @Bean
+  @SuppressWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
   public WebMvcConfigurer corsConfigurer() {
     return new WebMvcConfigurer() {
       @Override
